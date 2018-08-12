@@ -28,6 +28,9 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-script-runtime:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-script-util:$kotlin_version"
     compileOnly 'org.bukkit:bukkit:1.13-R0.1-SNAPSHOT'
 }
 
