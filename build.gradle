@@ -28,10 +28,13 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-script-runtime:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-script-util:$kotlin_version"
     compileOnly 'org.bukkit:bukkit:1.13-R0.1-SNAPSHOT'
+
+    testCompile 'junit:junit:4.12'
 }
 
 sourceSets {
@@ -40,8 +43,7 @@ sourceSets {
         resources { srcDirs = ['res'] }
     }
     test {
-        java { srcDirs = ['test/src'] }
-        resources { srcDirs = ['test/res'] }
+        java { srcDirs = ['test'] }
     }
 }
 
