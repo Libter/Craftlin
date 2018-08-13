@@ -1,20 +1,12 @@
 package net.craftlin.plugin.api.entity
 
-import net.craftlin.plugin.api.Location
+import net.craftlin.plugin.api.value.Location
 
-interface Player {
+abstract class Player {
+    abstract val name: String
+    abstract var gamemode: String
 
-    val name: String
-
-    var isFlyEnabled: Boolean
-
-    var gamemode: Gamemode
-
-    fun message(message: String)
-
-    fun kick(reason: String)
-
-    fun teleport(location: Location)
-
-    fun ban(reason: String)
+    abstract fun message(message: String)
+    abstract fun kick(reason: String)
+    abstract fun teleport(location: Location)
 }

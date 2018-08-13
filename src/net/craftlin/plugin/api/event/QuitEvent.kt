@@ -1,11 +1,9 @@
 package net.craftlin.plugin.api.event
 
 import net.craftlin.plugin.api.entity.Player
+import net.craftlin.plugin.api.event.base.Event
 
-interface QuitEvent {
-
-    val player: Player
-
-    var message: String
-
+abstract class QuitEvent: Event() {
+    abstract val player: Player
+    abstract var message: String
 }

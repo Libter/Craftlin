@@ -1,9 +1,9 @@
 package net.craftlin.plugin.test
 
 import net.craftlin.plugin.api.Listener
-import net.craftlin.plugin.api.Location
-import net.craftlin.plugin.api.entity.Gamemode
 import net.craftlin.plugin.api.entity.Player
+import net.craftlin.plugin.api.event.JoinEvent
+import net.craftlin.plugin.api.value.Location
 import net.craftlin.plugin.test.util.EngineBasedTest
 import net.craftlin.plugin.util.Engine
 import org.junit.Assert
@@ -14,29 +14,19 @@ class SimpleApiTest: EngineBasedTest() {
     @Test
     fun joinListenerTest() {
         val listener = object: Listener() {
-            fun trigger(player: Player) = joinListeners.forEach { it(player) }
+            fun trigger(player: Player) = joinHandler.trigger(object: JoinEvent() {
+                override var message = ""
+                override val player = player
+            })
         }
-        val player = object: Player {
-
-            override var isFlyEnabled: Boolean
-                get() = TODO("not implemented")
+        val player = object: Player() {
+            override var gamemode: String
+                get() = "survival"
                 set(value) {}
 
-            override var gamemode: Gamemode
-                get() = TODO("not implemented")
-                set(value) {}
+            override fun kick(reason: String) { }
 
-            override fun kick(reason: String) {
-                TODO("not implemented")
-            }
-
-            override fun teleport(location: Location) {
-                TODO("not implemented")
-            }
-
-            override fun ban(reason: String) {
-                TODO("not implemented")
-            }
+            override fun teleport(location: Location) { }
 
             var message: String? = null
             override val name = "test"
@@ -46,9 +36,9 @@ class SimpleApiTest: EngineBasedTest() {
         }
         Engine.variables(mapOf(
             "test" to "test",
-            "onJoin" to listener::onJoin
+            "onJoin" to listener.joinHandler::add
         ))
-        Engine.run("onJoin { it.message(test) }")
+        Engine.run("onJoin { it.player.message(test) }")
         listener.trigger(player)
         Assert.assertEquals("test", player.message)
     }

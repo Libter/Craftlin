@@ -17,8 +17,10 @@ class BukkitCraftlin: JavaPlugin() {
         val listener = BukkitListener()
         server.pluginManager.registerEvents(listener, this)
 
-        Engine.variables(mapOf(
-            "onJoin" to listener::onJoin
+        Engine.variables(mapOf<String,Any>(
+            "onJoin" to listener.joinHandler::add,
+            "onQuit" to listener.quitHandler::add,
+            "onChat" to listener.chatHandler::add
         ))
 
         val directory = File(server.worldContainer, "scripts")

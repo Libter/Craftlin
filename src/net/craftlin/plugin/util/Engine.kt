@@ -87,7 +87,6 @@ object Engine {
 
     private fun simpleParseType(type: String): String {
         //We are operating on Java types which should be translated to Kotlin
-        println(type)
         return when(type) {
             "void" -> "kotlin.Unit"
             "boolean" -> "kotlin.Boolean"

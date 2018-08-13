@@ -1,12 +1,15 @@
 package net.craftlin.plugin.api
 
-import net.craftlin.plugin.api.entity.Player
+import net.craftlin.plugin.api.event.ChatEvent
+import net.craftlin.plugin.api.event.JoinEvent
+import net.craftlin.plugin.api.event.QuitEvent
+import net.craftlin.plugin.api.event.base.Handler
 
 abstract class Listener {
 
-    protected val joinListeners = ArrayList<(Player) -> Unit>()
-    fun onJoin(listener: (Player) -> Unit) {
-        joinListeners.add(listener)
-    }
+    //TODO: better solution - @Redziu :P
+    val joinHandler = Handler<JoinEvent>()
+    val quitHandler = Handler<QuitEvent>()
+    val chatHandler = Handler<ChatEvent>()
 
 }
