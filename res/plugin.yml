@@ -1,3 +1,4 @@
 name: Craftlin
 version: DEV
+api-version: 1.13
 main: net.craftlin.plugin.bukkit.BukkitCraftlin

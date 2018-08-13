@@ -29,9 +29,7 @@ class TestCraftlin {
             "test1" to "hello",
             "test2" to "world"
         ))
-        assertEquals("hello world", Engine.run("""
-            test1 + " " + test2
-        """))
+        assertEquals("hello world", Engine.run("""test1 + " " + test2"""))
     }
 
     @Test

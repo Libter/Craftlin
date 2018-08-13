@@ -1,54 +1,46 @@
 package net.craftlin.plugin.util
 
-import org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngine
 import org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngineFactory
 import java.io.File
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.lang.reflect.WildcardType
 import java.nio.charset.Charset
+import javax.script.ScriptEngine
 
 object Engine {
 
     private val charset = Charset.forName("UTF-8") ?: throw RuntimeException("Can't find UTF-8 charset!")
     private val variables = HashMap<String,Any>()
-    private lateinit var engine: KotlinJsr223JvmLocalScriptEngine
+    private lateinit var factory: KotlinJsr223JvmLocalScriptEngineFactory
 
     fun load() {
         //TODO: download and load org.jetbrains.kotlin:kotlin-compiler-embeddable dynamically... it makes our fat jar too much fat
         Logger.log("Loading Kotlin scripting engine...")
         org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback()
-        engine = KotlinJsr223JvmLocalScriptEngineFactory().scriptEngine as KotlinJsr223JvmLocalScriptEngine
-        engine.eval("")
+        factory = KotlinJsr223JvmLocalScriptEngineFactory()
+        val engine = setup()
+        engine.put("loader", this::class.java.classLoader)
+        engine.eval("""Thread.currentThread().contextClassLoader = (bindings["loader"] as java.lang.ClassLoader)""")
     }
 
     fun variables(map: Map<String,Any>) = variables.putAll(map)
 
-    fun setup() {
-        engine.state.history.reset()
-        variables.forEach {
-            val (key, value) = it
-            val type = parseType(value::class.java)
-            engine.put(key, value)
-            engine.eval("""
-                val $key = bindings["$key"] as $type
-            """)
+    private fun setup(): ScriptEngine {
+        val engine = factory.scriptEngine
+        if (!variables.isEmpty()) {
+            val script = variables.map {
+                engine.put(it.key, it.value)
+                val type = parseType(it.value::class.java)
+                """val ${it.key} = bindings["${it.key}"] as $type"""
+            }.joinToString("\n")
+            engine.eval(script)
         }
+        return engine
     }
 
-    fun run(script: String): Any? {
-        setup()
-        return engine.eval(script)
-    }
-
-    fun run(file: File): Any? {
-        setup()
-        var ret: Any? = null
-        file.reader(charset).use {
-            ret = engine.eval(it)
-        }
-        return ret
-    }
+    fun run(script: String) = setup().eval(script)
+    fun run(file: File)= run(file.readText(charset))
 
     private fun parseType(type: Type): String {
         if (type is Class<*>) {
