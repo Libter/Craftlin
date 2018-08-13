@@ -53,6 +53,14 @@ shadowJar {
     version = null
 }
 
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['net/craftlin/plugin/bukkit/**'])
+        })
+    }
+}
+
 compileKotlin {
     kotlinOptions.jvmTarget = '1.8'
 }

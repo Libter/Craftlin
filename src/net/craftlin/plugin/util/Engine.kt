@@ -87,10 +87,17 @@ object Engine {
 
     private fun simpleParseType(type: String): String {
         //We are operating on Java types which should be translated to Kotlin
+        println(type)
         return when(type) {
-            //TODO: more primitives
+            "void" -> "kotlin.Unit"
+            "boolean" -> "kotlin.Boolean"
+            "byte" -> "kotlin.Byte"
+            "char" -> "kotlin.Char"
+            "int" -> "kotlin.Int"
+            "long" -> "kotlin.Long"
+            "float" -> "kotlin.Float"
+            "double" -> "kotlin.Double"
             "java.lang.String" -> "kotlin.String"
-            "boolean" -> "Boolean"
             else -> type
         }
     }
