@@ -34,11 +34,11 @@ class TestCraftlin {
 
     @Test
     fun functionTest() {
-        fun functionCallback() = "test"
+        fun functionCallback(string: String) = "Hello $string"
         Engine.variables(mapOf(
             "functionCallback" to ::functionCallback
         ))
-        assertEquals("test", Engine.run("functionCallback()"))
+        assertEquals("Hello world", Engine.run("""functionCallback("world")"""))
     }
 
     @Test
