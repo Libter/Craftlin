@@ -2,10 +2,10 @@ package net.craftlin.plugin.api.event
 
 import net.craftlin.plugin.api.entity.Player
 
-interface JoinEvent: Event {
+interface JoinEvent {
 
     val player: Player
 
-    var joinMessage: String
+    var message: String
 
 }

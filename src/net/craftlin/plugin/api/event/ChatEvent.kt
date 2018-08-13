@@ -2,7 +2,7 @@ package net.craftlin.plugin.api.event
 
 import net.craftlin.plugin.api.entity.Player
 
-interface ChatEvent: Event {
+interface ChatEvent: CancellableEvent {
 
     val player: Player
 

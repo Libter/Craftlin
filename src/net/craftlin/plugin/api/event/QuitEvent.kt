@@ -2,10 +2,10 @@ package net.craftlin.plugin.api.event
 
 import net.craftlin.plugin.api.entity.Player
 
-interface QuitEvent: Event {
+interface QuitEvent {
 
     val player: Player
 
-    var quitMessage: String
+    var message: String
 
 }
