@@ -38,7 +38,7 @@ class SimpleApiTest: EngineBasedTest() {
             "test" to "test",
             "onJoin" to listener.joinHandler::add
         ))
-        Engine.run("onJoin { it.player.message(test) }")
+        Engine.run("onJoin { player.message(test) }")
         listener.trigger(player)
         Assert.assertEquals("test", player.message)
     }

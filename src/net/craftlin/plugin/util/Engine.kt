@@ -55,18 +55,14 @@ object Engine {
         when (type) {
             //Just simple type of class
             is Class<*> -> {
-                //If it's a function
-                type.methods.filter { it.name == "invoke" }.forEach { method ->
-                    val generics = method.genericParameterTypes
-                    //If it's KFunction<T1, T2, T3...>
-                    val params = if (!generics.isEmpty()) {
+                //If it's KFunction
+                if (isType(type, "kotlin.jvm.internal.Function") || isType(type, "kotlin.jvm.function")) {
+                    type.methods.filter { it.name == "invoke" }.forEach { method ->
+                        val generics = method.genericParameterTypes
                         //We are looking only for concrete types
-                        if (generics[0].typeName == "java.lang.Object") return@forEach
-                        method.genericParameterTypes
+                        if (generics.isEmpty() || generics[0].typeName == "java.lang.Object") return@forEach
+                        return parseFunction(method.genericParameterTypes.toList(), method.returnType)
                     }
-                    //Else it's a "simple" function... whatever it means
-                    else { method.parameterTypes }
-                    return parseFunction(params.toList(), method.returnType)
                 }
                 //Else it's a simple class
                 return simpleParseType(type.canonicalName ?: type.typeName)
@@ -101,10 +97,20 @@ object Engine {
         }
     }
 
-    private fun parseFunction(params: Collection<Type>, _return: Type): String {
+    private fun parseFunction(params: List<Type>, _return: Type): String {
         val parsedParams = params.joinToString(", ", transform = ::parseType)
         val parsedReturn = parseType(_return)
+        if (params.size == 1 && isType(params[0], "net.craftlin.plugin.api.event")) {
+            return "$parsedParams.() -> $parsedReturn"
+        }
         return "($parsedParams) -> $parsedReturn"
+    }
+
+    private fun isType(type: Type?, start: String): Boolean {
+        if (type is ParameterizedType) return isType(type.rawType, start)
+        if (type is WildcardType) return isType(type.lowerBounds[0], start)
+        if (type is Class<*>) return type.name.startsWith(start) || isType(type.superclass, start)
+        return false
     }
 
 }
