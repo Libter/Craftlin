@@ -20,3 +20,10 @@ build:
     paths:
     - build/libs/*.jar
     expire_in: 1 week
+
+test:
+  stage: test
+  script:
+  - gradle check
+  - gradle jacocoTestReport
+  - cat build/reports/jacoco/test/html/index.html
