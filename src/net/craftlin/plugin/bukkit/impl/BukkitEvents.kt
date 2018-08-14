@@ -5,11 +5,10 @@ import net.craftlin.plugin.api.event.ChatEvent
 import net.craftlin.plugin.api.event.JoinEvent
 import net.craftlin.plugin.api.event.PreLoginEvent
 import net.craftlin.plugin.api.event.QuitEvent
-import net.craftlin.plugin.api.value.EnumDelegate
-import net.craftlin.plugin.api.value.SimpleDelegate
+import net.craftlin.plugin.api.value.base.SimpleDelegate
 import net.craftlin.plugin.bukkit.impl.entity.BukkitPlayer
-import net.craftlin.plugin.bukkit.impl.location.BukkitBlock
 import net.craftlin.plugin.bukkit.impl.value.BukkitLoginResult
+import net.craftlin.plugin.bukkit.impl.world.BukkitBlock
 import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -34,7 +33,7 @@ class BukkitChatEvent(origin: AsyncPlayerChatEvent): ChatEvent() {
 
 class BukkitPreLoginEvent(private val origin: AsyncPlayerPreLoginEvent): PreLoginEvent() {
     override val name: String = origin.name
-    override var result: String by EnumDelegate(BukkitLoginResult, origin.loginResult)
+    override var result: String by BukkitLoginResult.Delegate(origin.loginResult)
     override var message: String by SimpleDelegate(origin.kickMessage)
 
     override fun disallow(message: String) {

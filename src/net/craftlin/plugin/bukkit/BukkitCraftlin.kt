@@ -1,7 +1,6 @@
 package net.craftlin.plugin.bukkit
 
 import net.craftlin.plugin.bukkit.impl.BukkitListener
-import net.craftlin.plugin.bukkit.impl.value.BukkitMaterial
 import net.craftlin.plugin.util.Engine
 import net.craftlin.plugin.util.Logger
 import org.bukkit.plugin.java.JavaPlugin

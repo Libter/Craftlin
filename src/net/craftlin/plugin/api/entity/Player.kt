@@ -1,6 +1,6 @@
 package net.craftlin.plugin.api.entity
 
-import net.craftlin.plugin.api.location.Location
+import net.craftlin.plugin.api.world.Location
 
 abstract class Player {
     abstract val name: String

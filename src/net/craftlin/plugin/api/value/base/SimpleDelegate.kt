@@ -1,4 +1,4 @@
-package net.craftlin.plugin.api.value
+package net.craftlin.plugin.api.value.base
 
 import kotlin.reflect.KProperty
 

@@ -1,15 +1,13 @@
 package net.craftlin.plugin.bukkit.impl.entity
 
 import net.craftlin.plugin.api.entity.Player
-import net.craftlin.plugin.api.location.Location
+import net.craftlin.plugin.api.world.Location
 import net.craftlin.plugin.bukkit.impl.value.BukkitGameMode
 
 class BukkitPlayer(private val origin: org.bukkit.entity.Player): Player() {
     override val name: String = origin.name
 
-    override var gamemode: String
-        get() = BukkitGameMode.toString(origin.gameMode)
-        set(value) { origin.gameMode = BukkitGameMode.fromString(value) }
+    override var gamemode by BukkitGameMode.Delegate(origin.gameMode)
 
     override var isOp: Boolean
         get() = origin.isOp

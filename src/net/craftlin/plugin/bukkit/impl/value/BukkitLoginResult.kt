@@ -1,11 +1,21 @@
 package net.craftlin.plugin.bukkit.impl.value
 
-import net.craftlin.plugin.api.value.EnumValue
+import net.craftlin.plugin.api.value.LoginResult
+import net.craftlin.plugin.api.value.base.BiEnumValue
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 
-object BukkitLoginResult: EnumValue<AsyncPlayerPreLoginEvent.Result>() {
-    override val values = mapOf(
-        "allow" to AsyncPlayerPreLoginEvent.Result.ALLOWED,
-        "disallow" to AsyncPlayerPreLoginEvent.Result.KICK_OTHER
-    )
+object BukkitLoginResult: BiEnumValue<LoginResult, AsyncPlayerPreLoginEvent.Result>(LoginResult::class) {
+    override fun toImpl(api: LoginResult): AsyncPlayerPreLoginEvent.Result {
+        return when(api) {
+            LoginResult.ALLOW -> AsyncPlayerPreLoginEvent.Result.ALLOWED
+            LoginResult.DISALLOW -> AsyncPlayerPreLoginEvent.Result.KICK_OTHER
+        }
+    }
+
+    override fun toApi(impl: AsyncPlayerPreLoginEvent.Result): LoginResult {
+        return when(impl) {
+            AsyncPlayerPreLoginEvent.Result.ALLOWED -> LoginResult.ALLOW
+            else -> LoginResult.DISALLOW
+        }
+    }
 }
