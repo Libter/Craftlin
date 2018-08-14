@@ -5,11 +5,12 @@ abstract class Location {
     abstract val x: Double
     abstract val y: Double
     abstract val z: Double
-    abstract val blockX: Int
-    abstract val blockY: Int
-    abstract val blockZ: Int
     abstract val pitch: Float
     abstract val yaw: Float
     abstract val world: World
+
+    val blockX by lazy { x.toInt() }
+    val blockY by lazy { y.toInt() }
+    val blockZ by lazy { z.toInt() }
 
 }

@@ -5,7 +5,6 @@ import net.craftlin.plugin.api.location.Location
 import net.craftlin.plugin.bukkit.impl.value.BukkitGameMode
 
 class BukkitPlayer(private val origin: org.bukkit.entity.Player): Player() {
-
     override val name: String = origin.name
 
     override var gamemode: String
