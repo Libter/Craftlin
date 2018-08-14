@@ -1,9 +1,6 @@
 package net.craftlin.plugin.bukkit.impl
 
-import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.event.*
-import net.craftlin.plugin.api.location.Block
-import net.craftlin.plugin.bukkit.extension.color
 import net.craftlin.plugin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.plugin.bukkit.impl.location.BukkitBlock
 import net.craftlin.plugin.bukkit.impl.value.PlayerPreLoginResult
@@ -36,10 +33,10 @@ class BukkitPreLoginEvent(val origin: AsyncPlayerPreLoginEvent): PreLoginEvent()
         set(value) { origin.loginResult = PlayerPreLoginResult.fromString(value) }
     override var kickMessage: String
         get() = origin.kickMessage
-        set(value) { origin.kickMessage = value.color() }
+        set(value) { origin.kickMessage = value }
 
     override fun disallow(message: String) {
-        origin.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, message.color())
+        origin.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, message)
     }
 
 }
