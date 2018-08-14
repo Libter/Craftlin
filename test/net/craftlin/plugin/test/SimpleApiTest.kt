@@ -3,7 +3,7 @@ package net.craftlin.plugin.test
 import net.craftlin.plugin.api.Listener
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.event.JoinEvent
-import net.craftlin.plugin.api.value.Location
+import net.craftlin.plugin.api.location.Location
 import net.craftlin.plugin.test.util.EngineBasedTest
 import net.craftlin.plugin.util.Engine
 import org.junit.Assert
@@ -20,6 +20,7 @@ class SimpleApiTest: EngineBasedTest() {
             })
         }
         val player = object: Player() {
+            override var isOp: Boolean = false
             override var gamemode: String
                 get() = "survival"
                 set(value) {}

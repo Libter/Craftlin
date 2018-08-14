@@ -2,7 +2,9 @@ package net.craftlin.plugin.bukkit.impl
 
 import net.craftlin.plugin.api.Listener
 import org.bukkit.event.EventHandler
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.player.AsyncPlayerChatEvent
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
@@ -16,5 +18,11 @@ class BukkitListener: Listener(), org.bukkit.event.Listener {
 
     @EventHandler
     fun triggerChat(event: AsyncPlayerChatEvent) = chatHandler.trigger(BukkitChatEvent(event))
+
+    @EventHandler
+    fun triggerPreLogin(event: AsyncPlayerPreLoginEvent) = preLoginHandler.trigger(BukkitPreLoginEvent(event))
+
+    @EventHandler
+    fun trggerBlockBreak(event: BlockBreakEvent) = blockBreakHandler.trigger(BukkitBlockBreakEvent(event))
 
 }
