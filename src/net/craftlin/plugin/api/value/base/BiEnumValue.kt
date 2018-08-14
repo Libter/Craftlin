@@ -2,17 +2,24 @@ package net.craftlin.plugin.api.value.base
 
 import net.craftlin.plugin.util.BiHashMap
 import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
+import kotlin.reflect.jvm.isAccessible
 
 abstract class BiEnumValue<Api: Enum<*>, Impl>(private val apiClass: KClass<Api>) {
 
-    inner class Delegate(private var origin: Impl) {
+    inner class Delegate(private var origin: KMutableProperty<Impl>) {
+        init {
+            origin.getter.isAccessible = true
+            origin.setter.isAccessible = true
+        }
+
         operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
-            return apiMap.byValue(toApi(origin)) ?: throw NotImplementedError()
+            return apiMap.byValue(toApi(origin.getter.call())) ?: throw NotImplementedError()
         }
 
         operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
-            origin = toImpl(apiMap.byKey(value) ?: throw IllegalArgumentException())
+            origin.setter.call(toImpl(apiMap.byKey(value) ?: throw IllegalArgumentException()))
         }
     }
 
