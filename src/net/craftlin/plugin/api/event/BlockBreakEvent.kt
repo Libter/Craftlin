@@ -7,5 +7,5 @@ import net.craftlin.plugin.api.location.Block
 abstract class BlockBreakEvent: CancellableEvent() {
     abstract val player: Player
     abstract val block: Block
-    abstract var isDropItems: Boolean
+    abstract var dropItems: Boolean
 }
