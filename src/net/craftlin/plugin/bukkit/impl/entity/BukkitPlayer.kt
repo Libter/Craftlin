@@ -5,7 +5,7 @@ import net.craftlin.plugin.api.world.Location
 import net.craftlin.plugin.bukkit.impl.value.BukkitGameMode
 import org.bukkit.GameMode
 
-class BukkitPlayer(private val origin: org.bukkit.entity.Player): Player() {
+class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(origin), Player  {
     private var originGameMode: GameMode
         get() = origin.gameMode
         set(value) { origin.gameMode = value }
