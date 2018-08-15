@@ -1,10 +1,5 @@
 package net.craftlin.plugin.bukkit.impl
 
-import net.craftlin.plugin.api.event.BlockBreakEvent
-import net.craftlin.plugin.api.event.ChatEvent
-import net.craftlin.plugin.api.event.JoinEvent
-import net.craftlin.plugin.api.event.PreLoginEvent
-import net.craftlin.plugin.api.event.QuitEvent
 import net.craftlin.plugin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.plugin.bukkit.impl.value.BukkitLoginResult
 import net.craftlin.plugin.bukkit.impl.world.BukkitBlock
@@ -56,7 +51,7 @@ class BukkitPreLoginEvent(private val origin: AsyncPlayerPreLoginEvent): PreLogi
     }
 }
 
-class BukkitBlockBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEvent): BlockBreakEvent {
+class BukkitBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEvent): BreakEvent {
     override val player = BukkitPlayer(origin.player)
     override val block = BukkitBlock(origin.block)
     override var dropItems: Boolean

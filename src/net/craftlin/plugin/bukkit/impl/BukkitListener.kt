@@ -23,6 +23,6 @@ class BukkitListener: Listener(), org.bukkit.event.Listener {
     fun triggerPreLogin(event: AsyncPlayerPreLoginEvent) = preLoginHandler.trigger(BukkitPreLoginEvent(event))
 
     @EventHandler
-    fun trggerBlockBreak(event: BlockBreakEvent) = blockBreakHandler.trigger(BukkitBlockBreakEvent(event))
+    fun trggerBlockBreak(event: BlockBreakEvent) = blockBreakHandler.trigger(BukkitBreakEvent(event))
 
 }
