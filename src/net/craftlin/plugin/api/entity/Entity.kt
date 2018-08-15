@@ -4,19 +4,19 @@ import net.craftlin.plugin.api.world.Location
 
 interface Entity {
 
-    abstract val uuid: String
-    abstract val location: Location
-    abstract var customName: String
-    abstract var health: Int
-    abstract var maxHealth: Int
-    abstract var isDead: Boolean
-    abstract var canPickupItems: Boolean
-    abstract var isCollidable: Boolean
+    val uuid: String
+    val location: Location
+    var customName: String
+    var health: Int
+    var maxHealth: Int
+    var isDead: Boolean
+    var canPickupItems: Boolean
+    var isCollidable: Boolean
 
-    abstract fun teleport(location: Location)
-    abstract fun teleport(entity: Entity)
-    abstract fun ignite(ticks: Int)
-    abstract fun igniteTime(): Int
-    abstract fun damage(amount: Int)
+    fun teleport(location: Location)
+    fun teleport(entity: Entity)
+    fun ignite(ticks: Int)
+    fun igniteTime(): Int
+    fun damage(amount: Int)
 
 }

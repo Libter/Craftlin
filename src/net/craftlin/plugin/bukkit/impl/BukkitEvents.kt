@@ -13,21 +13,21 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
-class BukkitJoinEvent(private val origin: PlayerJoinEvent): JoinEvent() {
+class BukkitJoinEvent(private val origin: PlayerJoinEvent): JoinEvent {
     override val player = BukkitPlayer(origin.player)
     override var message: String
         get() = origin.joinMessage
         set(value) { origin.joinMessage = value }
 }
 
-class BukkitQuitEvent(private val origin: PlayerQuitEvent): QuitEvent() {
+class BukkitQuitEvent(private val origin: PlayerQuitEvent): QuitEvent {
     override val player = BukkitPlayer(origin.player)
     override var message: String
         get() = origin.quitMessage
         set(value) { origin.quitMessage = value }
 }
 
-class BukkitChatEvent(private val origin: AsyncPlayerChatEvent): ChatEvent() {
+class BukkitChatEvent(private val origin: AsyncPlayerChatEvent): ChatEvent {
     override val player = BukkitPlayer(origin.player)
     override var message: String
         get() = origin.message
@@ -40,7 +40,7 @@ class BukkitChatEvent(private val origin: AsyncPlayerChatEvent): ChatEvent() {
         set(value) { origin.isCancelled = value }
 }
 
-class BukkitPreLoginEvent(private val origin: AsyncPlayerPreLoginEvent): PreLoginEvent() {
+class BukkitPreLoginEvent(private val origin: AsyncPlayerPreLoginEvent): PreLoginEvent {
     private var originResult: AsyncPlayerPreLoginEvent.Result
         get() = origin.loginResult
         set(value) { origin.loginResult = value }
@@ -56,7 +56,7 @@ class BukkitPreLoginEvent(private val origin: AsyncPlayerPreLoginEvent): PreLogi
     }
 }
 
-class BukkitBlockBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEvent): BlockBreakEvent() {
+class BukkitBlockBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEvent): BlockBreakEvent {
     override val player = BukkitPlayer(origin.player)
     override val block = BukkitBlock(origin.block)
     override var dropItems: Boolean

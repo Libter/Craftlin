@@ -1,16 +1,16 @@
 package net.craftlin.plugin.api.world
 
-abstract class Location {
+interface Location {
 
-    abstract val x: Double
-    abstract val y: Double
-    abstract val z: Double
-    abstract val pitch: Float
-    abstract val yaw: Float
-    abstract val world: World
+    val x: Double
+    val y: Double
+    val z: Double
+    val pitch: Float
+    val yaw: Float
+    val world: World
 
-    val blockX by lazy { x.toInt() }
-    val blockY by lazy { y.toInt() }
-    val blockZ by lazy { z.toInt() }
+    val blockX get() = x.toInt()
+    val blockY get() = y.toInt()
+    val blockZ get() = z.toInt()
 
 }

@@ -3,7 +3,7 @@ package net.craftlin.plugin.bukkit.impl.world
 import net.craftlin.plugin.api.world.Location
 import net.craftlin.plugin.api.world.World
 
-class BukkitLocation(origin: org.bukkit.Location) : Location() {
+class BukkitLocation(origin: org.bukkit.Location) : Location {
     override val x = origin.x
     override val y = origin.y
     override val z = origin.z

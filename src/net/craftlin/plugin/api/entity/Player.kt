@@ -1,10 +1,10 @@
 package net.craftlin.plugin.api.entity
 
 interface Player: Entity {
-    abstract val name: String
-    abstract var gamemode: String
-    abstract var isOp: Boolean
+    val name: String
+    var gamemode: String
+    var isOp: Boolean
 
-    abstract fun message(message: String)
-    abstract fun kick(reason: String)
+    fun message(message: String)
+    fun kick(reason: String)
 }
