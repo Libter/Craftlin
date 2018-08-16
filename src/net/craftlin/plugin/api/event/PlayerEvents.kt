@@ -1,5 +1,7 @@
 package net.craftlin.plugin.api.event
 
+import net.craftlin.plugin.api.entity.Entity
+import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.event.base.BlockEvent
 import net.craftlin.plugin.api.event.base.CancellableEvent
 import net.craftlin.plugin.api.event.base.PlayerEvent
@@ -39,4 +41,33 @@ interface BreakEvent: PlayerEvent, BlockEvent, CancellableEvent {
 interface PlaceEvent: PlayerEvent, BlockEvent, CancellableEvent {
     val placed get() = block
     val previous: Block
+}
+
+interface InteractEvent: PlayerEvent, CancellableEvent
+
+interface ClickEvent: InteractEvent {
+    val isRight: Boolean
+    val isLeft get() = !isRight
+}
+
+interface EntityClickEvent: ClickEvent {
+    val entity: Entity
+}
+
+interface BlockClickEvent: BlockEvent, ClickEvent
+
+interface ButtonPressEvent: BlockClickEvent {
+    override val isRight get() = true
+}
+
+interface LeverPullEvent: BlockClickEvent {
+    override val isRight get() = true
+}
+
+interface TripwireTrigger: InteractEvent
+
+interface SoilJumpEvent : BlockEvent, InteractEvent
+
+interface PlateTriggerEvent: BlockEvent, InteractEvent {
+    val plate get() = block
 }
