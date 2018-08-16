@@ -1,7 +1,8 @@
 package net.craftlin.plugin.bukkit.impl.entity
 
-import net.craftlin.plugin.api.entity.Entity
+import net.craftlin.plugin.api.entity.base.Entity
 import net.craftlin.plugin.api.world.Location
+import net.craftlin.plugin.bukkit.extension.toBukkitLocation
 import net.craftlin.plugin.bukkit.impl.world.BukkitLocation
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
@@ -21,31 +22,27 @@ abstract class BukkitEntity(private val origin: LivingEntity): Entity {
         set(value) { origin.getAttribute(Attribute.GENERIC_MAX_HEALTH).baseValue = value.toDouble() }
     override var isDead: Boolean
         get() = origin.isDead
-        set(value) {}
+        set(value) { if(!origin.isDead && value) origin.health = 0.0}
     override var canPickupItems: Boolean
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
+        get() = origin.canPickupItems
+        set(value) { origin.canPickupItems = value }
     override var isCollidable: Boolean
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
+        get() = origin.isCollidable
+        set(value) { origin.isCollidable = value }
 
     override fun teleport(location: Location) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        origin.teleport(location.toBukkitLocation())
     }
 
     override fun teleport(entity: Entity) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        teleport(entity.location)
     }
 
     override fun ignite(ticks: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        origin.fireTicks = ticks
     }
 
-    override fun igniteTime(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun igniteTime(): Int = origin.fireTicks
 
-    override fun damage(amount: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun damage(amount: Int) = origin.damage(amount.toDouble())
 }

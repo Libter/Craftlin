@@ -9,4 +9,5 @@ interface World {
 
     fun blockAt(x: Int, y: Int, z: Int): Block
     fun blockAt(location: Location) = blockAt(location.blockX, location.blockY, location.blockZ)
+    fun spawnMob(type: String, location: Location)
 }

@@ -18,7 +18,7 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(o
         get() = origin.isOp
         set(value) { origin.isOp = value }
 
-    override fun message(message: String) = origin.sendMessage(message)
+    override fun message(text: String) = origin.sendMessage(text)
 
     override fun kick(reason: String) = origin.kickPlayer(reason)
 

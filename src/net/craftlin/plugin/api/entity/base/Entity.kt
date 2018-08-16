@@ -1,4 +1,4 @@
-package net.craftlin.plugin.api.entity
+package net.craftlin.plugin.api.entity.base
 
 import net.craftlin.plugin.api.world.Location
 

@@ -1,10 +1,11 @@
 package net.craftlin.plugin.api.entity
 
-interface Player: Entity {
+import net.craftlin.plugin.api.entity.base.Entity
+
+interface Player: Entity, Sender {
     val name: String
     var gamemode: String
     var isOp: Boolean
 
-    fun message(message: String)
     fun kick(reason: String)
 }
