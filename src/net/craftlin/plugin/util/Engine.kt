@@ -2,9 +2,13 @@ package net.craftlin.plugin.util
 
 import net.craftlin.plugin.api.Variables
 import java.io.File
+import java.io.FileOutputStream
+import java.io.PrintStream
 import java.nio.charset.Charset
+import java.util.Date
 import javax.script.ScriptEngine
 import kotlin.reflect.full.memberProperties
+
 
 private typealias EngineFactory = org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngineFactory
 
@@ -50,6 +54,22 @@ object Engine {
     }
 
     fun run(script: String) = setup().eval(script)
-    fun run(file: File)= run(file.readText(charset))
+    fun run(file: File) {
+        try {
+            run(file.readText(charset))
+        } catch (t: Throwable) {
+            val logDir = File(file.parentFile, "exceptions"); logDir.mkdirs()
+            val log = File(logDir, file.nameWithoutExtension + ".txt")
+            FileOutputStream(log, true).use { fos ->
+                PrintStream(fos).use {
+                    it.append(System.lineSeparator()).append(Date().toString()).append(System.lineSeparator())
+                    t.printStackTrace(it)
+                    it.append(System.lineSeparator())
+                    Unit
+                }
+            }
+            Logger.log("An error occurred while executing ${file.name}, check ${log.canonicalPath} for details!")
+        }
+    }
 
 }

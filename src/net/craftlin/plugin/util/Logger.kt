@@ -12,7 +12,7 @@ object Logger {
     }
 
     fun log(message: String) {
-        val diff = seconds.format((System.currentTimeMillis() - start) / 1000.0)
+        val diff = seconds.format(Math.min((System.currentTimeMillis() - start) / 1000.0, 999.0))
         println("[$diff] $message")
     }
 
