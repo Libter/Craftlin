@@ -20,6 +20,10 @@ class SimpleApiTest: EngineBasedTest() {
         })
     }
 
+    object JoinVariables: EmptyVariables(JoinListener) {
+        val test = "test"
+    }
+
     @Test
     fun joinListenerTest() {
         val player = object: Player {
@@ -76,9 +80,7 @@ class SimpleApiTest: EngineBasedTest() {
                 TODO("not implemented")
             }
         }
-        Engine.put(object: EmptyVariables()  {
-            val test = "test"
-        })
+        Engine.put(JoinVariables)
         Engine.run("onJoin { player.message(test) }")
         JoinListener.trigger(player)
         Assert.assertEquals("test", player.message)

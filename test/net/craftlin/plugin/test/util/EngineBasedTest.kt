@@ -16,26 +16,28 @@ abstract class EngineBasedTest {
 
     protected object EmptyListener: Listener()
 
-    protected object EmptyServer: Server {
-        override val players: List<Player>
-            get() = TODO("not implemented")
-        override val worlds: List<World>
-            get() = TODO("not implemented")
+    object EmptyServer: Server {
+        override val players = ArrayList<Player>()
+        override val worlds = ArrayList<World>()
     }
 
-    protected open class EmptyVariables: Variables(EmptyListener) {
+    object EmptyTimer: Timer() {
+        override fun stop() { }
+    }
+
+    open class EmptyVariables(listener: Listener = EmptyListener): Variables(listener) {
         override val sync: (callback: itF) -> Unit
-            get() = TODO("not implemented") 
+            get() = fun(callback: itF) { callback() }
         override val async: (callback: itF) -> Unit
-            get() = TODO("not implemented") 
+            get() = fun(callback: itF) { callback() }
         override val delay: (time: Long, callback: itF) -> Unit
-            get() = TODO("not implemented") 
+            get() = fun(_: Long, callback: itF) { callback() }
         override val delayAsync: (time: Long, callback: itF) -> Unit
-            get() = TODO("not implemented") 
+            get() = fun(_: Long, callback: itF) { callback() }
         override val timer: (interval: Long, callback: thisF<Timer>) -> Unit
-            get() = TODO("not implemented") 
+            get() = fun(_: Long, callback: thisF<Timer>) { callback(EmptyTimer) }
         override val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
-            get() = TODO("not implemented") 
+            get() = fun(_: Long, callback: thisF<Timer>) { callback(EmptyTimer) }
         override val server = EmptyServer
     }
 

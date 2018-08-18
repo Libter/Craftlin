@@ -44,7 +44,6 @@ object Engine {
             //So we have to create declarations with explicit types
             val script = variables::class.memberProperties.map {
                 val name= it.name; val type = it.returnType.toString()
-
                 engine.put(name, it.getter.call(variables))
                 """val $name = bindings["$name"] as $type"""
             }.joinToString("\n")

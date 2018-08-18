@@ -15,7 +15,7 @@ class EngineTest: EngineBasedTest() {
 
     @Test
     fun variablesTest() {
-        Engine.put(object: EmptyVariables()  {
+        Engine.put(object: EmptyVariables() {
             val test1 = "hello"
             val test2 = "world"
         })
