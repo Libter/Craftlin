@@ -12,6 +12,7 @@ interface BeforeJoinEvent: Event {
 }
 
 interface JoinEvent: PlayerEvent {
+    val first: Boolean
     var message: String
 }
 

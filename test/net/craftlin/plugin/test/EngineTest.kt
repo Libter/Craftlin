@@ -1,6 +1,5 @@
 package net.craftlin.plugin.test
 
-import net.craftlin.plugin.api.Variables
 import net.craftlin.plugin.test.util.EngineBasedTest
 import net.craftlin.plugin.util.Engine
 import org.junit.Assert
@@ -16,7 +15,7 @@ class EngineTest: EngineBasedTest() {
 
     @Test
     fun variablesTest() {
-        Engine.put(object: Variables(EmptyListener) {
+        Engine.put(object: EmptyVariables()  {
             val test1 = "hello"
             val test2 = "world"
         })
@@ -28,7 +27,7 @@ class EngineTest: EngineBasedTest() {
         val b: Byte = 1; val s: Short = 1
         val i: Int = 1; val l: Long = 1
         val f: Float = 1.0f; val d: Double = 1.0
-        Engine.put(object: Variables(EmptyListener) {
+        Engine.put(object: EmptyVariables()  {
             val bool = true
             val string = "test"
             val b: Byte = 1
@@ -46,7 +45,7 @@ class EngineTest: EngineBasedTest() {
     @Test
     fun functionTest() {
         fun functionCallback(string: String) = "Hello $string"
-        Engine.put(object: Variables(EmptyListener) {
+        Engine.put(object: EmptyVariables() {
             val functionCallback = ::functionCallback
         })
         Assert.assertEquals("Hello world", Engine.run("""functionCallback("world")"""))

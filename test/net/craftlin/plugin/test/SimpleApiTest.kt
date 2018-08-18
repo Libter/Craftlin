@@ -1,6 +1,5 @@
 package net.craftlin.plugin.test
 
-import net.craftlin.plugin.api.Variables
 import net.craftlin.plugin.api.entity.Entity
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.event.JoinEvent
@@ -15,6 +14,7 @@ class SimpleApiTest: EngineBasedTest() {
 
     private object JoinListener: Listener() {
         fun trigger(player: Player) = trigger<JoinEvent>(object: JoinEvent {
+            override val first = false
             override var message = ""
             override val player = player
         })
@@ -32,7 +32,7 @@ class SimpleApiTest: EngineBasedTest() {
             override var gamemode: String
                 get() = TODO("not implemented") 
                 set(value) {}
-            override var isOp: Boolean
+            override var op: Boolean
                 get() = TODO("not implemented") 
                 set(value) {}
             override fun kick(reason: String) {
@@ -76,7 +76,7 @@ class SimpleApiTest: EngineBasedTest() {
                 TODO("not implemented")
             }
         }
-        Engine.put(object: Variables(JoinListener) {
+        Engine.put(object: EmptyVariables()  {
             val test = "test"
         })
         Engine.run("onJoin { player.message(test) }")

@@ -14,7 +14,7 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(o
 
     override var gamemode by BukkitGameMode.Delegate(::originGameMode)
 
-    override var isOp: Boolean
+    override var op: Boolean
         get() = origin.isOp
         set(value) { origin.isOp = value }
 

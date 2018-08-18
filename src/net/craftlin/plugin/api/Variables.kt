@@ -11,6 +11,7 @@ import net.craftlin.plugin.api.event.QuitEvent
 
 abstract class Variables(listener: Listener) {
 
+    abstract val server: Server
     val beforeJoin = listener.add<BeforeJoinEvent>()
     val onJoin = listener.add<JoinEvent>()
     val onQuit = listener.add<QuitEvent>()
