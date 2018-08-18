@@ -1,5 +1,6 @@
 package net.craftlin.plugin.bukkit
 
+import net.craftlin.plugin.api.misc.Stoppable
 import net.craftlin.plugin.util.Logger
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -19,6 +20,7 @@ class CraftlinCommand: CommandExecutor {
         } else when (action) {
             "reload" -> {
                 Logger.reset()
+                Stoppable.reset()
                 BukkitCraftlin.listener.handlers.clear()
                 BukkitCraftlin.loadScripts()
                 sender.sendMessage("§6Craftlin» §aScripts have been reloaded!")

@@ -4,7 +4,9 @@ import net.craftlin.plugin.api.Server
 import net.craftlin.plugin.api.Variables
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.event.Listener
-import net.craftlin.plugin.api.itF
+import net.craftlin.plugin.api.misc.Timer
+import net.craftlin.plugin.api.misc.itF
+import net.craftlin.plugin.api.misc.thisF
 import net.craftlin.plugin.api.world.World
 import net.craftlin.plugin.util.Engine
 import net.craftlin.plugin.util.Logger
@@ -30,9 +32,9 @@ abstract class EngineBasedTest {
             get() = TODO("not implemented") 
         override val delayAsync: (time: Long, callback: itF) -> Unit
             get() = TODO("not implemented") 
-        override val timer: (interval: Long, callback: itF) -> Unit
+        override val timer: (interval: Long, callback: thisF<Timer>) -> Unit
             get() = TODO("not implemented") 
-        override val timerAsync: (interval: Long, callback: itF) -> Unit
+        override val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
             get() = TODO("not implemented") 
         override val server = EmptyServer
     }

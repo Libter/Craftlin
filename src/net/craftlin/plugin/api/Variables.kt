@@ -8,6 +8,9 @@ import net.craftlin.plugin.api.event.Listener
 import net.craftlin.plugin.api.event.MoveEvent
 import net.craftlin.plugin.api.event.PlaceEvent
 import net.craftlin.plugin.api.event.QuitEvent
+import net.craftlin.plugin.api.misc.Timer
+import net.craftlin.plugin.api.misc.itF
+import net.craftlin.plugin.api.misc.thisF
 
 abstract class Variables(listener: Listener) {
 
@@ -17,8 +20,8 @@ abstract class Variables(listener: Listener) {
     abstract val async: (callback: itF) -> Unit
     abstract val delay: (time: Long, callback: itF) -> Unit
     abstract val delayAsync: (time: Long, callback: itF) -> Unit
-    abstract val timer: (interval: Long, callback: itF) -> Unit
-    abstract val timerAsync: (interval: Long, callback: itF) -> Unit
+    abstract val timer: (interval: Long, callback: thisF<Timer>) -> Unit
+    abstract val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
 
     val beforeJoin = listener.add<BeforeJoinEvent>()
     val onJoin = listener.add<JoinEvent>()

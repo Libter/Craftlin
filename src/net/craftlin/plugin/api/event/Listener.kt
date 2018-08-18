@@ -1,6 +1,6 @@
 package net.craftlin.plugin.api.event
 
-import net.craftlin.plugin.api.thisF
+import net.craftlin.plugin.api.misc.thisF
 import kotlin.reflect.KClass
 
 abstract class Listener {

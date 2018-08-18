@@ -1,4 +1,4 @@
-package net.craftlin.plugin.api
+package net.craftlin.plugin.api.misc
 
 typealias itF = () -> Unit
 
