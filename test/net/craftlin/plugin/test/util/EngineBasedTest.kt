@@ -21,6 +21,18 @@ abstract class EngineBasedTest {
     }
 
     protected open class EmptyVariables: Variables(EmptyListener) {
+        override val sync: (callback: () -> Unit) -> Unit
+            get() = TODO("not implemented") 
+        override val async: (callback: () -> Unit) -> Unit
+            get() = TODO("not implemented") 
+        override val delay: (time: Long, callback: () -> Unit) -> Unit
+            get() = TODO("not implemented") 
+        override val delayAsync: (time: Long, callback: () -> Unit) -> Unit
+            get() = TODO("not implemented") 
+        override val timer: (interval: Long, callback: () -> Unit) -> Unit
+            get() = TODO("not implemented") 
+        override val timerAsync: (interval: Long, callback: () -> Unit) -> Unit
+            get() = TODO("not implemented") 
         override val server = EmptyServer
     }
 

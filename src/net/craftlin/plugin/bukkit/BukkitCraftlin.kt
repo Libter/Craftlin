@@ -1,8 +1,6 @@
 package net.craftlin.plugin.bukkit
 
-import net.craftlin.plugin.api.Variables
 import net.craftlin.plugin.bukkit.impl.BukkitListener
-import net.craftlin.plugin.bukkit.impl.BukkitServer
 import net.craftlin.plugin.util.Engine
 import net.craftlin.plugin.util.Logger
 import org.bukkit.Bukkit
@@ -13,13 +11,13 @@ import java.io.File
 class BukkitCraftlin: JavaPlugin() {
 
     companion object {
+        lateinit var instance: BukkitCraftlin
+            private set
         lateinit var listener: BukkitListener
             private set
 
         fun loadScripts() {
-            Engine.put(object: Variables(listener) {
-                override val server = BukkitServer
-            })
+            Engine.put(BukkitVariables(instance, listener))
 
             val directory = File(Bukkit.getServer().worldContainer, "scripts")
             Logger.log("Loading scripts in ${directory.absolutePath}...")
@@ -37,6 +35,7 @@ class BukkitCraftlin: JavaPlugin() {
     }
 
     override fun onEnable() {
+        instance = this
         Logger.reset()
         Engine.load()
 
