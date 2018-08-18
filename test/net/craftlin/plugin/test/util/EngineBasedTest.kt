@@ -4,6 +4,7 @@ import net.craftlin.plugin.api.Server
 import net.craftlin.plugin.api.Variables
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.event.Listener
+import net.craftlin.plugin.api.itF
 import net.craftlin.plugin.api.world.World
 import net.craftlin.plugin.util.Engine
 import net.craftlin.plugin.util.Logger
@@ -21,17 +22,17 @@ abstract class EngineBasedTest {
     }
 
     protected open class EmptyVariables: Variables(EmptyListener) {
-        override val sync: (callback: () -> Unit) -> Unit
+        override val sync: (callback: itF) -> Unit
             get() = TODO("not implemented") 
-        override val async: (callback: () -> Unit) -> Unit
+        override val async: (callback: itF) -> Unit
             get() = TODO("not implemented") 
-        override val delay: (time: Long, callback: () -> Unit) -> Unit
+        override val delay: (time: Long, callback: itF) -> Unit
             get() = TODO("not implemented") 
-        override val delayAsync: (time: Long, callback: () -> Unit) -> Unit
+        override val delayAsync: (time: Long, callback: itF) -> Unit
             get() = TODO("not implemented") 
-        override val timer: (interval: Long, callback: () -> Unit) -> Unit
+        override val timer: (interval: Long, callback: itF) -> Unit
             get() = TODO("not implemented") 
-        override val timerAsync: (interval: Long, callback: () -> Unit) -> Unit
+        override val timerAsync: (interval: Long, callback: itF) -> Unit
             get() = TODO("not implemented") 
         override val server = EmptyServer
     }

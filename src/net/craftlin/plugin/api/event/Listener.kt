@@ -1,13 +1,14 @@
 package net.craftlin.plugin.api.event
 
+import net.craftlin.plugin.api.thisF
 import kotlin.reflect.KClass
 
 abstract class Listener {
 
     class Handler<T: Event> {
-        private val listeners = ArrayList<T.() -> Unit>()
+        private val listeners = ArrayList<thisF<T>>()
 
-        fun add(listener: T.() -> Unit) {
+        fun add(listener: thisF<T>) {
             listeners.add(listener)
         }
 
@@ -23,7 +24,7 @@ abstract class Listener {
         handler.trigger(event)
     }
 
-    inline fun <reified T: Event> add(): (T.() -> Unit) -> Unit {
+    inline fun <reified T: Event> add(): (thisF<T>) -> Unit {
         val clazz = T::class as KClass<Event>
         val handler = handlers[clazz] ?: Handler<T>()
         handlers[clazz] = handler as Handler<T>
