@@ -40,7 +40,7 @@ class BukkitChatEvent(private val origin: AsyncPlayerChatEvent): ChatEvent {
         set(value) { origin.isCancelled = value }
 }
 
-class BukkitPreLoginEvent(private val origin: AsyncPlayerPreLoginEvent): BeforeJoinEvent {
+class BukkitBeforeLoginEvent(private val origin: AsyncPlayerPreLoginEvent): BeforeJoinEvent {
     private var originResult: AsyncPlayerPreLoginEvent.Result
         get() = origin.loginResult
         set(value) { origin.loginResult = value }

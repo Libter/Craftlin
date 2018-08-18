@@ -1,16 +1,33 @@
 package net.craftlin.plugin.api.event
 
-import net.craftlin.plugin.api.event.base.Handler
+import kotlin.reflect.KClass
 
 abstract class Listener {
 
-    //TODO: better solution
-    val beforeJoinHandler = Handler<BeforeJoinEvent>()
-    val joinHandler = Handler<JoinEvent>()
-    val quitHandler = Handler<QuitEvent>()
-    val moveHandler = Handler<MoveEvent>()
-    val chatHandler = Handler<ChatEvent>()
-    val breakHandler = Handler<BreakEvent>()
-    val placeHandler = Handler<PlaceEvent>()
+    class Handler<T: Event> {
+        private val listeners = ArrayList<T.() -> Unit>()
+
+        fun add(listener: T.() -> Unit) {
+            listeners.add(listener)
+        }
+
+        fun trigger(event: T) {
+            listeners.forEach { it(event) }
+        }
+    }
+
+    val handlers = HashMap<KClass<Event>, Handler<out Event>>()
+
+    protected inline fun <reified T: Event> trigger(event: T) {
+        val handler = handlers[T::class as KClass<Event>] as? Handler<T> ?: return
+        handler.trigger(event)
+    }
+
+    inline fun <reified T: Event> add(): (T.() -> Unit) -> Unit {
+        val clazz = T::class as KClass<Event>
+        val handler = handlers[clazz] ?: Handler<T>()
+        handlers[clazz] = handler as Handler<T>
+        return handler::add
+    }
 
 }

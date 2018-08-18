@@ -14,7 +14,7 @@ import org.junit.Test
 class SimpleApiTest: EngineBasedTest() {
 
     private object JoinListener: Listener() {
-        fun trigger(player: Player) = joinHandler.trigger(object: JoinEvent {
+        fun trigger(player: Player) = trigger<JoinEvent>(object: JoinEvent {
             override var message = ""
             override val player = player
         })
