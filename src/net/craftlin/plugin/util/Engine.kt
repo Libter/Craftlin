@@ -1,18 +1,20 @@
 package net.craftlin.plugin.util
 
+import net.craftlin.plugin.api.Variables
 import java.io.File
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.lang.reflect.WildcardType
 import java.nio.charset.Charset
 import javax.script.ScriptEngine
+import kotlin.reflect.full.memberProperties
 
 private typealias EngineFactory = org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngineFactory
 
 object Engine {
 
     private val charset = Charset.forName("UTF-8") ?: throw RuntimeException("Can't find UTF-8 charset!")
-    private val variables = HashMap<String,Any>()
+    private lateinit var variables: Variables
     private lateinit var factory: EngineFactory
 
     fun load() {
@@ -30,18 +32,22 @@ object Engine {
         engine.eval("""Thread.currentThread().contextClassLoader = (bindings["loader"] as java.lang.ClassLoader)""")
     }
 
-    fun variables(map: Map<String,Any>) = variables.putAll(map)
+    fun put(variables: Variables) {
+        this.variables = variables
+    }
 
     private fun setup(): ScriptEngine {
         val engine = factory.scriptEngine
-        if (!variables.isEmpty()) {
+        if (::variables.isInitialized) {
             //Values passed to script are stored in bindings: Map<String,Any?>
             //So we have to create declarations with explicit types
-            val script = variables.map {
-                engine.put(it.key, it.value)
-                val type = parseType(it.value::class.java)
-                """val ${it.key} = bindings["${it.key}"] as $type"""
+            val script = variables::class.memberProperties.map {
+                val name= it.name; val value = it.getter.call(variables)!!
+                engine.put(name, value)
+                val type = parseType(value::class.java)
+                """val $name = bindings["$name"] as $type"""
             }.joinToString("\n")
+            println(script)
             engine.eval(script)
         }
         return engine

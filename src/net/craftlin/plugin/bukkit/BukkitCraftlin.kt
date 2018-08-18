@@ -1,5 +1,6 @@
 package net.craftlin.plugin.bukkit
 
+import net.craftlin.plugin.api.Variables
 import net.craftlin.plugin.bukkit.impl.BukkitListener
 import net.craftlin.plugin.util.Engine
 import net.craftlin.plugin.util.Logger
@@ -12,16 +13,12 @@ class BukkitCraftlin: JavaPlugin() {
         Logger.reset()
 
         Engine.load()
+
         Logger.log("Loading listeners...")
         val listener = BukkitListener()
         server.pluginManager.registerEvents(listener, this)
-        Engine.variables(mapOf<String,Any>(
-                "onJoin" to listener.joinHandler::add,
-                "onQuit" to listener.quitHandler::add,
-                "onChat" to listener.chatHandler::add,
-                "onPreLogin" to listener.preLoginHandler::add,
-                "onBlockBreak" to listener.blockBreakHandler::add
-        ))
+
+        Engine.put(object: Variables(listener) { })
 
         val directory = File(server.worldContainer, "scripts")
         Logger.log("Loading scripts in ${directory.absolutePath}...")
