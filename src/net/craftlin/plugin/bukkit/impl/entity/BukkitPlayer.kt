@@ -2,6 +2,7 @@ package net.craftlin.plugin.bukkit.impl.entity
 
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.world.Location
+import net.craftlin.plugin.bukkit.impl.entity.base.BukkitEntity
 import net.craftlin.plugin.bukkit.impl.value.BukkitGameMode
 import org.bukkit.GameMode
 

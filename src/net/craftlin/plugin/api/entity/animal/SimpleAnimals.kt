@@ -6,4 +6,8 @@ interface Chicken: AgeableEntity
 
 interface Cow: AgeableEntity
 
-interface Dolphin: AgeableEntity
+interface MushroomCow: AgeableEntity
+
+interface PolarBear: AgeableEntity
+
+interface Turtle: AgeableEntity

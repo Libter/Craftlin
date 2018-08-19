@@ -22,7 +22,6 @@ class BukkitCraftlin: JavaPlugin() {
                 "onPreLogin" to listener.preLoginHandler::add,
                 "onBlockBreak" to listener.blockBreakHandler::add
         ))
-
         val directory = File(server.worldContainer, "scripts")
         Logger.log("Loading scripts in ${directory.absolutePath}...")
         if (!directory.exists()) directory.mkdir()
