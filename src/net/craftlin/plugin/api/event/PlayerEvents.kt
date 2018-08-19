@@ -17,7 +17,7 @@ interface JoinEvent: PlayerEvent {
     var message: String
 }
 
-interface QuitEvent: PlayerEvent {
+interface LeaveEvent: PlayerEvent {
     var message: String
 }
 

@@ -1,5 +1,6 @@
-package net.craftlin.plugin.api.event
+package net.craftlin.plugin.api.util
 
+import net.craftlin.plugin.api.event.Event
 import net.craftlin.plugin.api.misc.thisF
 import kotlin.reflect.KClass
 
@@ -8,8 +9,8 @@ abstract class Listener {
     class Handler<T: Event> {
         private val listeners = ArrayList<thisF<T>>()
 
-        fun add(listener: thisF<T>) {
-            listeners.add(listener)
+        fun add(callback: thisF<T>) {
+            listeners.add(callback)
         }
 
         fun trigger(event: T) {
@@ -20,7 +21,8 @@ abstract class Listener {
     val handlers = HashMap<KClass<Event>, Handler<out Event>>()
 
     protected inline fun <reified T: Event> trigger(event: T) {
-        val handler = handlers[T::class as KClass<Event>] as? Handler<T> ?: return
+        val handler = handlers[T::class as KClass<Event>] as? Handler<T>
+            ?: return
         handler.trigger(event)
     }
 

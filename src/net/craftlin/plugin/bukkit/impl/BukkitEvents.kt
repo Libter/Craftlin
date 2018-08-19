@@ -4,7 +4,7 @@ import net.craftlin.plugin.api.event.BeforeJoinEvent
 import net.craftlin.plugin.api.event.BreakEvent
 import net.craftlin.plugin.api.event.ChatEvent
 import net.craftlin.plugin.api.event.JoinEvent
-import net.craftlin.plugin.api.event.QuitEvent
+import net.craftlin.plugin.api.event.LeaveEvent
 import net.craftlin.plugin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.plugin.bukkit.impl.value.BukkitLoginResult
 import net.craftlin.plugin.bukkit.impl.world.BukkitBlock
@@ -21,7 +21,7 @@ class BukkitJoinEvent(private val origin: PlayerJoinEvent): JoinEvent {
         set(value) { origin.joinMessage = value }
 }
 
-class BukkitQuitEvent(private val origin: PlayerQuitEvent): QuitEvent {
+class BukkitLeaveEvent(private val origin: PlayerQuitEvent): LeaveEvent {
     override val player = BukkitPlayer(origin.player)
     override var message: String
         get() = origin.quitMessage

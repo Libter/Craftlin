@@ -1,10 +1,10 @@
 package net.craftlin.plugin.bukkit
 
 import net.craftlin.plugin.api.Variables
-import net.craftlin.plugin.api.event.Listener
 import net.craftlin.plugin.api.misc.Timer
 import net.craftlin.plugin.api.misc.itF
 import net.craftlin.plugin.api.misc.thisF
+import net.craftlin.plugin.api.util.Listener
 import net.craftlin.plugin.bukkit.impl.BukkitServer
 import net.craftlin.plugin.bukkit.impl.misc.BukkitTask
 import net.craftlin.plugin.bukkit.impl.misc.BukkitTimer
