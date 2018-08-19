@@ -1,4 +1,4 @@
-group 'net.craftlin.plugin'
+group 'net.craftlin'
 version '1.0'
 
 buildscript {
@@ -68,17 +68,17 @@ dokka {
     outputDirectory = "$buildDir/dokka"
 
     packageOptions {
-        prefix = 'net.craftlin.plugin'
+        prefix = 'net.craftlin'
         suppress = true
     }
 
     packageOptions {
-        prefix = 'net.craftlin.plugin.api'
+        prefix = 'net.craftlin.api'
         suppress = false
     }
 
     packageOptions {
-        prefix = 'net.craftlin.plugin.api.util'
+        prefix = 'net.craftlin.api.util'
         suppress = true
     }
 }
