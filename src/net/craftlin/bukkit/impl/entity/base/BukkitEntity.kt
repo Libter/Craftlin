@@ -10,7 +10,7 @@ abstract class BukkitEntity(protected val entity: LivingEntity): Entity {
     override val uuid: String = entity.uniqueId.toString()
     override val location: Location
         get() = BukkitLocation(entity.location)
-    override var customName: String
+    override var name: String
         get() = entity.customName
         set(value) { entity.customName = value }
     override var health: Int
@@ -19,13 +19,13 @@ abstract class BukkitEntity(protected val entity: LivingEntity): Entity {
     override var maxHealth: Int
         get() = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).baseValue.toInt()
         set(value) { entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).baseValue = value.toDouble() }
-    override var isDead: Boolean
+    override var dead: Boolean
         get() = entity.isDead
         set(value) { if(!entity.isDead && value) entity.health = 0.0}
-    override var canPickupItems: Boolean
+    override var canPickup: Boolean
         get() = entity.canPickupItems
         set(value) { entity.canPickupItems = value }
-    override var isCollidable: Boolean
+    override var canCollide: Boolean
         get() = entity.isCollidable
         set(value) { entity.isCollidable = value }
 

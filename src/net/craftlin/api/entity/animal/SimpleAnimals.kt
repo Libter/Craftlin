@@ -1,13 +1,13 @@
 package net.craftlin.api.entity.animal
 
-import net.craftlin.api.entity.base.AgeableEntity
+import net.craftlin.api.entity.base.GrowingEntity
 
-interface Chicken: AgeableEntity
+interface Chicken: GrowingEntity
 
-interface Cow: AgeableEntity
+interface Cow: GrowingEntity
 
-interface MushroomCow: AgeableEntity
+interface MushroomCow: GrowingEntity
 
-interface PolarBear: AgeableEntity
+interface PolarBear: GrowingEntity
 
-interface Turtle: AgeableEntity
+interface Turtle: GrowingEntity

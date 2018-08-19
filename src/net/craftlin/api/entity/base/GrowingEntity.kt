@@ -1,6 +1,5 @@
 package net.craftlin.api.entity.base
 
-interface AgeableEntity: Entity {
-    var adult: Boolean
+interface GrowingEntity: Entity {
     var baby: Boolean
 }

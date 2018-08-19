@@ -1,8 +1,8 @@
 package net.craftlin.api.entity.animal
 
-import net.craftlin.api.entity.base.AgeableEntity
+import net.craftlin.api.entity.base.GrowingEntity
 
-interface Woolf: AgeableEntity {
+interface Wolf: GrowingEntity {
     var collarColor: String
     var angry: Boolean
 }
