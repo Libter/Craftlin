@@ -8,17 +8,17 @@ import org.bukkit.Bukkit
 import java.util.Date
 
 class BukkitOfflinePlayer(private val origin: org.bukkit.OfflinePlayer) : OfflinePlayer {
-    override var isWhitelisted: Boolean
+    override var whitelisted: Boolean
         get() = origin.isWhitelisted
         set(value) { origin.isWhitelisted = value }
 
     override val uuid: String get() = origin.uniqueId.toString()
 
-    override val isOnline: Boolean get() = origin.isOnline
+    override val online: Boolean get() = origin.isOnline
 
     override val name: String get() = origin.name
 
-    override var isOp: Boolean
+    override var op: Boolean
         get() = origin.isOp
         set(value) { origin.isOp = value }
 

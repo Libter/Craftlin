@@ -9,6 +9,7 @@ import net.craftlin.plugin.test.util.EngineBasedTest
 import net.craftlin.plugin.util.Engine
 import org.junit.Assert
 import org.junit.Test
+import java.util.*
 
 class SimpleApiTest: EngineBasedTest() {
 
@@ -27,6 +28,14 @@ class SimpleApiTest: EngineBasedTest() {
     @Test
     fun joinListenerTest() {
         val player = object: Player {
+            override val online: Boolean
+                get() = TODO("not implemented")
+            override val banned: Boolean
+                get() = TODO("not implemented")
+            override var whitelisted: Boolean
+                get() = TODO("not implemented")
+                set(value) {}
+
             var message: String? = null
             override val name = "test"
             override fun message(message: String) {
@@ -76,7 +85,17 @@ class SimpleApiTest: EngineBasedTest() {
             override fun igniteTime(): Int {
                 TODO("not implemented")
             }
+            override fun hasPermission(name: String, checkOp: Boolean): Boolean {
+                TODO("not implemented")
+            }
             override fun damage(amount: Int) {
+                TODO("not implemented")
+            }
+            override fun ban(reason: String?, expires: Date?) {
+                TODO("not implemented")
+            }
+
+            override fun unban() {
                 TODO("not implemented")
             }
         }

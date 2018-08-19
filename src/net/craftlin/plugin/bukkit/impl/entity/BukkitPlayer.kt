@@ -26,7 +26,7 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(o
 
     override var gamemode by BukkitGameMode.Delegate(::originGameMode)
 
-    override fun hasPermission(name: String, checkOp: Boolean) = (checkOp && isOp) || origin.hasPermission(name)
+    override fun hasPermission(name: String, checkOp: Boolean) = (checkOp && op) || origin.hasPermission(name)
 
     override var op: Boolean
         get() = origin.isOp

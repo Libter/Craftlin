@@ -4,11 +4,11 @@ import java.util.Date
 
 interface OfflinePlayer {
     val uuid: String
-    val isOnline: Boolean
+    val online: Boolean
     val name: String
-    var isOp: Boolean
+    var op: Boolean
     val banned: Boolean
-    var isWhitelisted: Boolean
+    var whitelisted: Boolean
 
     fun ban(reason: String? = null, expires: Date? = null)
     fun unban()
