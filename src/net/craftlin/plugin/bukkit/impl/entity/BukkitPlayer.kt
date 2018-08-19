@@ -3,9 +3,21 @@ package net.craftlin.plugin.bukkit.impl.entity
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.world.Location
 import net.craftlin.plugin.bukkit.impl.value.BukkitGameMode
+import org.bukkit.BanList
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
+import java.util.*
 
 class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(origin), Player  {
+    override var isWhitelisted: Boolean
+        get() = origin.isWhitelisted
+        set(value) { origin.isWhitelisted = value }
+
+    override val isOnline: Boolean get() = origin.isOnline
+
+    override val banned: Boolean
+        get() = origin.isBanned
+
     private var originGameMode: GameMode
         get() = origin.gameMode
         set(value) { origin.gameMode = value }
@@ -13,6 +25,8 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(o
     override val name: String = origin.name
 
     override var gamemode by BukkitGameMode.Delegate(::originGameMode)
+
+    override fun hasPermission(name: String, checkOp: Boolean) = (checkOp && isOp) || origin.hasPermission(name)
 
     override var isOp: Boolean
         get() = origin.isOp
@@ -25,5 +39,13 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(o
     override fun teleport(location: Location) {
         origin.teleport(org.bukkit.Location(origin.world,
             location.x, location.y, location.z, location.yaw, location.pitch))
+    }
+
+    override fun ban(reason: String?, expires: Date?) {
+        Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(name, reason, expires, null)
+    }
+
+    override fun unban() {
+        Bukkit.getServer().getBanList(BanList.Type.NAME).pardon(name)
     }
 }

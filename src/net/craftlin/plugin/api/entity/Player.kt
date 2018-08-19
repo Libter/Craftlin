@@ -1,10 +1,12 @@
 package net.craftlin.plugin.api.entity
 
-interface Player: Entity {
-    val name: String
+interface Player: OfflinePlayer, Entity {
     var gamemode: String
-    var isOp: Boolean
 
     fun message(message: String)
     fun kick(reason: String)
+
+    fun hasPermission(name: String, checkOp: Boolean = true): Boolean
+
+    override fun toPlayer(): Player = this
 }
