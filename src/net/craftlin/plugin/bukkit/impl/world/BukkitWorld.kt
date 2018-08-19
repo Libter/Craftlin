@@ -1,5 +1,6 @@
 package net.craftlin.plugin.bukkit.impl.world
 
+import net.craftlin.plugin.api.world.Location
 import net.craftlin.plugin.api.world.World
 import net.craftlin.plugin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.plugin.bukkit.impl.value.BukkitWorldType
@@ -10,4 +11,7 @@ class BukkitWorld(private val origin: org.bukkit.World): World {
     override val players = origin.players.map { BukkitPlayer(it) }
 
     override fun blockAt(x: Int, y: Int, z: Int) = BukkitBlock(origin.getBlockAt(x, y, z))
+    override fun spawnMob(type: String, location: Location) {
+
+    }
 }

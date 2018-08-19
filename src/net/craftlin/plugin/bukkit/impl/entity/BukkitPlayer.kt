@@ -2,6 +2,7 @@ package net.craftlin.plugin.bukkit.impl.entity
 
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.world.Location
+import net.craftlin.plugin.bukkit.impl.entity.base.BukkitEntity
 import net.craftlin.plugin.bukkit.impl.value.BukkitGameMode
 import org.bukkit.BanList
 import org.bukkit.Bukkit
@@ -32,7 +33,7 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(o
         get() = origin.isOp
         set(value) { origin.isOp = value }
 
-    override fun message(message: String) = origin.sendMessage(message)
+    override fun message(text: String) = origin.sendMessage(text)
 
     override fun kick(reason: String) = origin.kickPlayer(reason)
 
