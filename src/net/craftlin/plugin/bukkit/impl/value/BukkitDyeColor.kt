@@ -1,7 +1,7 @@
 package net.craftlin.plugin.bukkit.impl.value
 
+import net.craftlin.plugin.api.util.value.EnumValue
 import net.craftlin.plugin.api.value.DyeColor
-import net.craftlin.plugin.api.value.base.EnumValue
 
 object BukkitDyeColor: EnumValue<DyeColor, org.bukkit.DyeColor>(DyeColor::class) {
     override fun convert(api: DyeColor): org.bukkit.DyeColor {//TODO

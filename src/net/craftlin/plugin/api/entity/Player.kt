@@ -1,5 +1,7 @@
 package net.craftlin.plugin.api.entity
 
+import net.craftlin.plugin.api.entity.base.Entity
+
 interface Player: OfflinePlayer, Entity {
     var gamemode: String
 

@@ -1,6 +1,6 @@
 package net.craftlin.plugin.api.event
 
-import net.craftlin.plugin.api.entity.Entity
+import net.craftlin.plugin.api.entity.base.Entity
 import net.craftlin.plugin.api.world.Block
 import net.craftlin.plugin.api.world.Location
 
@@ -61,10 +61,10 @@ interface LeverPullEvent: BlockClickEvent {
     override val isRight get() = true
 }
 
-interface TripwireTrigger: InteractEvent
+interface TripwireEvent: InteractEvent
 
 interface SoilJumpEvent : BlockEvent, InteractEvent
 
-interface PlateTriggerEvent: BlockEvent, InteractEvent {
+interface PressurePlateEvent: BlockEvent, InteractEvent {
     val plate get() = block
 }

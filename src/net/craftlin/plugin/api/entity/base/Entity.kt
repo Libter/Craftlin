@@ -14,7 +14,7 @@ interface Entity {
     var isCollidable: Boolean
 
     fun teleport(location: Location)
-    fun teleport(entity: Entity)
+    fun teleport(entity: Entity) = teleport(entity.location)
     fun ignite(ticks: Int)
     fun igniteTime(): Int
     fun damage(amount: Int)

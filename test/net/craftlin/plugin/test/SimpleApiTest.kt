@@ -1,6 +1,5 @@
 package net.craftlin.plugin.test
 
-import net.craftlin.plugin.api.entity.Entity
 import net.craftlin.plugin.api.entity.Player
 import net.craftlin.plugin.api.event.JoinEvent
 import net.craftlin.plugin.api.util.Engine
@@ -74,9 +73,6 @@ class SimpleApiTest: EngineBasedTest() {
                 get() = TODO("not implemented") 
                 set(value) {}
             override fun teleport(location: Location) {
-                TODO("not implemented")
-            }
-            override fun teleport(entity: Entity) {
                 TODO("not implemented")
             }
             override fun ignite(ticks: Int) {
