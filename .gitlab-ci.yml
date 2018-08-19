@@ -27,3 +27,14 @@ test:
   - gradle check
   - gradle jacocoTestReport
   - cat build/reports/jacoco/test/html/index.html
+  
+deploy:
+  stage: deploy
+  image: ubuntu:xenial
+  cache: {}
+  script:
+  - apt-get update && apt-get -y install sshpass
+  - echo "Removing old docs..."
+  - sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 www@company.libter.pl rm -rf /var/www/craftlin/docs/*
+  - echo "Uploading new docs..."
+  - sshpass -p $PASSWORD scp -P 531 -r build/dokka/-craftlin/* www@company.libter.pl:/var/www/craftlin/docs
