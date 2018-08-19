@@ -1,7 +1,7 @@
 package net.craftlin.plugin.bukkit.impl.value
 
+import net.craftlin.plugin.api.util.value.BiEnumValue
 import net.craftlin.plugin.api.value.LoginResult
-import net.craftlin.plugin.api.value.base.BiEnumValue
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 
 object BukkitLoginResult: BiEnumValue<LoginResult, AsyncPlayerPreLoginEvent.Result>(LoginResult::class) {

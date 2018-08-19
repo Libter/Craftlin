@@ -1,7 +1,7 @@
 package net.craftlin.plugin.test
 
+import net.craftlin.plugin.api.util.Engine
 import net.craftlin.plugin.test.util.EngineBasedTest
-import net.craftlin.plugin.util.Engine
 import org.junit.Assert
 import org.junit.Test
 

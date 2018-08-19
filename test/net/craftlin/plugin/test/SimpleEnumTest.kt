@@ -1,9 +1,9 @@
 package net.craftlin.plugin.test
 
+import net.craftlin.plugin.api.util.value.BiEnumValue
+import net.craftlin.plugin.api.util.value.EnumValue
 import net.craftlin.plugin.api.value.LoginResult
 import net.craftlin.plugin.api.value.WorldType
-import net.craftlin.plugin.api.value.base.BiEnumValue
-import net.craftlin.plugin.api.value.base.EnumValue
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

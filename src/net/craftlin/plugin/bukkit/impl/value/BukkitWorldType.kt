@@ -1,7 +1,7 @@
 package net.craftlin.plugin.bukkit.impl.value
 
+import net.craftlin.plugin.api.util.value.EnumValue
 import net.craftlin.plugin.api.value.WorldType
-import net.craftlin.plugin.api.value.base.EnumValue
 import org.bukkit.World
 
 object BukkitWorldType: EnumValue<WorldType, World.Environment>(WorldType::class) {

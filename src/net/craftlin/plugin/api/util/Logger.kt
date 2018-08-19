@@ -1,4 +1,4 @@
-package net.craftlin.plugin.util
+package net.craftlin.plugin.api.util
 
 import java.text.DecimalFormat
 

@@ -1,7 +1,7 @@
 package net.craftlin.plugin.bukkit
 
 import net.craftlin.plugin.api.misc.Stoppable
-import net.craftlin.plugin.util.Logger
+import net.craftlin.plugin.api.util.Logger
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender

@@ -7,9 +7,9 @@ import net.craftlin.plugin.api.event.Listener
 import net.craftlin.plugin.api.misc.Timer
 import net.craftlin.plugin.api.misc.itF
 import net.craftlin.plugin.api.misc.thisF
+import net.craftlin.plugin.api.util.Engine
+import net.craftlin.plugin.api.util.Logger
 import net.craftlin.plugin.api.world.World
-import net.craftlin.plugin.util.Engine
-import net.craftlin.plugin.util.Logger
 import org.junit.BeforeClass
 
 abstract class EngineBasedTest {

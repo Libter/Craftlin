@@ -1,6 +1,6 @@
-package net.craftlin.plugin.api.value.base
+package net.craftlin.plugin.api.util.value
 
-import net.craftlin.plugin.util.BiHashMap
+import net.craftlin.plugin.api.util.BiHashMap
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty

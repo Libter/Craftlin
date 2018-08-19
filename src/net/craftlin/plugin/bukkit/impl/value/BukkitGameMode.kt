@@ -1,7 +1,7 @@
 package net.craftlin.plugin.bukkit.impl.value
 
+import net.craftlin.plugin.api.util.value.EnumValue
 import net.craftlin.plugin.api.value.GameMode
-import net.craftlin.plugin.api.value.base.EnumValue
 
 object BukkitGameMode: EnumValue<GameMode, org.bukkit.GameMode>(GameMode::class) {
     override fun convert(api: GameMode): org.bukkit.GameMode {
