@@ -32,7 +32,6 @@ deploy:
   stage: deploy
   image: ubuntu:xenial
   only: [master]
-  cache: {}
   script:
   - apt-get update && apt-get -y install sshpass
   - echo "Removing old docs..."
