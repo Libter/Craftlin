@@ -6,14 +6,14 @@ import net.craftlin.plugin.bukkit.impl.value.BukkitGameMode
 import org.bukkit.BanList
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
-import java.util.*
+import java.util.Date
 
 class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(origin), Player  {
-    override var isWhitelisted: Boolean
+    override var whitelisted: Boolean
         get() = origin.isWhitelisted
         set(value) { origin.isWhitelisted = value }
 
-    override val isOnline: Boolean get() = origin.isOnline
+    override val online: Boolean get() = origin.isOnline
 
     override val banned: Boolean
         get() = origin.isBanned
@@ -28,7 +28,7 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(o
 
     override fun hasPermission(name: String, checkOp: Boolean) = (checkOp && isOp) || origin.hasPermission(name)
 
-    override var isOp: Boolean
+    override var op: Boolean
         get() = origin.isOp
         set(value) { origin.isOp = value }
 

@@ -3,33 +3,50 @@ package net.craftlin.plugin.bukkit
 import net.craftlin.plugin.bukkit.impl.BukkitListener
 import net.craftlin.plugin.util.Engine
 import net.craftlin.plugin.util.Logger
+import org.bukkit.Bukkit
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
 class BukkitCraftlin: JavaPlugin() {
 
-    override fun onEnable() {
-        Logger.reset()
+    companion object {
+        lateinit var instance: BukkitCraftlin
+            private set
+        lateinit var listener: BukkitListener
+            private set
 
-        Engine.load()
-        Logger.log("Loading listeners...")
-        val listener = BukkitListener()
-        server.pluginManager.registerEvents(listener, this)
-        Engine.variables(mapOf<String,Any>(
-                "onJoin" to listener.joinHandler::add,
-                "onQuit" to listener.quitHandler::add,
-                "onChat" to listener.chatHandler::add,
-                "onPreLogin" to listener.preLoginHandler::add,
-                "onBlockBreak" to listener.blockBreakHandler::add
-        ))
+        fun loadScripts() {
+            Engine.put(BukkitVariables(instance, listener))
 
-        val directory = File(server.worldContainer, "scripts")
-        Logger.log("Loading scripts in ${directory.absolutePath}...")
-        if (!directory.exists()) directory.mkdir()
-        directory.listFiles { _, name -> name.endsWith(".cl") }.forEach {
-            Logger.log("Running ${it.name}")
-            Engine.run(it)
+            val directory = File(Bukkit.getServer().worldContainer, "scripts")
+            Logger.log("Loading scripts in ${directory.absolutePath}...")
+            if (!directory.exists()) directory.mkdir()
+            directory.listFiles { _, name -> name.endsWith(".cl") }.forEach {
+                Logger.log("Loading ${it.name}")
+                Engine.run(it)
+            }
+            Logger.log("Executing join events for players...")
+            Bukkit.getOnlinePlayers().forEach {
+                listener.triggerJoin(PlayerJoinEvent(it, ""))
+            }
+            Logger.log("Scripts loaded!")
         }
+    }
+
+    override fun onEnable() {
+        instance = this
+        Logger.reset()
+        Engine.load()
+
+        Logger.log("Loading listeners...")
+        listener = BukkitListener()
+        server.pluginManager.registerEvents(listener, this)
+
+        Logger.log("Loading commands...")
+        getCommand("craftlin").executor = CraftlinCommand()
+
+        loadScripts()
     }
 
 }

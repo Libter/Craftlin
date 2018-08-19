@@ -1,5 +1,10 @@
 package net.craftlin.plugin.bukkit.impl
 
+import net.craftlin.plugin.api.event.BeforeJoinEvent
+import net.craftlin.plugin.api.event.BreakEvent
+import net.craftlin.plugin.api.event.ChatEvent
+import net.craftlin.plugin.api.event.JoinEvent
+import net.craftlin.plugin.api.event.QuitEvent
 import net.craftlin.plugin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.plugin.bukkit.impl.value.BukkitLoginResult
 import net.craftlin.plugin.bukkit.impl.world.BukkitBlock
@@ -10,6 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent
 
 class BukkitJoinEvent(private val origin: PlayerJoinEvent): JoinEvent {
     override val player = BukkitPlayer(origin.player)
+    override val first = origin.player.lastPlayed == 0L
     override var message: String
         get() = origin.joinMessage
         set(value) { origin.joinMessage = value }
@@ -35,7 +41,7 @@ class BukkitChatEvent(private val origin: AsyncPlayerChatEvent): ChatEvent {
         set(value) { origin.isCancelled = value }
 }
 
-class BukkitPreLoginEvent(private val origin: AsyncPlayerPreLoginEvent): PreLoginEvent {
+class BukkitBeforeLoginEvent(private val origin: AsyncPlayerPreLoginEvent): BeforeJoinEvent {
     private var originResult: AsyncPlayerPreLoginEvent.Result
         get() = origin.loginResult
         set(value) { origin.loginResult = value }
