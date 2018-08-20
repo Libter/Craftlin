@@ -1,7 +1,7 @@
 package net.craftlin.api.entity.animal
 
-import net.craftlin.api.entity.base.AgeableEntity
+import net.craftlin.api.entity.base.GrowingEntity
 
-interface Parrot: AgeableEntity {
+interface Parrot: GrowingEntity {
     var type: String
 }

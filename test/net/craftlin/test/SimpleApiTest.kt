@@ -8,7 +8,6 @@ import net.craftlin.api.world.Location
 import net.craftlin.test.util.EngineBasedTest
 import org.junit.Assert
 import org.junit.Test
-import java.util.Date
 
 class SimpleApiTest: EngineBasedTest() {
 
@@ -27,24 +26,19 @@ class SimpleApiTest: EngineBasedTest() {
     @Test
     fun joinListenerTest() {
         val player = object: Player {
+            override fun damage(amount: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override val online: Boolean
                 get() = TODO("not implemented")
-            override val banned: Boolean
-                get() = TODO("not implemented")
-            override var whitelisted: Boolean
-                get() = TODO("not implemented")
-                set(value) {}
 
             var message: String? = null
-            override val name = "test"
             override fun message(message: String) {
                 this.message = message
             }
             
             override var gamemode: String
-                get() = TODO("not implemented") 
-                set(value) {}
-            override var op: Boolean
                 get() = TODO("not implemented") 
                 set(value) {}
             override fun kick(reason: String) {
@@ -54,7 +48,7 @@ class SimpleApiTest: EngineBasedTest() {
                 get() = TODO("not implemented") 
             override val location: Location
                 get() = TODO("not implemented") 
-            override var customName: String
+            override var name: String
                 get() = TODO("not implemented") 
                 set(value) {}
             override var health: Int
@@ -63,13 +57,13 @@ class SimpleApiTest: EngineBasedTest() {
             override var maxHealth: Int
                 get() = TODO("not implemented") 
                 set(value) {}
-            override var isDead: Boolean
+            override var dead: Boolean
                 get() = TODO("not implemented") 
                 set(value) {}
-            override var canPickupItems: Boolean
+            override var canPickup: Boolean
                 get() = TODO("not implemented") 
                 set(value) {}
-            override var isCollidable: Boolean
+            override var canCollide: Boolean
                 get() = TODO("not implemented") 
                 set(value) {}
             override fun teleport(location: Location) {
@@ -79,19 +73,6 @@ class SimpleApiTest: EngineBasedTest() {
                 TODO("not implemented")
             }
             override fun igniteTime(): Int {
-                TODO("not implemented")
-            }
-            override fun hasPermission(name: String, checkOp: Boolean): Boolean {
-                TODO("not implemented")
-            }
-            override fun damage(amount: Int) {
-                TODO("not implemented")
-            }
-            override fun ban(reason: String?, expires: Date?) {
-                TODO("not implemented")
-            }
-
-            override fun unban() {
                 TODO("not implemented")
             }
         }

@@ -25,6 +25,7 @@ test:
   stage: test
   script:
   - gradle check
+  - gradle dokka
   - gradle jacocoTestReport
   - cat build/reports/jacoco/test/html/index.html
   
