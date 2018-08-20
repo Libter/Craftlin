@@ -4,20 +4,11 @@ import net.craftlin.api.world.Location
 
 interface Entity {
 
+    /** Unique ID */
     val uuid: String
+    /** Entity's custom name or player's name */
     var name: String
-    val location: Location
-
-    var health: Int
-    var maxHealth: Int
-    var dead: Boolean
-
-    var canPickup: Boolean
-    var canCollide: Boolean
-
-    fun teleport(location: Location)
-    fun ignite(ticks: Int)
-    fun igniteTime(): Int
-    fun damage(amount: Int)
+    /** Location, set it to teleport */
+    var location: Location
 
 }

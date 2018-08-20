@@ -1,5 +1,5 @@
 package net.craftlin.api.entity.base
 
-interface GrowingEntity: Entity {
+interface GrowingEntity: LivingEntity {
     var baby: Boolean
 }
