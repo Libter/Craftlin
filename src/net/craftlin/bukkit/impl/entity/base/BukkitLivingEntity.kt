@@ -10,9 +10,6 @@ abstract class BukkitLivingEntity(private val livingEntity: org.bukkit.entity.Li
     override var health: Int
         get() = livingEntity.health.toInt()
         set(value) { livingEntity.health = value.toDouble() }
-    override var maxHealth: Int
-        get() = livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).baseValue.toInt()
-        set(value) { livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).baseValue = value.toDouble() }
     override val ignition: Ignition
         get() = Ignition(livingEntity.fireTicks.toLong())
     override var dead: Boolean
