@@ -37,6 +37,8 @@ dependencies {
     compileOnly 'org.bukkit:bukkit:1.13-R0.1-SNAPSHOT'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1'
+    testCompile 'org.bukkit:bukkit:1.13-R0.1-SNAPSHOT'
 }
 
 sourceSets {
@@ -53,14 +55,6 @@ shadowJar {
     baseName = 'Craftlin'
     classifier = null
     version = null
-}
-
-jacocoTestReport {
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['net/craftlin/plugin/bukkit/**'])
-        })
-    }
 }
 
 dokka {
