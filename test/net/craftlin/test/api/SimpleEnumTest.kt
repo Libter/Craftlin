@@ -1,4 +1,4 @@
-package net.craftlin.test
+package net.craftlin.test.api
 
 import net.craftlin.api.util.value.BiEnumValue
 import net.craftlin.api.util.value.EnumValue
@@ -60,7 +60,7 @@ class SimpleEnumTest {
 
         override fun toApi(impl: ServerLoginResult): LoginResult {
             return when(impl) {
-                SimpleEnumTest.ServerLoginResult.YES -> LoginResult.ALLOW
+                ServerLoginResult.YES -> LoginResult.ALLOW
                 else -> LoginResult.DISALLOW
             }
         }

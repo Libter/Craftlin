@@ -1,10 +1,11 @@
-package net.craftlin.test
+package net.craftlin.test.bukkit
 
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
+import net.craftlin.bukkit.impl.entity.BukkitOfflinePlayer
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
@@ -12,7 +13,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.UUID
 
-class BukkitPlayerTest {
+class PlayerTest {
 
     private val uuid = UUID.randomUUID()
     private val origin: Player = mock {
@@ -24,6 +25,7 @@ class BukkitPlayerTest {
         on { gameMode = any() } doAnswer { mode = it.getArgument<GameMode>(0); Unit }
     }
     private val player = BukkitPlayer(origin)
+    private val oPlayer = BukkitOfflinePlayer(origin)
 
     @Test
     fun testName() {
@@ -45,6 +47,10 @@ class BukkitPlayerTest {
     fun testVariables() {
         assertEquals(uuid.toString(), player.uuid)
         assertEquals(true, player.online)
+
+        assertEquals("tester", oPlayer.name)
+        assertEquals(uuid.toString(), oPlayer.uuid)
+        assertEquals(true, oPlayer.online)
     }
 
     @Test

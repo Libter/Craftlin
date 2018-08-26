@@ -1,4 +1,4 @@
-package net.craftlin.test
+package net.craftlin.test.api
 
 import net.craftlin.api.entity.Player
 import net.craftlin.api.event.JoinEvent
