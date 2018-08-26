@@ -1,5 +1,6 @@
 package net.craftlin.api.entity.base
 
+import net.craftlin.api.value.Effect
 import net.craftlin.api.value.Ignition
 
 interface LivingEntity: Entity {
@@ -12,9 +13,10 @@ interface LivingEntity: Entity {
     var canPickup: Boolean
     var canCollide: Boolean
 
-    //TODO: create value.Effect class and val effects: Collection<Effect>
-    fun effect(type: String, time: Long, strength: Long = 1,
-           ambient: Boolean = false, particles: Boolean = true, icon: Boolean = true)
+    val effects: Collection<Effect>
+    fun effect(effect: Effect)
+    fun effect(type: String, time: Long, strength: Long = 1, ambient: Boolean = false, particles: Boolean = true, icon: Boolean = true)
+        = effect(Effect(type, time, strength, ambient, particles, icon))
     fun damage(amount: Int)
 
 }
