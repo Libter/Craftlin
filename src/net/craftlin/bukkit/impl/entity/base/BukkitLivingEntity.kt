@@ -1,8 +1,10 @@
 package net.craftlin.bukkit.impl.entity.base
 
 import net.craftlin.api.entity.base.LivingEntity
+import net.craftlin.api.value.Effect
 import net.craftlin.api.value.Ignition
-import org.bukkit.attribute.Attribute
+import net.craftlin.bukkit.impl.value.BukkitEffectType
+import org.bukkit.potion.PotionEffect
 
 abstract class BukkitLivingEntity(private val livingEntity: org.bukkit.entity.LivingEntity): BukkitEntity(livingEntity), LivingEntity {
     override var health: Int
@@ -25,8 +27,19 @@ abstract class BukkitLivingEntity(private val livingEntity: org.bukkit.entity.Li
         get() = livingEntity.isCollidable
         set(value) { livingEntity.isCollidable = value }
 
+    override val effects: Collection<Effect>
+        get() = livingEntity.activePotionEffects.map {
+            Effect(BukkitEffectType.Converter(it.type), it.duration.toLong(), it.amplifier.toLong(), it.isAmbient, it.hasParticles(), it.hasIcon())
+        }
+
+    override fun effect(effect: Effect) {
+        livingEntity.addPotionEffect(with(effect) {
+            PotionEffect(BukkitEffectType.match(type), time.toInt(), strength.toInt(), ambient, particles, icon)
+        })
+    }
+
     override fun effect(type: String, time: Long, strength: Long, ambient: Boolean, particles: Boolean, icon: Boolean) {
-        //TODO implement
+        effect(Effect(type, time, strength, ambient, particles, icon))
     }
 
     override fun damage(amount: Int) { livingEntity.damage(amount.toDouble()) }
