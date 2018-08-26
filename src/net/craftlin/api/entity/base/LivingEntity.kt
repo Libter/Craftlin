@@ -1,12 +1,16 @@
 package net.craftlin.api.entity.base
 
+import net.craftlin.api.value.Attribute
 import net.craftlin.api.value.Effect
+import net.craftlin.api.value.EntitySpeed
 import net.craftlin.api.value.Ignition
 
 interface LivingEntity: Entity {
 
+    val speed: EntitySpeed
+    val maxHealth: Attribute
+
     var health: Int
-    var maxHealth: Int
     val ignition: Ignition
     var dead: Boolean
 
