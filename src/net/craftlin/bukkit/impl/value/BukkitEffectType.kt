@@ -37,8 +37,4 @@ object BukkitEffectType: EnumValue<EffectType, PotionEffectType>(EffectType::cla
         EffectType.WEAKNESS -> PotionEffectType.WEAKNESS
         EffectType.WITHER -> PotionEffectType.WITHER
     }
-
-    fun match(text: String): PotionEffectType {
-        return convert(EffectType[text]) ?: throw NotImplementedError()
-    }
 }

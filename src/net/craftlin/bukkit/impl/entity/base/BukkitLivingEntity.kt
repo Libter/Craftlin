@@ -26,17 +26,13 @@ abstract class BukkitLivingEntity(private val livingEntity: org.bukkit.entity.Li
 
     override val effects: Collection<Effect>
         get() = livingEntity.activePotionEffects.map {
-            Effect(BukkitEffectType.Converter(it.type), it.duration.toLong(), it.amplifier.toLong(), it.isAmbient, it.hasParticles(), it.hasIcon())
+            Effect(it.type, it.duration.toLong(), it.amplifier.toLong(), it.isAmbient, it.hasParticles(), it.hasIcon())
         }
 
     override fun effect(effect: Effect) {
         livingEntity.addPotionEffect(with(effect) {
-            PotionEffect(BukkitEffectType.match(type), time.toInt(), strength.toInt(), ambient, particles, icon)
+            PotionEffect(originType, time.toInt(), strength.toInt(), ambient, particles, icon)
         })
-    }
-
-    override fun effect(type: String, time: Long, strength: Long, ambient: Boolean, particles: Boolean, icon: Boolean) {
-        effect(Effect(type, time, strength, ambient, particles, icon))
     }
 
     override fun damage(amount: Int) { livingEntity.damage(amount.toDouble()) }
