@@ -12,7 +12,6 @@ import net.craftlin.bukkit.impl.world.BukkitWorld
 import org.bukkit.Bukkit
 
 object BukkitServer : Server {
-    private val plugin get() = Bukkit.getPluginManager().getPlugin("Craftlin") as BukkitCraftlin
     override val players: List<BukkitPlayer>
         get() = Bukkit.getServer().onlinePlayers.toList().map { BukkitPlayer(it) }
     override val worlds: List<BukkitWorld>
@@ -20,6 +19,6 @@ object BukkitServer : Server {
 
     override fun player(name: String): Player? = players.find { it.name == name }
     override fun offlinePlayer(name: String, callback: itF<OfflinePlayer>) {
-        BukkitTask { callback(BukkitOfflinePlayer(Bukkit.getOfflinePlayer(name))) }.runTaskAsynchronously(plugin)
+        BukkitTask { callback(BukkitOfflinePlayer(Bukkit.getOfflinePlayer(name))) }.runTaskAsynchronously(BukkitCraftlin.instance)
     }
 }
