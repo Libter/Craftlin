@@ -1,6 +1,7 @@
 package net.craftlin.bukkit
 
 import net.craftlin.api.Variables
+import net.craftlin.api.command.CommandContext
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.itF
 import net.craftlin.api.misc.thisF
@@ -12,6 +13,9 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class BukkitVariables(private val plugin: JavaPlugin, listener: Listener): Variables(listener) {
 
+    override val command = fun (definition: String, callback: thisF<CommandContext>): Unit {
+        //TODO: implement
+    }
     override val server = BukkitServer
     override val sync = fun(callback: itF) { BukkitTask(callback).runTask(plugin) }
     override val async = fun(callback: itF) { BukkitTask(callback).runTaskAsynchronously(plugin) }

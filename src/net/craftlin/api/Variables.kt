@@ -1,5 +1,6 @@
 package net.craftlin.api
 
+import net.craftlin.api.command.CommandContext
 import net.craftlin.api.event.BeforeJoinEvent
 import net.craftlin.api.event.BreakEvent
 import net.craftlin.api.event.ChatEvent
@@ -18,6 +19,9 @@ abstract class Variables(listener: Listener) {
 
     /** Helper for common server-related actions like getting online players. */
     abstract val server: Server
+
+    /** Registers a command */
+    abstract val command: (definition: String, callback: thisF<CommandContext>) -> Unit
 
     /** Starts a task in the server main thread. */
     abstract val sync: (callback: itF) -> Unit
