@@ -2,6 +2,7 @@ package net.craftlin.bukkit.impl.entity.animal
 
 import net.craftlin.api.entity.animal.Parrot
 import net.craftlin.bukkit.impl.entity.base.BukkitGrowingEntity
+import net.craftlin.bukkit.impl.entity.base.TameableOwner
 import net.craftlin.bukkit.impl.value.BukkitParrotType
 
 class BukkitParrot(private val origin: org.bukkit.entity.Parrot): BukkitGrowingEntity(origin), Parrot {
@@ -10,4 +11,6 @@ class BukkitParrot(private val origin: org.bukkit.entity.Parrot): BukkitGrowingE
         set(value) { origin.variant = value }
 
     override var type by BukkitParrotType.Delegate(::originType)
+
+    override var owner by TameableOwner(origin)
 }
