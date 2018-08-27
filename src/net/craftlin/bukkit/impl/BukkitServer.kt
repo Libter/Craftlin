@@ -19,6 +19,12 @@ object BukkitServer : Server {
 
     override fun player(name: String): Player? = players.find { it.name == name }
     override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) {
-        BukkitTask { callback(BukkitOfflinePlayer(Bukkit.getOfflinePlayer(name))) }.runTaskAsynchronously(BukkitCraftlin.instance)
+        top@BukkitTask {
+            //TODO: cache Map<String,UUID>
+            val found = Bukkit.getOfflinePlayers().firstOrNull { it.name == name }
+            BukkitTask {
+                callback(if (found == null) null else BukkitOfflinePlayer(found))
+            }.runTask(BukkitCraftlin.instance)
+        }.runTaskAsynchronously(BukkitCraftlin.instance)
     }
 }
