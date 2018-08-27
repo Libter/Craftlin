@@ -20,10 +20,10 @@ abstract class EngineBasedTest {
     protected object EmptyListener: Listener()
 
     object EmptyServer: Server {
-        override fun player(name: String) = null
-        override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) { }
         override val players = ArrayList<Player>()
         override val worlds = ArrayList<World>()
+        override fun player(name: String): Player? = players.find { it.name == name }
+        override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) { }
     }
 
     open class EmptyVariables(listener: Listener = EmptyListener): Variables(listener) {
