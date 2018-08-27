@@ -1,11 +1,11 @@
 package net.craftlin.bukkit.impl.entity
 
 import net.craftlin.api.entity.Player
-import net.craftlin.bukkit.impl.entity.base.BukkitEntity
+import net.craftlin.bukkit.impl.entity.base.BukkitLivingEntity
 import net.craftlin.bukkit.impl.value.BukkitGameMode
 import org.bukkit.GameMode
 
-class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitEntity(origin), Player  {
+class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitLivingEntity(origin), Player  {
 
     private var originGameMode: GameMode
         get() = origin.gameMode

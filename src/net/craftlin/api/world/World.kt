@@ -1,6 +1,7 @@
 package net.craftlin.api.world
 
 import net.craftlin.api.entity.Player
+import net.craftlin.api.world.block.Block
 
 interface World {
     val name: String

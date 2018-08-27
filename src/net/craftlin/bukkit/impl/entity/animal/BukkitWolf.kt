@@ -2,6 +2,7 @@ package net.craftlin.bukkit.impl.entity.animal
 
 import net.craftlin.api.entity.animal.Wolf
 import net.craftlin.bukkit.impl.entity.base.BukkitGrowingEntity
+import net.craftlin.bukkit.impl.entity.base.TameableOwner
 import net.craftlin.bukkit.impl.value.BukkitDyeColor
 
 class BukkitWolf(val origin: org.bukkit.entity.Wolf): BukkitGrowingEntity(origin), Wolf {
@@ -14,4 +15,5 @@ class BukkitWolf(val origin: org.bukkit.entity.Wolf): BukkitGrowingEntity(origin
         get() = origin.isAngry
         set(value) { origin.isAngry = value }
 
+    override var owner by TameableOwner(origin)
 }

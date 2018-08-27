@@ -1,8 +1,8 @@
 package net.craftlin.api.event
 
 import net.craftlin.api.entity.base.Entity
-import net.craftlin.api.world.Block
 import net.craftlin.api.world.Location
+import net.craftlin.api.world.block.Block
 
 interface BeforeJoinEvent: Event {
     val name: String

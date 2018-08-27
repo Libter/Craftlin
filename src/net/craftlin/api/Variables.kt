@@ -1,5 +1,6 @@
 package net.craftlin.api
 
+import net.craftlin.api.command.CommandContext
 import net.craftlin.api.event.BeforeJoinEvent
 import net.craftlin.api.event.BreakEvent
 import net.craftlin.api.event.ChatEvent
@@ -8,7 +9,7 @@ import net.craftlin.api.event.LeaveEvent
 import net.craftlin.api.event.MoveEvent
 import net.craftlin.api.event.PlaceEvent
 import net.craftlin.api.misc.Timer
-import net.craftlin.api.misc.itF
+import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Listener
 
@@ -19,17 +20,20 @@ abstract class Variables(listener: Listener) {
     /** Helper for common server-related actions like getting online players. */
     abstract val server: Server
 
+    /** Registers a command */
+    abstract val command: (definition: String, callback: thisF<CommandContext>) -> Unit
+
     /** Starts a task in the server main thread. */
-    abstract val sync: (callback: itF) -> Unit
+    abstract val sync: (callback: emptyF) -> Unit
 
     /** Starts a task outside the server main thread. */
-    abstract val async: (callback: itF) -> Unit
+    abstract val async: (callback: emptyF) -> Unit
 
     /** Schedules a task in the server main thread. */
-    abstract val delay: (time: Long, callback: itF) -> Unit
+    abstract val delay: (time: Long, callback: emptyF) -> Unit
 
     /** Schedules a task outside the server main thread. */
-    abstract val delayAsync: (time: Long, callback: itF) -> Unit
+    abstract val delayAsync: (time: Long, callback: emptyF) -> Unit
 
     /** Schedules a repeating task in the server main thread. */
     abstract val timer: (interval: Long, callback: thisF<Timer>) -> Unit

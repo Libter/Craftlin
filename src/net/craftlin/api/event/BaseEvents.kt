@@ -1,7 +1,7 @@
 package net.craftlin.api.event
 
 import net.craftlin.api.entity.Player
-import net.craftlin.api.world.Block
+import net.craftlin.api.world.block.Block
 
 interface Event
 

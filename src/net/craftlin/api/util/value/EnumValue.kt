@@ -17,19 +17,22 @@ abstract class EnumValue<Api: Enum<*>, Impl>(private val apiClass: KClass<Api>) 
         }
 
         operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
-            val api = implMap.byValue(origin.getter.call()) ?: throw NotImplementedError()
-            return apiMap.byValue(api) ?: throw NotImplementedError()
+            return Converter(origin.getter.call())
         }
 
         operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
-            val api = apiMap.byKey(value) ?: throw IllegalArgumentException()
-            origin.setter.call(implMap.byKey(api) ?: throw NotImplementedError())
+            origin.setter.call(Converter(value))
         }
     }
 
     fun Converter(origin: Impl): String {
         val api = implMap.byValue(origin) ?: throw NotImplementedError()
         return apiMap.byValue(api) ?: throw NotImplementedError()
+    }
+
+    fun Converter(value: String): Impl {
+        val api = apiMap.byKey(value) ?: throw IllegalArgumentException()
+        return implMap.byKey(api) ?: throw NotImplementedError()
     }
 
     protected abstract fun convert(api: Api): Impl

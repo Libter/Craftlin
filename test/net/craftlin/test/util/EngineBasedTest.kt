@@ -2,8 +2,11 @@ package net.craftlin.test.util
 
 import net.craftlin.api.Server
 import net.craftlin.api.Variables
+import net.craftlin.api.command.CommandContext
+import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
 import net.craftlin.api.misc.Timer
+import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.itF
 import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Engine
@@ -17,27 +20,26 @@ abstract class EngineBasedTest {
     protected object EmptyListener: Listener()
 
     object EmptyServer: Server {
+        override fun player(name: String) = null
+        override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) { }
         override val players = ArrayList<Player>()
         override val worlds = ArrayList<World>()
     }
 
-    object EmptyTimer: Timer() {
-        override fun stop() { }
-    }
-
     open class EmptyVariables(listener: Listener = EmptyListener): Variables(listener) {
-        override val sync: (callback: itF) -> Unit
-            get() = fun(callback: itF) { callback() }
-        override val async: (callback: itF) -> Unit
-            get() = fun(callback: itF) { callback() }
-        override val delay: (time: Long, callback: itF) -> Unit
-            get() = fun(_: Long, callback: itF) { callback() }
-        override val delayAsync: (time: Long, callback: itF) -> Unit
-            get() = fun(_: Long, callback: itF) { callback() }
+        override val command = fun (definition: String, callback: thisF<CommandContext>) { }
+        override val sync: (callback: emptyF) -> Unit
+            get() = fun(callback: emptyF) { callback() }
+        override val async: (callback: emptyF) -> Unit
+            get() = fun(callback: emptyF) { callback() }
+        override val delay: (time: Long, callback: emptyF) -> Unit
+            get() = fun(_: Long, callback: emptyF) { callback() }
+        override val delayAsync: (time: Long, callback: emptyF) -> Unit
+            get() = fun(_: Long, callback: emptyF) { callback() }
         override val timer: (interval: Long, callback: thisF<Timer>) -> Unit
-            get() = fun(_: Long, callback: thisF<Timer>) { callback(EmptyTimer) }
+            get() = fun(_: Long, callback: thisF<Timer>) { }
         override val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
-            get() = fun(_: Long, callback: thisF<Timer>) { callback(EmptyTimer) }
+            get() = fun(_: Long, callback: thisF<Timer>) { }
         override val server = EmptyServer
     }
 
