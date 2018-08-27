@@ -9,5 +9,4 @@ class BukkitOfflinePlayer(val origin: org.bukkit.OfflinePlayer): OfflinePlayer {
     override val online: Boolean get() = origin.isOnline
 
     override val name: String get() = origin.name
-
 }
