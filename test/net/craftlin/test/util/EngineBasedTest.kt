@@ -3,9 +3,11 @@ package net.craftlin.test.util
 import net.craftlin.api.Server
 import net.craftlin.api.Variables
 import net.craftlin.api.command.CommandContext
+import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
+import net.craftlin.api.misc.itF
 import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Engine
 import net.craftlin.api.util.Listener
@@ -20,6 +22,9 @@ abstract class EngineBasedTest {
     object EmptyServer: Server {
         override val players = ArrayList<Player>()
         override val worlds = ArrayList<World>()
+
+        override fun player(name: String): Player? = players.find { it.name == name }
+        override fun offlinePlayer(name: String, callback: itF<OfflinePlayer>) = TODO("not implemented")
     }
 
     open class EmptyVariables(listener: Listener = EmptyListener): Variables(listener) {
