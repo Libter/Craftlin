@@ -5,7 +5,7 @@ import net.craftlin.api.Variables
 import net.craftlin.api.command.CommandContext
 import net.craftlin.api.entity.Player
 import net.craftlin.api.misc.Timer
-import net.craftlin.api.misc.itF
+import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Engine
 import net.craftlin.api.util.Listener
@@ -24,14 +24,14 @@ abstract class EngineBasedTest {
 
     open class EmptyVariables(listener: Listener = EmptyListener): Variables(listener) {
         override val command = fun (definition: String, callback: thisF<CommandContext>) { }
-        override val sync: (callback: itF) -> Unit
-            get() = fun(callback: itF) { callback() }
-        override val async: (callback: itF) -> Unit
-            get() = fun(callback: itF) { callback() }
-        override val delay: (time: Long, callback: itF) -> Unit
-            get() = fun(_: Long, callback: itF) { callback() }
-        override val delayAsync: (time: Long, callback: itF) -> Unit
-            get() = fun(_: Long, callback: itF) { callback() }
+        override val sync: (callback: emptyF) -> Unit
+            get() = fun(callback: emptyF) { callback() }
+        override val async: (callback: emptyF) -> Unit
+            get() = fun(callback: emptyF) { callback() }
+        override val delay: (time: Long, callback: emptyF) -> Unit
+            get() = fun(_: Long, callback: emptyF) { callback() }
+        override val delayAsync: (time: Long, callback: emptyF) -> Unit
+            get() = fun(_: Long, callback: emptyF) { callback() }
         override val timer: (interval: Long, callback: thisF<Timer>) -> Unit
             get() = fun(_: Long, callback: thisF<Timer>) { }
         override val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
