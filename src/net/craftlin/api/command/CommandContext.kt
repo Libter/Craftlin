@@ -15,7 +15,7 @@ abstract class CommandContext(private val command: Command, private val args: Ar
 
     abstract val sender: Sender
 
-    private val exception = CommandUsageException(command)
+    protected val exception = CommandUsageException(command)
 
     protected fun get(key: String): String? {
         val index = command.mappings[key] ?: throw IllegalArgumentException("Invalid argument key: $key")

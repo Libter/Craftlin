@@ -4,6 +4,7 @@ import net.craftlin.api.command.Command
 import net.craftlin.api.command.CommandContext
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
+import net.craftlin.bukkit.impl.BukkitServer
 import net.craftlin.bukkit.impl.entity.BukkitConsole
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import org.bukkit.command.CommandSender
@@ -17,12 +18,11 @@ class BukkitCommandContext(command: Command, sender: CommandSender, args: Array<
         else -> throw NotImplementedError()
     }
 
-    override fun player(key: String): Player {
-        TODO("not implemented")
-    }
+    override fun player(key: String): Player = BukkitServer.player(forceGet(key)) ?: throw exception
 
     override fun offlinePlayer(key: String): OfflinePlayer {
-        TODO("not implemented")
+        //TODO: the best solution is to get offline player asynchronously and then return to next instruction - is it possible?
+        throw NotImplementedError()
     }
 
 }
