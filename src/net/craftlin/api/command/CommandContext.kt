@@ -9,8 +9,8 @@ import java.math.BigInteger
 abstract class CommandContext(private val command: Command, private val args: Array<String>) {
 
     companion object {
-        private val numberRegex = Regex("\\d+")
-        private val decimalRefex = Regex("\\d+(.\\d+)?")
+        private val numberRegex = Regex("^\\d+$")
+        private val decimalRefex = Regex("^\\d+(.\\d+)?$")
     }
 
     abstract val sender: Sender
@@ -37,7 +37,7 @@ abstract class CommandContext(private val command: Command, private val args: Ar
     fun decimal(key: String): BigDecimal {
         val text = text(key)
         if (!text.matches(decimalRefex)) throw exception
-        return BigDecimal(key)
+        return BigDecimal(text)
     }
 
     abstract fun player(key: String): Player
