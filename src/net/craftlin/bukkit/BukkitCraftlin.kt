@@ -43,7 +43,7 @@ class BukkitCraftlin: JavaPlugin() {
         listener = BukkitListener()
         server.pluginManager.registerEvents(listener, this)
 
-        Logger.log("Loading commands...")
+        Logger.log("Loading command...")
         getCommand("craftlin").executor = CraftlinCommand()
 
         loadScripts()

@@ -1,7 +1,5 @@
-package net.craftlin.api.commands
+package net.craftlin.api.command
 
-import net.craftlin.api.entity.OfflinePlayer
-import net.craftlin.api.entity.Player
 import net.craftlin.api.util.StringParser
 import java.math.BigDecimal
 import java.math.BigInteger

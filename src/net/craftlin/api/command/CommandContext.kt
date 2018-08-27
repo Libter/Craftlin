@@ -1,4 +1,4 @@
-package net.craftlin.api.commands
+package net.craftlin.api.command
 
 import net.craftlin.api.entity.Sender
 

@@ -2,7 +2,7 @@ package net.craftlin.test.util
 
 import net.craftlin.api.Server
 import net.craftlin.api.Variables
-import net.craftlin.api.commands.Command
+import net.craftlin.api.command.Command
 import net.craftlin.api.entity.Player
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.itF

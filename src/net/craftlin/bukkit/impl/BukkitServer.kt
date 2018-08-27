@@ -1,7 +1,7 @@
 package net.craftlin.bukkit.impl
 
 import net.craftlin.api.Server
-import net.craftlin.api.commands.Command
+import net.craftlin.api.command.Command
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.bukkit.impl.world.BukkitWorld
 import org.bukkit.Bukkit
