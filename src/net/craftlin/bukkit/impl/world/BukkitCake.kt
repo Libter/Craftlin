@@ -1,12 +1,12 @@
 package net.craftlin.bukkit.impl.world
 
 import net.craftlin.api.world.block.Cake
-import org.bukkit.block.Block
 
-class BukkitCake(private val origin: org.bukkit.block.data.type.Cake): BukkitBlock(origin as Block), Cake {
+class BukkitCake(origin: org.bukkit.block.Block): BukkitBlock(origin), Cake {
+    private val cake = origin.blockData as org.bukkit.block.data.type.Cake
     override var bites: Long
-        get() = origin.bites.toLong()
-        set(value) { origin.bites = value.toInt() }
+        get() = cake.bites.toLong()
+        set(value) { cake.bites = value.toInt() }
     override val maxBites: Long
-        get() = origin.maximumBites.toLong()
+        get() = cake.maximumBites.toLong()
 }
