@@ -3,6 +3,7 @@ package net.craftlin.api.command
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.Sender
+import net.craftlin.api.misc.itF
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -42,6 +43,6 @@ abstract class CommandContext(private val command: Command, private val args: Ar
 
     abstract fun player(key: String): Player
 
-    abstract fun offlinePlayer(key: String): OfflinePlayer
+    abstract fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>)
 
 }

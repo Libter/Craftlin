@@ -1,20 +1,47 @@
 package net.craftlin.bukkit
 
 import net.craftlin.api.Variables
+import net.craftlin.api.command.Command
 import net.craftlin.api.command.CommandContext
+import net.craftlin.api.command.CommandUsageException
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Listener
 import net.craftlin.bukkit.impl.BukkitServer
+import net.craftlin.bukkit.impl.command.BukkitCommandContext
 import net.craftlin.bukkit.impl.misc.BukkitTask
 import net.craftlin.bukkit.impl.misc.BukkitTimer
+import org.bukkit.Bukkit
+import org.bukkit.command.CommandMap
+import org.bukkit.command.CommandSender
+import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.plugin.java.JavaPlugin
 
 class BukkitVariables(private val plugin: JavaPlugin, listener: Listener): Variables(listener) {
 
-    override val command = fun (definition: String, callback: thisF<CommandContext>): Unit {
-        //TODO: implement
+    private val bukkitCommandMap: CommandMap by lazy {
+        val field = Bukkit.getServer().javaClass.getDeclaredField("commandMap")
+        if (!field.isAccessible) field.isAccessible = true
+        field.get(Bukkit.getServer()) as CommandMap
+    }
+
+    override val command = fun (definition: String, callback: thisF<CommandContext>) {
+        if (!definition.startsWith("/")) throw Exception("Command definition must start with '/'")
+        if (definition.drop(1).isBlank()) throw Exception("Command name must have at least one character")
+        val command = Command(definition.drop(1), callback)
+        val bukkitCommand = object: BukkitCommand(command.name) {
+            private val craftlinCommand = command
+            override fun execute(sender: CommandSender, commandLabel: String, args: Array<String>): Boolean {
+                try {
+                    command.executor(BukkitCommandContext(craftlinCommand, sender, args))
+                } catch (e: CommandUsageException) {
+                    sender.sendMessage("Usage: $definition")
+                }
+                return true
+            }
+        }
+        bukkitCommandMap.register("clscript", bukkitCommand)
     }
     override val server = BukkitServer
     override val sync = fun(callback: emptyF) { BukkitTask(callback).runTask(plugin) }
