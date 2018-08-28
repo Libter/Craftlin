@@ -5,8 +5,9 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintStream
 import java.nio.charset.Charset
-import java.util.Date
+import java.util.*
 import javax.script.ScriptEngine
+import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 
 
@@ -42,7 +43,7 @@ object Engine {
         if (::variables.isInitialized) {
             //Values passed to script are stored in bindings: Map<String,Any?>
             //So we have to create declarations with explicit types
-            val script = variables::class.memberProperties.map {
+            val script = variables::class.memberProperties.filter { it.visibility == KVisibility.PUBLIC }.map {
                 val name= it.name; val type = it.returnType.toString()
                 engine.put(name, it.getter.call(variables))
                 """val $name = bindings["$name"] as $type"""
