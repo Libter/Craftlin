@@ -38,7 +38,6 @@ class BukkitCraftlin: JavaPlugin() {
         instance = this
         Logger.reset()
         Engine.load()
-        Engine.initScript = getTextResource("init.kts").readText()
 
         Logger.log("Loading listeners...")
         listener = BukkitListener()
