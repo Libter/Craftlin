@@ -19,7 +19,7 @@ class CommandTest {
     private inner class Context(vararg args: String): CommandContext(command, args as Array<String>) {
         override val sender get() = throw NotImplementedError()
         override fun player(key: String) = throw NotImplementedError()
-        override fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>) : Unit = throw NotImplementedError()
+        override fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>) = throw NotImplementedError()
     }
 
     @Test

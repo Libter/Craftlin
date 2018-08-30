@@ -27,11 +27,13 @@ class BukkitVariables(private val plugin: JavaPlugin, listener: Listener): Varia
     }
 
     override val command = fun (definition: String, callback: thisF<CommandContext>) {
-        if (!definition.startsWith("/")) throw Exception("Command definition must start with '/'")
-        if (definition.drop(1).isBlank()) throw Exception("Command name must have at least one character")
+        //TODO: Don't use crappy org.bukkit.command.CommandMap, listen for command preprocess instead and allow definition to start with any char
+        if (!definition.startsWith("/")) throw IllegalArgumentException("Command definition must start with '/'")
+        if (definition.drop(1).isBlank()) throw IllegalArgumentException("Command name must have at least one character")
         val command = Command(definition.drop(1), callback)
         val bukkitCommand = object: BukkitCommand(command.name) {
             private val craftlinCommand = command
+            //TODO: Move error handling to API
             override fun execute(sender: CommandSender, commandLabel: String, args: Array<String>): Boolean {
                 try {
                     command.executor(BukkitCommandContext(craftlinCommand, sender, args))
