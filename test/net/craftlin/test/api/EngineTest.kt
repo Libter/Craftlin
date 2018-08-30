@@ -51,4 +51,10 @@ class EngineTest: EngineBasedTest() {
         Assert.assertEquals("Hello world", Engine.run("""functionCallback("world")"""))
     }
 
+    @Test
+    fun importTest() {
+        Engine.initScript = "import org.junit.Assert"
+        Assert.assertEquals(Engine.run("Assert::class"), Assert::class)
+    }
+
 }

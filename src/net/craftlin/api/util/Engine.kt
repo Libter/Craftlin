@@ -18,6 +18,7 @@ object Engine {
     private val charset = Charset.forName("UTF-8") ?: throw RuntimeException("Can't find UTF-8 charset!")
     private lateinit var variables: Variables
     private lateinit var factory: EngineFactory
+    internal lateinit var initScript: String
 
     fun load() {
         //TODO: download and load org.jetbrains.kotlin:kotlin-compiler-embeddable dynamically... it makes our fat jar too much fat
@@ -40,6 +41,9 @@ object Engine {
 
     private fun setup(): ScriptEngine {
         val engine = factory.scriptEngine
+        if (::initScript.isInitialized) {
+            engine.eval(initScript)
+        }
         if (::variables.isInitialized) {
             //Values passed to script are stored in bindings: Map<String,Any?>
             //So we have to create declarations with explicit types
