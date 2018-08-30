@@ -40,8 +40,6 @@ interface PlaceEvent: PlayerEvent, BlockEvent, CancellableEvent {
     val previous: Block
 }
 
-interface InteractEvent: PlayerEvent, CancellableEvent
-
 interface ClickEvent: InteractEvent {
     val isRight: Boolean
     val isLeft get() = !isRight
@@ -49,6 +47,7 @@ interface ClickEvent: InteractEvent {
 
 interface EntityClickEvent: ClickEvent {
     val entity: Entity
+    override val isRight get() = true
 }
 
 interface BlockClickEvent: BlockEvent, ClickEvent

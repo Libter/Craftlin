@@ -16,3 +16,5 @@ interface PlayerEvent: Event {
 interface BlockEvent: Event {
     val block: Block
 }
+
+interface InteractEvent: PlayerEvent, CancellableEvent
