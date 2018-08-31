@@ -1,7 +1,7 @@
 package net.craftlin.api.world
 
 /**
- * Represents the Minecraft location.
+ * Represents a Minecraft location.
  */
 interface Location {
 
