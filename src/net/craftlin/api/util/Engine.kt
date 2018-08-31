@@ -41,7 +41,7 @@ object Engine {
 
     private fun setup(): ScriptEngine {
         val engine = factory.scriptEngine
-        defaultImports.joinToString("\n") { "import $it" }
+        engine.eval(defaultImports.joinToString("\n") { "import $it" })
         if (::variables.isInitialized) {
             //Values passed to script are stored in bindings: Map<String,Any?>
             //So we have to create declarations with explicit types
