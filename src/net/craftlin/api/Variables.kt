@@ -1,13 +1,7 @@
 package net.craftlin.api
 
 import net.craftlin.api.command.CommandContext
-import net.craftlin.api.event.BeforeJoinEvent
-import net.craftlin.api.event.BreakEvent
-import net.craftlin.api.event.ChatEvent
-import net.craftlin.api.event.JoinEvent
-import net.craftlin.api.event.LeaveEvent
-import net.craftlin.api.event.MoveEvent
-import net.craftlin.api.event.PlaceEvent
+import net.craftlin.api.event.*
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
@@ -62,4 +56,24 @@ abstract class Variables(listener: Listener) {
     /** Registers a listener triggered while a player is placing block. */
     val onPlace = listener.add<PlaceEvent>()
 
+    /** Registers a listener triggered while a player clicks something .*/
+    val onClick = listener.add<ClickEvent>()
+
+    /** Registers a listener triggered after a player clicks a block. */
+    val onBlockClick = listener.add<BlockClickEvent>()
+
+    /** Registers a listener trigerred after a player presses a button. */
+    val onButtonPress = listener.add<ButtonPressEvent>()
+
+    /** Registers a listener triggered after a player pulls a lever. */
+    val onLeverPull = listener.add<LeverPullEvent>()
+
+    /** Registers a listener triggered after a player jumps on a soil (farmland) */
+    val onSoilJump = listener.add<SoilJumpEvent>()
+
+    /** Registers a listener triggered after a player right-clicks an entity. */
+    val onEntityClick = listener.add<EntityClickEvent>()
+
+    /** Registers a listener triggered after a player triggers a pressure plate. */
+    val onPressurePlateTrigger = listener.add<PressurePlateEvent>()
 }
