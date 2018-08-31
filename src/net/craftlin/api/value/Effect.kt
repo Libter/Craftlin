@@ -1,9 +1,12 @@
 package net.craftlin.api.value
 
+/**
+ * Represents an effect applicable to entities
+ */
 open class Effect(
     var type: String,
     var time: Long,
-    var strength: Long = 1,
+    var strength: Int = 1,
     var ambient: Boolean = false,
     var particles: Boolean = true,
     var icon: Boolean = true

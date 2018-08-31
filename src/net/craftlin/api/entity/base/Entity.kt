@@ -2,6 +2,9 @@ package net.craftlin.api.entity.base
 
 import net.craftlin.api.world.Location
 
+/**
+ * Represents an Minecraft entity.
+ */
 interface Entity {
 
     /** Unique ID */
