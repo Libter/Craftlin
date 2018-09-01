@@ -2,19 +2,38 @@ package net.craftlin.bukkit.impl
 
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.base.Entity
-import net.craftlin.api.event.*
+import net.craftlin.api.event.BeforeJoinEvent
+import net.craftlin.api.event.BlockClickEvent
+import net.craftlin.api.event.BreakEvent
+import net.craftlin.api.event.ButtonPressEvent
+import net.craftlin.api.event.CancellableEvent
+import net.craftlin.api.event.ChatEvent
+import net.craftlin.api.event.EntityClickEvent
+import net.craftlin.api.event.JoinEvent
+import net.craftlin.api.event.LeaveEvent
+import net.craftlin.api.event.LeverPullEvent
+import net.craftlin.api.event.MoveEvent
+import net.craftlin.api.event.PlaceEvent
+import net.craftlin.api.event.PressurePlateEvent
+import net.craftlin.api.event.SoilJumpEvent
+import net.craftlin.api.event.TripwireEvent
+import net.craftlin.api.util.chat
 import net.craftlin.api.world.Location
 import net.craftlin.api.world.block.Block
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
-import net.craftlin.bukkit.impl.entity.base.BukkitLivingEntity
 import net.craftlin.bukkit.impl.value.BukkitLoginResult
 import net.craftlin.bukkit.impl.world.BukkitBlock
 import net.craftlin.bukkit.impl.world.BukkitLocation
 import org.bukkit.event.Cancellable
 import org.bukkit.event.block.Action
 import org.bukkit.event.block.BlockPlaceEvent
-import org.bukkit.event.player.*
-import org.bukkit.event.player.PlayerEvent
+import org.bukkit.event.player.AsyncPlayerChatEvent
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent
+import org.bukkit.event.player.PlayerInteractEntityEvent
+import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.event.player.PlayerQuitEvent
 
 abstract class BukkitCancellableEvent(private val origin: Cancellable) : CancellableEvent {
     override var cancelled: Boolean
@@ -27,24 +46,24 @@ class BukkitJoinEvent(private val origin: PlayerJoinEvent): JoinEvent {
     override val first = origin.player.lastPlayed == 0L
     override var message: String
         get() = origin.joinMessage
-        set(value) { origin.joinMessage = value }
+        set(value) { origin.joinMessage = value.chat }
 }
 
 class BukkitLeaveEvent(private val origin: PlayerQuitEvent): LeaveEvent {
     override val player = BukkitPlayer(origin.player)
     override var message: String
         get() = origin.quitMessage
-        set(value) { origin.quitMessage = value }
+        set(value) { origin.quitMessage = value.chat }
 }
 
 class BukkitChatEvent(private val origin: AsyncPlayerChatEvent): ChatEvent, BukkitCancellableEvent(origin) {
     override val player = BukkitPlayer(origin.player)
     override var message: String
         get() = origin.message
-        set(value) { origin.message = value }
+        set(value) { origin.message = value.chat }
     override var format: String
         get() = origin.format
-        set(value) { origin.format = value }
+        set(value) { origin.format = value.chat }
 }
 
 class BukkitBeforeLoginEvent(private val origin: AsyncPlayerPreLoginEvent): BeforeJoinEvent {
@@ -56,7 +75,7 @@ class BukkitBeforeLoginEvent(private val origin: AsyncPlayerPreLoginEvent): Befo
     override var result: String by BukkitLoginResult.Delegate(::originResult)
     override var message: String
         get() = origin.kickMessage
-        set(value) { origin.kickMessage = value }
+        set(value) { origin.kickMessage = value.chat }
 
     override fun disallow(message: String) {
         origin.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, message)

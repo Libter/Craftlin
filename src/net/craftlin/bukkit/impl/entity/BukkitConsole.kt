@@ -1,11 +1,9 @@
 package net.craftlin.bukkit.impl.entity
 
-import net.craftlin.api.entity.Sender
-import org.bukkit.ChatColor
+import net.craftlin.api.entity.Console
+import net.craftlin.api.util.chat
 import org.bukkit.command.ConsoleCommandSender
 
-class BukkitConsole(private val origin: ConsoleCommandSender): Sender {
-    override fun message(message: String) {
-        origin.sendMessage(ChatColor.translateAlternateColorCodes('&', message))
-    }
+class BukkitConsole(private val origin: ConsoleCommandSender): Console {
+    override fun message(message: String) = origin.sendMessage(message.chat)
 }

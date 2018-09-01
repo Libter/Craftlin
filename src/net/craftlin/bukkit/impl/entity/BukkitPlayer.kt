@@ -1,9 +1,9 @@
 package net.craftlin.bukkit.impl.entity
 
 import net.craftlin.api.entity.Player
+import net.craftlin.api.util.chat
 import net.craftlin.bukkit.impl.entity.base.BukkitLivingEntity
 import net.craftlin.bukkit.impl.value.BukkitGameMode
-import org.bukkit.ChatColor
 import org.bukkit.GameMode
 
 class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitLivingEntity(origin), Player  {
@@ -20,7 +20,7 @@ class BukkitPlayer(private val origin: org.bukkit.entity.Player): BukkitLivingEn
 
     override var gamemode by BukkitGameMode.Delegate(::originGameMode)
 
-    override fun message(message: String) = origin.sendMessage(ChatColor.translateAlternateColorCodes('&', message))
+    override fun message(message: String) = origin.sendMessage(message.chat)
 
     override fun kick(reason: String) = origin.kickPlayer(reason)
 
