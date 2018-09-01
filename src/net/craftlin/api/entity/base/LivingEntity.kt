@@ -2,9 +2,9 @@ package net.craftlin.api.entity.base
 
 import net.craftlin.api.value.Attribute
 import net.craftlin.api.value.Effect
+import net.craftlin.api.value.EffectType
 import net.craftlin.api.value.EntitySpeed
 import net.craftlin.api.value.Ignition
-import net.craftlin.api.value.EffectType
 
 /**
  * Represents a living entity.
@@ -17,7 +17,7 @@ interface LivingEntity: Entity {
     val maxHealth: Attribute
 
     /** Entity's current health */
-    var health: Int
+    var health: Long
     /** Entity's ignition data */
     val ignition: Ignition
     /** Whether entity is dead or not */
@@ -43,8 +43,8 @@ interface LivingEntity: Entity {
      * @param particles Whether the particles should be visible or not
      * @param icon Whether the icon should be visible for player or not
      */
-    fun effect(type: String, time: Long, strength: Int = 1, ambient: Boolean = false, particles: Boolean = true, icon: Boolean = true)
+    fun effect(type: String, time: Long, strength: Long = 1, ambient: Boolean = false, particles: Boolean = true, icon: Boolean = true)
         = effect(Effect(type, time, strength, ambient, particles, icon))
-    fun damage(amount: Int)
+    fun damage(amount: Long)
 
 }

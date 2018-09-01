@@ -16,15 +16,15 @@ interface Location {
 
     /** [x] as an integer (not double) */
     var blockX
-        get() = x.toInt()
+        get() = x.toLong()
         set(value) { x = value.toDouble() }
     /** [y] as an integer (not double) */
     var blockY
-        get() = y.toInt()
+        get() = y.toLong()
         set(value) { y = value.toDouble() }
     /** [z] as an integer (not double) */
     var blockZ
-        get() = z.toInt()
+        get() = z.toLong()
         set(value) { z = value.toDouble() }
 
 }

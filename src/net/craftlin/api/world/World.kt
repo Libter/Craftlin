@@ -1,8 +1,8 @@
 package net.craftlin.api.world
 
 import net.craftlin.api.entity.Player
-import net.craftlin.api.world.block.Block
 import net.craftlin.api.value.WorldType
+import net.craftlin.api.world.block.Block
 
 /**
  * Represents a Minecraft world
@@ -19,7 +19,7 @@ interface World {
     val players: List<Player>
 
     /** @return [Block] at specified position */
-    fun blockAt(x: Int, y: Int, z: Int): Block
+    fun blockAt(x: Long, y: Long, z: Long): Block
     /** @return [Block] at specified position */
     fun blockAt(location: Location) = blockAt(location.blockX, location.blockY, location.blockZ)
     /**

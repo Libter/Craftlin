@@ -9,5 +9,5 @@ interface Item {
     /** @see ItemType */
     var type: String
     /** Item amount (from 0 to 64) */
-    var amount: Int
+    var amount: Long
 }

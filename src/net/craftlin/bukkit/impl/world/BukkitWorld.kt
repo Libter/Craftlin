@@ -10,8 +10,8 @@ class BukkitWorld(private val origin: org.bukkit.World): World {
     override val name: String = origin.name
     override val players get() = origin.players.map { BukkitPlayer(it) }
 
-    override fun blockAt(x: Int, y: Int, z: Int) = BukkitBlock(origin.getBlockAt(x, y, z))
+    override fun blockAt(x: Long, y: Long, z: Long) = BukkitBlock(origin.getBlockAt(x.toInt(), y.toInt(), z.toInt()))
     override fun spawnMob(type: String, location: Location) {
-
+        //TODO: implement
     }
 }
