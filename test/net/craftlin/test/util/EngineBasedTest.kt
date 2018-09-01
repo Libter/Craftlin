@@ -5,6 +5,7 @@ import net.craftlin.api.Variables
 import net.craftlin.api.command.CommandContext
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
+import net.craftlin.api.entity.Sender
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.itF
@@ -20,6 +21,10 @@ abstract class EngineBasedTest {
     protected object EmptyListener: Listener()
 
     object EmptyServer: Server {
+        override val console: Sender
+            get() = object: Sender {
+                override fun message(message: String) = println(message)
+            }
         override val players = ArrayList<Player>()
         override val worlds = ArrayList<World>()
         override fun player(name: String): Player? = players.find { it.name == name }
