@@ -2,6 +2,7 @@ package net.craftlin.api
 
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
+import net.craftlin.api.entity.Sender
 import net.craftlin.api.misc.itF
 import net.craftlin.api.world.World
 
@@ -16,6 +17,9 @@ interface Server {
 
     /** Retrieves an online player with specified [name] or returns null */
     fun player(name: String): Player?
+
+    /** Server's console */
+    val console: Sender
 
     /**
      * Retrieves an offline player with specified [name]. This function is asynchronous.

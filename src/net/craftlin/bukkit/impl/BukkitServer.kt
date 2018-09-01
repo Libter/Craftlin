@@ -3,8 +3,10 @@ package net.craftlin.bukkit.impl
 import net.craftlin.api.Server
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
+import net.craftlin.api.entity.Sender
 import net.craftlin.api.misc.itF
 import net.craftlin.bukkit.BukkitCraftlin
+import net.craftlin.bukkit.impl.entity.BukkitConsole
 import net.craftlin.bukkit.impl.entity.BukkitOfflinePlayer
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.bukkit.impl.misc.BukkitTask
@@ -16,6 +18,8 @@ object BukkitServer : Server {
         get() = Bukkit.getServer().onlinePlayers.toList().map { BukkitPlayer(it) }
     override val worlds: List<BukkitWorld>
         get() = Bukkit.getServer().worlds.map { BukkitWorld(it) }
+
+    override val console: Sender get() = BukkitConsole(Bukkit.getServer().consoleSender)
 
     override fun player(name: String): Player? = players.find { it.name == name }
     override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) {
