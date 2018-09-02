@@ -1,6 +1,6 @@
 package net.craftlin.bukkit.impl.value
 
-import net.craftlin.api.value.Attribute
+import net.craftlin.api.value.entity.modifier.Attribute
 import org.bukkit.entity.LivingEntity
 
 class BukkitAttribute(private val origin: LivingEntity, private val type: org.bukkit.attribute.Attribute): Attribute {

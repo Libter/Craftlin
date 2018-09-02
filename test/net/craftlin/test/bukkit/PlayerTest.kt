@@ -8,6 +8,7 @@ import com.nhaarman.mockitokotlin2.verify
 import net.craftlin.bukkit.impl.entity.BukkitOfflinePlayer
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import org.bukkit.GameMode
+import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -19,6 +20,7 @@ class PlayerTest {
     private val origin: Player = mock {
         var mode = GameMode.SURVIVAL
         on { name } doReturn "tester"
+        on { type } doReturn EntityType.PLAYER
         on { uniqueId } doReturn uuid
         on { isOnline } doReturn true
         on { gameMode } doAnswer { mode }

@@ -3,7 +3,7 @@ package net.craftlin.test.api
 import net.craftlin.api.util.value.BiEnumValue
 import net.craftlin.api.util.value.EnumValue
 import net.craftlin.api.value.LoginResult
-import net.craftlin.api.value.WorldType
+import net.craftlin.api.value.world.WorldType
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

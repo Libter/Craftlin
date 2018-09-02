@@ -1,7 +1,7 @@
 package net.craftlin.bukkit.impl.value
 
 import net.craftlin.api.util.value.EnumValue
-import net.craftlin.api.value.EntityType
+import net.craftlin.api.value.entity.EntityType
 
 object BukkitEntityType: EnumValue<EntityType, org.bukkit.entity.EntityType>(EntityType::class) {
     override fun convert(api: EntityType): org.bukkit.entity.EntityType {

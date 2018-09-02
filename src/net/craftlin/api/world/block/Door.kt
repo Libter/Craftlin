@@ -1,6 +1,6 @@
 package net.craftlin.api.world.block
 
-import net.craftlin.api.value.DoorHinge
+import net.craftlin.api.value.world.DoorHinge
 
 /**
  * Represents a Minecraft door.

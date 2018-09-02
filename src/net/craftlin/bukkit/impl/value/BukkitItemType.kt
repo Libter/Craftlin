@@ -1,7 +1,7 @@
 package net.craftlin.bukkit.impl.value
 
 import net.craftlin.api.util.value.EnumValue
-import net.craftlin.api.value.ItemType
+import net.craftlin.api.value.world.ItemType
 import org.bukkit.Material
 
 object BukkitItemType: EnumValue<ItemType, Material>(ItemType::class) {

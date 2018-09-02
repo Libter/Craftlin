@@ -10,7 +10,7 @@ class BukkitOcelot(private val origin: org.bukkit.entity.Ocelot): BukkitGrowingE
         get() = origin.catType
         set(value) { origin.catType = value }
 
-    override var type by BukkitOcelotType.Delegate(::originType)
+    override var variant by BukkitOcelotType.Delegate(::originType)
 
     override var owner by TameableOwner(origin)
 }

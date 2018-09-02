@@ -1,4 +1,4 @@
-package net.craftlin.api.value
+package net.craftlin.api.value.entity.modifier
 
 enum class EffectType {
     ABSORPTION,

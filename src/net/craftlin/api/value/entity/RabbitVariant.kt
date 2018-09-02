@@ -1,6 +1,6 @@
-package net.craftlin.api.value
+package net.craftlin.api.value.entity
 
-enum class RabbitType {
+enum class RabbitVariant {
     BLACK,
     BLACK_AND_WHITE,
     BROWN,

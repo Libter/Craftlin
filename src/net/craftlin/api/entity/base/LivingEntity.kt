@@ -1,10 +1,10 @@
 package net.craftlin.api.entity.base
 
-import net.craftlin.api.value.Attribute
-import net.craftlin.api.value.Effect
-import net.craftlin.api.value.EffectType
-import net.craftlin.api.value.EntitySpeed
-import net.craftlin.api.value.Ignition
+import net.craftlin.api.value.entity.modifier.Attribute
+import net.craftlin.api.value.entity.modifier.Effect
+import net.craftlin.api.value.entity.modifier.EffectType
+import net.craftlin.api.value.entity.modifier.EntitySpeed
+import net.craftlin.api.value.entity.modifier.Ignition
 
 /**
  * Represents a living entity.

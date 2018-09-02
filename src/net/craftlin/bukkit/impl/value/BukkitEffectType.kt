@@ -1,7 +1,7 @@
 package net.craftlin.bukkit.impl.value
 
 import net.craftlin.api.util.value.EnumValue
-import net.craftlin.api.value.EffectType
+import net.craftlin.api.value.entity.modifier.EffectType
 import org.bukkit.potion.PotionEffectType
 
 object BukkitEffectType: EnumValue<EffectType, PotionEffectType>(EffectType::class) {

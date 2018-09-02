@@ -1,8 +1,8 @@
 package net.craftlin.bukkit.impl.entity.base
 
 import net.craftlin.api.entity.base.LivingEntity
-import net.craftlin.api.value.Effect
-import net.craftlin.api.value.Ignition
+import net.craftlin.api.value.entity.modifier.Effect
+import net.craftlin.api.value.entity.modifier.Ignition
 import net.craftlin.bukkit.impl.value.BukkitAttribute
 import net.craftlin.bukkit.impl.value.BukkitEffectType
 import org.bukkit.attribute.Attribute
@@ -37,8 +37,8 @@ abstract class BukkitLivingEntity(private val livingEntity: org.bukkit.entity.Li
         })
     }
 
-    override val speed = BukkitEntitySpeed(entity)
-    override val maxHealth = BukkitAttribute(entity, Attribute.GENERIC_MAX_HEALTH)
+    override val speed = BukkitEntitySpeed(livingEntity)
+    override val maxHealth = BukkitAttribute(livingEntity, Attribute.GENERIC_MAX_HEALTH)
 
     override fun damage(amount: Long) { livingEntity.damage(amount.toDouble()) }
 }

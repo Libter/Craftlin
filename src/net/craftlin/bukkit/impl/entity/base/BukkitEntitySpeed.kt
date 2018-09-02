@@ -1,6 +1,6 @@
 package net.craftlin.bukkit.impl.entity.base
 
-import net.craftlin.api.value.EntitySpeed
+import net.craftlin.api.value.entity.modifier.EntitySpeed
 import net.craftlin.bukkit.impl.value.BukkitAttribute
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity

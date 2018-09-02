@@ -1,6 +1,6 @@
 package net.craftlin.bukkit.impl.value
 
-import net.craftlin.api.value.AttributeModifier
+import net.craftlin.api.value.entity.modifier.AttributeModifier
 import org.bukkit.attribute.AttributeInstance
 import org.bukkit.attribute.AttributeModifier.Operation
 

@@ -1,7 +1,7 @@
 package net.craftlin.api.world
 
 import net.craftlin.api.entity.Player
-import net.craftlin.api.value.WorldType
+import net.craftlin.api.value.world.WorldType
 import net.craftlin.api.world.block.Block
 
 /**

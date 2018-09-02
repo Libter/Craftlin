@@ -1,6 +1,6 @@
 package net.craftlin.api.inventory
 
-import net.craftlin.api.value.ItemType
+import net.craftlin.api.value.world.ItemType
 
 /**
  * Represents an item stack

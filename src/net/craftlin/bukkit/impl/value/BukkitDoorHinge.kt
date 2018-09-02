@@ -1,7 +1,7 @@
 package net.craftlin.bukkit.impl.value
 
 import net.craftlin.api.util.value.EnumValue
-import net.craftlin.api.value.DoorHinge
+import net.craftlin.api.value.world.DoorHinge
 import org.bukkit.block.data.type.Door
 
 object BukkitDoorHinge: EnumValue<DoorHinge, Door.Hinge>(DoorHinge::class) {

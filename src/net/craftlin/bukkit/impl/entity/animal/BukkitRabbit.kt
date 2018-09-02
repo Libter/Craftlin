@@ -9,5 +9,5 @@ class BukkitRabbit(val origin: org.bukkit.entity.Rabbit): BukkitGrowingEntity(or
         get() = origin.rabbitType
         set(value) { origin.rabbitType = value }
 
-    override var type by BukkitRabbitType.Delegate(::originType)
+    override var variant by BukkitRabbitType.Delegate(::originType)
 }

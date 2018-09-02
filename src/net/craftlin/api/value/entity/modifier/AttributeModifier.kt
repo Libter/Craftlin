@@ -1,4 +1,4 @@
-package net.craftlin.api.value
+package net.craftlin.api.value.entity.modifier
 
 /** Represents an attribute modifier */
 interface AttributeModifier {

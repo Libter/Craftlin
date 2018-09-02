@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import net.craftlin.api.value.BlockType
+import net.craftlin.api.value.world.BlockType
 import net.craftlin.bukkit.impl.world.BukkitBlock
 import org.bukkit.Location
 import org.bukkit.Material
