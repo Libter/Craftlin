@@ -9,6 +9,8 @@ interface Entity {
 
     /** Unique ID */
     val uuid: String
+    /** Immutable type */
+    val type: String
     /** Entity's custom name or player's name */
     var name: String
     /** Location, set it to teleport */

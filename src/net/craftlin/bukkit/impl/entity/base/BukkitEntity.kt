@@ -2,11 +2,12 @@ package net.craftlin.bukkit.impl.entity.base
 
 import net.craftlin.api.entity.base.Entity
 import net.craftlin.api.world.Location
+import net.craftlin.bukkit.impl.value.BukkitEntityType
 import net.craftlin.bukkit.impl.world.BukkitLocation
-import org.bukkit.entity.LivingEntity
 
-abstract class BukkitEntity(protected val entity: LivingEntity): Entity {
+open class BukkitEntity(protected val entity: org.bukkit.entity.Entity): Entity {
     override val uuid: String = entity.uniqueId.toString()
+    override val type: String = BukkitEntityType.Converter(entity.type)
     override var name: String
         get() = entity.customName
         set(value) { entity.customName = value }

@@ -26,5 +26,5 @@ interface World {
      * Spawns mob of [type] at specified [location]
      * @see (todo: missing EntityType or something other like this)
      */
-    fun spawnMob(type: String, location: Location)
+    fun spawn(type: String, location: Location)
 }

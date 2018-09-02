@@ -22,6 +22,7 @@ import net.craftlin.api.util.chat
 import net.craftlin.api.world.Location
 import net.craftlin.api.world.block.Block
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
+import net.craftlin.bukkit.impl.entity.base.BukkitEntity
 import net.craftlin.bukkit.impl.value.BukkitLoginResult
 import net.craftlin.bukkit.impl.world.BukkitBlock
 import net.craftlin.bukkit.impl.world.BukkitLocation
@@ -127,7 +128,7 @@ class BukkitAirClickEvent(private val origin: PlayerInteractEvent) : AirClickEve
 
 class BukkitEntityClickEvent(private val origin: PlayerInteractEntityEvent) : EntityClickEvent, BukkitCancellableEvent(origin) {
     override val entity: Entity
-        get() = TODO("converting bukkit entity to craftlin entity")
+        get() = BukkitEntity(origin.rightClicked)
     override val player: Player
         get() = BukkitPlayer(origin.player)
 }
