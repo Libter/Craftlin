@@ -5,6 +5,7 @@ import net.craftlin.api.util.Logger
 import net.craftlin.bukkit.impl.BukkitListener
 import org.bukkit.Bukkit
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
@@ -26,7 +27,10 @@ class BukkitCraftlin: JavaPlugin() {
                 Logger.log("Loading ${it.name}")
                 Engine.run(it)
             }
-            Logger.log("Executing join events for players...")
+            Logger.log("Executing quit & join events for players...")
+            Bukkit.getOnlinePlayers().forEach {
+                listener.triggerQuit(PlayerQuitEvent(it, ""))
+            }
             Bukkit.getOnlinePlayers().forEach {
                 listener.triggerJoin(PlayerJoinEvent(it, ""))
             }

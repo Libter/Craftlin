@@ -2,6 +2,7 @@ package net.craftlin.bukkit.impl
 
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.base.Entity
+import net.craftlin.api.event.AirClickEvent
 import net.craftlin.api.event.BeforeJoinEvent
 import net.craftlin.api.event.BlockClickEvent
 import net.craftlin.api.event.BreakEvent
@@ -111,8 +112,15 @@ class BukkitPlaceEvent(private val origin: BlockPlaceEvent) : PlaceEvent, Bukkit
 open class BukkitBlockClickEvent(private val origin: PlayerInteractEvent) : BlockClickEvent, BukkitCancellableEvent(origin) {
     override val block: Block
         get() = BukkitBlock(origin.clickedBlock!!)
-    override val isRight: Boolean
+    override val right: Boolean
         get() = origin.action == Action.RIGHT_CLICK_BLOCK
+    override val player: Player
+        get() = BukkitPlayer(origin.player)
+}
+
+class BukkitAirClickEvent(private val origin: PlayerInteractEvent) : AirClickEvent, BukkitCancellableEvent(origin) {
+    override val right: Boolean
+        get() = origin.action == Action.RIGHT_CLICK_AIR
     override val player: Player
         get() = BukkitPlayer(origin.player)
 }
@@ -125,7 +133,7 @@ class BukkitEntityClickEvent(private val origin: PlayerInteractEntityEvent) : En
 }
 
 class BukkitButtonPressEvent(private val origin: PlayerInteractEvent) : BukkitBlockClickEvent(origin), ButtonPressEvent {
-    override val isRight: Boolean get() = true
+    override val right: Boolean get() = true
 }
 
 class BukkitLeverPullEvent(private val origin: PlayerInteractEvent) : LeverPullEvent, BukkitCancellableEvent(origin) {

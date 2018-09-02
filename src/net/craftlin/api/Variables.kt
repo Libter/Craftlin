@@ -1,7 +1,22 @@
 package net.craftlin.api
 
 import net.craftlin.api.command.CommandContext
-import net.craftlin.api.event.*
+import net.craftlin.api.event.AirClickEvent
+import net.craftlin.api.event.BeforeJoinEvent
+import net.craftlin.api.event.BlockClickEvent
+import net.craftlin.api.event.BreakEvent
+import net.craftlin.api.event.ButtonPressEvent
+import net.craftlin.api.event.ChatEvent
+import net.craftlin.api.event.ClickEvent
+import net.craftlin.api.event.EntityClickEvent
+import net.craftlin.api.event.JoinEvent
+import net.craftlin.api.event.LeaveEvent
+import net.craftlin.api.event.LeverPullEvent
+import net.craftlin.api.event.MoveEvent
+import net.craftlin.api.event.PlaceEvent
+import net.craftlin.api.event.PressurePlateEvent
+import net.craftlin.api.event.SoilJumpEvent
+import net.craftlin.api.event.TripwireEvent
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
@@ -56,24 +71,30 @@ abstract class Variables(listener: Listener) {
     /** Registers a listener triggered while a player is placing block. */
     val onPlace = listener.add<PlaceEvent>()
 
-    /** Registers a listener triggered while a player clicks something .*/
+    /** Registers a listener triggered when a player clicks something. */
     val onClick = listener.add<ClickEvent>()
 
-    /** Registers a listener triggered after a player clicks a block. */
+    /** Registers a listener triggered when a player clicks air. */
+    val onAirClick = listener.add<AirClickEvent>()
+
+    /** Registers a listener triggered when a player clicks a block. */
     val onBlockClick = listener.add<BlockClickEvent>()
 
-    /** Registers a listener trigerred after a player presses a button. */
+    /** Registers a listener trigerred when a player presses a button. */
     val onButtonPress = listener.add<ButtonPressEvent>()
 
-    /** Registers a listener triggered after a player pulls a lever. */
+    /** Registers a listener triggered when a player pulls a lever. */
     val onLeverPull = listener.add<LeverPullEvent>()
 
-    /** Registers a listener triggered after a player jumps on a soil (farmland) */
+    /** Registers a listener triggered when a player jumps on a soil (farmland) */
     val onSoilJump = listener.add<SoilJumpEvent>()
 
-    /** Registers a listener triggered after a player right-clicks an entity. */
+    /** Registers a listener triggered when a player right-clicks an entity. */
     val onEntityClick = listener.add<EntityClickEvent>()
 
-    /** Registers a listener triggered after a player triggers a pressure plate. */
-    val onPressurePlateTrigger = listener.add<PressurePlateEvent>()
+    /** Registers a listener triggered when a player stands on a pressure plate. */
+    val onPressurePlate = listener.add<PressurePlateEvent>()
+
+    /** Registers a listener triggered when a player passes through a tripwire */
+    val onTripwire = listener.add<TripwireEvent>()
 }
