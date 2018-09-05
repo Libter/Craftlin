@@ -1,15 +1,15 @@
 package net.craftlin.api.util
 
 import net.craftlin.api.Variables
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintStream
 import java.nio.charset.Charset
-import java.util.*
+import java.util.Date
 import javax.script.ScriptEngine
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
-
 
 private typealias EngineFactory = org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngineFactory
 
@@ -18,7 +18,13 @@ object Engine {
     private val charset = Charset.forName("UTF-8") ?: throw RuntimeException("Can't find UTF-8 charset!")
     private lateinit var variables: Variables
     private lateinit var factory: EngineFactory
-    private val defaultImports = listOf("net.craftlin.api.Server", "net.craftlin.api.entity.*", "net.craftlin.api.event.*", "net.craftlin.api.inventory.*", "net.craftlin.api.world.*")
+    private val imports = listOf(
+        "net.craftlin.api.Server",
+        "net.craftlin.api.entity.*",
+        "net.craftlin.api.event.*",
+        "net.craftlin.api.inventory.*",
+        "net.craftlin.api.world.*"
+    )
 
     fun load() {
         //TODO: download and load org.jetbrains.kotlin:kotlin-compiler-embeddable dynamically... it makes our fat jar too much fat
@@ -41,7 +47,7 @@ object Engine {
 
     private fun setup(): ScriptEngine {
         val engine = factory.scriptEngine
-        engine.eval(defaultImports.joinToString("\n") { "import $it" })
+        engine.eval(imports.joinToString("\n") { "import $it" })
         if (::variables.isInitialized) {
             //Values passed to script are stored in bindings: Map<String,Any?>
             //So we have to create declarations with explicit types
@@ -60,17 +66,25 @@ object Engine {
         try {
             run(file.readText(charset))
         } catch (t: Throwable) {
-            val logDir = File(file.parentFile, "exceptions"); logDir.mkdirs()
+            val logDir = File(file.parentFile, "errors"); logDir.mkdirs()
             val log = File(logDir, file.nameWithoutExtension + ".txt")
-            FileOutputStream(log, true).use { fos ->
-                PrintStream(fos).use {
-                    it.append(System.lineSeparator()).append(Date().toString()).append(System.lineSeparator())
-                    t.printStackTrace(it)
-                    it.append(System.lineSeparator())
-                    Unit
-                }
+
+            val error = ByteArrayOutputStream()
+            val newLine = System.lineSeparator()
+            PrintStream(error).use {
+                it.append(newLine).append(Date().toString()).append(newLine)
+                t.printStackTrace(it)
+                it.append(newLine)
+                Unit
             }
-            Logger.log("An error occurred while executing ${file.name}, check ${log.canonicalPath} for details!")
+
+            val errorBytes = error.toByteArray()
+            Logger.log("An error occurred while executing ${file.name} has been saved to ${log.canonicalPath}:")
+            Logger.log(String(errorBytes, charset))
+
+            FileOutputStream(log, true).use {
+                it.write(errorBytes)
+            }
         }
     }
 

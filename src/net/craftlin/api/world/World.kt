@@ -24,7 +24,6 @@ interface World {
     fun blockAt(location: Location) = blockAt(location.blockX, location.blockY, location.blockZ)
     /**
      * Spawns mob of [type] at specified [location]
-     * @see (todo: missing EntityType or something other like this)
      */
     fun spawn(type: String, location: Location)
 }
