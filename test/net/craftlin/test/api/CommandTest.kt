@@ -12,7 +12,7 @@ import org.junit.Test
 class CommandTest {
 
     private var outer: String = ""
-    private val command = Command("/test text number decimal") {
+    private val command = Command<Context>("/test text number decimal") {
         outer = text("text") + number("number") + decimal("decimal")
     }
 

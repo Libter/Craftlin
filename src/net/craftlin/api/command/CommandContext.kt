@@ -7,7 +7,7 @@ import net.craftlin.api.misc.itF
 import java.math.BigDecimal
 import java.math.BigInteger
 
-abstract class CommandContext(private val command: Command, private val args: Array<String>) {
+abstract class CommandContext(private val command: Command<*>, private val args: Array<String>) {
 
     companion object {
         private val numberRegex = Regex("^\\d+$")

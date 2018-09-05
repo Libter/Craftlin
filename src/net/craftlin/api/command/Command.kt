@@ -2,7 +2,7 @@ package net.craftlin.api.command
 
 import net.craftlin.api.misc.thisF
 
-class Command(definition: String, val executor: thisF<CommandContext>) {
+class Command<Context: CommandContext>(definition: String, val executor: thisF<Context>) {
 
     val name: String
     val mappings = HashMap<String,Int>()

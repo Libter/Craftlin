@@ -2,7 +2,6 @@ package net.craftlin.bukkit
 
 import net.craftlin.api.Variables
 import net.craftlin.api.command.Command
-import net.craftlin.api.command.CommandContext
 import net.craftlin.api.command.CommandCustomException
 import net.craftlin.api.command.CommandUsageException
 import net.craftlin.api.misc.Timer
@@ -28,17 +27,17 @@ class BukkitVariables(private val plugin: JavaPlugin, listener: Listener): Varia
         field.get(Bukkit.getServer()) as CommandMap
     }
 
-    override val command = fun (definition: String, callback: thisF<CommandContext>) {
+    override val command = fun (definition: String, callback: thisF<BukkitCommandContext>) {
         //TODO: Don't use crappy org.bukkit.command.CommandMap, listen for command preprocess instead and allow definition to start with any char
         if (!definition.startsWith("/")) throw IllegalArgumentException("Command definition must start with '/'")
         if (definition.drop(1).isBlank()) throw IllegalArgumentException("Command name must have at least one character")
-        val command = Command(definition.drop(1), callback)
-        val bukkitCommand = object: BukkitCommand(command.name) {
-            private val craftlinCommand = command
+        val _command = Command(definition.drop(1), callback)
+        val bukkitCommand = object: BukkitCommand(_command.name) {
+            private val craftlinCommand = _command
             //TODO: Move error handling to API
             override fun execute(sender: CommandSender, commandLabel: String, args: Array<String>): Boolean {
                 try {
-                    command.executor(BukkitCommandContext(craftlinCommand, sender, args))
+                    _command.executor(BukkitCommandContext(craftlinCommand, sender, args))
                 } catch (e: CommandUsageException) {
                     sender.sendMessage("Usage: $definition")
                 } catch (e: CommandCustomException) {
