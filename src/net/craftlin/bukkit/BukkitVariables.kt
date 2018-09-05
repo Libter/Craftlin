@@ -3,11 +3,13 @@ package net.craftlin.bukkit
 import net.craftlin.api.Variables
 import net.craftlin.api.command.Command
 import net.craftlin.api.command.CommandContext
+import net.craftlin.api.command.CommandCustomException
 import net.craftlin.api.command.CommandUsageException
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Listener
+import net.craftlin.api.util.chat
 import net.craftlin.bukkit.impl.BukkitServer
 import net.craftlin.bukkit.impl.command.BukkitCommandContext
 import net.craftlin.bukkit.impl.misc.BukkitTask
@@ -39,6 +41,8 @@ class BukkitVariables(private val plugin: JavaPlugin, listener: Listener): Varia
                     command.executor(BukkitCommandContext(craftlinCommand, sender, args))
                 } catch (e: CommandUsageException) {
                     sender.sendMessage("Usage: $definition")
+                } catch (e: CommandCustomException) {
+                    sender.sendMessage(e.message.chat)
                 }
                 return true
             }
