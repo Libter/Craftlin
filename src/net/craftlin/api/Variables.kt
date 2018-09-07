@@ -1,5 +1,6 @@
 package net.craftlin.api
 
+import net.craftlin.api.command.Command
 import net.craftlin.api.command.CommandContext
 import net.craftlin.api.event.AirClickEvent
 import net.craftlin.api.event.BeforeJoinEvent
@@ -20,17 +21,15 @@ import net.craftlin.api.event.TripwireEvent
 import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
+import net.craftlin.api.util.Commands
 import net.craftlin.api.util.Listener
 
 /** All variables passed to script.
  * @constructor This constructor is only for internal usage. */
-abstract class Variables(listener: Listener) {
+abstract class Variables<Context: CommandContext>(listener: Listener, private val commands: Commands<Context>) {
 
     /** Helper for common server-related actions like getting online players. */
     abstract val server: Server
-
-    /** Registers a command */
-    abstract val command: (definition: String, callback: thisF<CommandContext>) -> Unit
 
     /** Starts a task in the server main thread. */
     abstract val sync: (callback: emptyF) -> Unit
@@ -49,6 +48,11 @@ abstract class Variables(listener: Listener) {
 
     /** Schedules a repeating task outside the server main thread. */
     abstract val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
+
+    /** Registers a command */
+    fun command(definition: String, callback: thisF<CommandContext>) {
+        commands.add(Command(definition, callback))
+    }
 
     /** Registers an **asynchronous** listener triggered before a player joins server. */
     val beforeJoin = listener.add<BeforeJoinEvent>()

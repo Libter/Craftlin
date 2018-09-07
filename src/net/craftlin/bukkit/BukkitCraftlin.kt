@@ -3,6 +3,7 @@ package net.craftlin.bukkit
 import net.craftlin.api.util.Engine
 import net.craftlin.api.util.Logger
 import net.craftlin.bukkit.impl.BukkitListener
+import net.craftlin.bukkit.impl.command.BukkitCommands
 import org.bukkit.Bukkit
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
@@ -16,9 +17,11 @@ class BukkitCraftlin: JavaPlugin() {
             private set
         lateinit var listener: BukkitListener
             private set
+        lateinit var commands: BukkitCommands
+            private set
 
         fun loadScripts() {
-            Engine.put(BukkitVariables(instance, listener))
+            Engine.put(BukkitVariables(instance, listener, commands))
 
             val directory = File(Bukkit.getServer().worldContainer, "scripts")
             Logger.log("Loading scripts in ${directory.absolutePath}...")
@@ -45,6 +48,8 @@ class BukkitCraftlin: JavaPlugin() {
 
         Logger.log("Loading listeners...")
         listener = BukkitListener()
+        commands = BukkitCommands()
+
         server.pluginManager.registerEvents(listener, this)
 
         Logger.log("Loading command...")

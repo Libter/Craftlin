@@ -2,6 +2,7 @@ package net.craftlin.test.util
 
 import net.craftlin.api.Server
 import net.craftlin.api.Variables
+import net.craftlin.api.command.Command
 import net.craftlin.api.command.CommandContext
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
@@ -10,6 +11,7 @@ import net.craftlin.api.misc.Timer
 import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.itF
 import net.craftlin.api.misc.thisF
+import net.craftlin.api.util.Commands
 import net.craftlin.api.util.Engine
 import net.craftlin.api.util.Listener
 import net.craftlin.api.util.Logger
@@ -31,8 +33,16 @@ abstract class EngineBasedTest {
         override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) { }
     }
 
-    open class EmptyVariables(listener: Listener = EmptyListener): Variables(listener) {
-        override val command = fun (definition: String, callback: thisF<CommandContext>) { }
+    object EmptyCommands: Commands<EmptyContext>()
+
+    open class EmptyContext(command: Command<EmptyContext>, raw: String): CommandContext(command, raw) {
+        override val sender = EmptyServer.console
+        override fun player(key: String): Player { TODO() }
+
+        override fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>) { }
+    }
+
+    open class EmptyVariables(listener: Listener = EmptyListener): Variables<EmptyContext>(listener, EmptyCommands) {
         override val sync: (callback: emptyF) -> Unit
             get() = fun(callback: emptyF) { callback() }
         override val async: (callback: emptyF) -> Unit

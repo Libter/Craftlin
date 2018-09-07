@@ -7,17 +7,18 @@ import net.craftlin.api.misc.itF
 import java.math.BigDecimal
 import java.math.BigInteger
 
-abstract class CommandContext(private val command: Command<*>, private val args: Array<String>) {
+abstract class CommandContext(private val command: Command<*>, raw: String) {
 
     companion object {
         private val numberRegex = Regex("^\\d+$")
         private val decimalRefex = Regex("^\\d+(.\\d+)?$")
     }
 
-    /**
-     * The command sender
-     */
-    abstract val sender: Sender
+    private val args = raw.run {
+        substring(command.name.length).split(" ").toMutableList().apply {
+            removeIf { it.isBlank() }
+        }
+    }
 
     protected val exception = CommandUsageException(command)
 
@@ -27,6 +28,11 @@ abstract class CommandContext(private val command: Command<*>, private val args:
     }
 
     protected fun forceGet(key: String) = get(key) ?: throw exception
+
+    /**
+     * The command sender
+     */
+    abstract val sender: Sender
 
     /**
      * Sends a message to [sender].

@@ -22,6 +22,7 @@ class CraftlinCommand: CommandExecutor {
                 Logger.reset()
                 Stoppable.reset()
                 BukkitCraftlin.listener.handlers.clear()
+                BukkitCraftlin.commands.clear()
                 BukkitCraftlin.loadScripts()
                 sender.sendMessage("§6Craftlin» §aScripts have been reloaded!")
             }

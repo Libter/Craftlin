@@ -16,7 +16,7 @@ private typealias EngineFactory = org.jetbrains.kotlin.script.jsr223.KotlinJsr22
 object Engine {
 
     private val charset = Charset.forName("UTF-8") ?: throw RuntimeException("Can't find UTF-8 charset!")
-    private lateinit var variables: Variables
+    private lateinit var variables: Variables<*>
     private lateinit var factory: EngineFactory
     private val imports = listOf(
         "net.craftlin.api.Server",
@@ -41,7 +41,7 @@ object Engine {
         engine.eval("""Thread.currentThread().contextClassLoader = (bindings["loader"] as java.lang.ClassLoader)""")
     }
 
-    fun put(variables: Variables) {
+    fun put(variables: Variables<*>) {
         this.variables = variables
     }
 

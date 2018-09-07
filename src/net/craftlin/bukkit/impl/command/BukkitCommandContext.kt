@@ -11,7 +11,7 @@ import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 
-class BukkitCommandContext(command: Command<*>, sender: CommandSender, args: Array<String>): CommandContext(command, args) {
+class BukkitCommandContext(command: Command<*>, sender: CommandSender, raw: String): CommandContext(command, raw) {
 
     override val sender = when (sender) {
         is org.bukkit.entity.Player -> BukkitPlayer(sender)

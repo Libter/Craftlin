@@ -2,7 +2,7 @@ package net.craftlin.api.command
 
 import net.craftlin.api.misc.thisF
 
-class Command<Context: CommandContext>(definition: String, val executor: thisF<Context>) {
+class Command<Context: CommandContext>(private val definition: String, private val executor: thisF<Context>) {
 
     val name: String
     val mappings = HashMap<String,Int>()
@@ -16,6 +16,16 @@ class Command<Context: CommandContext>(definition: String, val executor: thisF<C
             }
         } catch (throwable: Throwable) {
             throw IllegalArgumentException("Invalid command definition: $definition")
+        }
+    }
+
+    operator fun invoke(context: Context) {
+        try {
+            executor(context)
+        } catch (e: CommandUsageException) {
+            context.sender.message("&4Usage: $definition")
+        } catch (e: CommandCustomException) {
+            context.sender.message(e.message)
         }
     }
 
