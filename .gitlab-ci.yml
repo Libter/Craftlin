@@ -28,6 +28,10 @@ test:
   - gradle dokka
   - gradle jacocoTestReport
   - cat build/reports/jacoco/test/html/index.html
+  artifacts:
+    paths:
+    - build/dokka/-craftlin/*
+    expire_in: 1 week
   
 deploy:
   stage: deploy
