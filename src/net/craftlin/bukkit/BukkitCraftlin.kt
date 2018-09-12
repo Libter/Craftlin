@@ -51,6 +51,7 @@ class BukkitCraftlin: JavaPlugin() {
         commands = BukkitCommands()
 
         server.pluginManager.registerEvents(listener, this)
+        server.pluginManager.registerEvents(commands, this)
 
         Logger.log("Loading command...")
         getCommand("craftlin").executor = CraftlinCommand()
