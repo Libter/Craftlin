@@ -50,7 +50,7 @@ abstract class Variables<Context: CommandContext>(listener: Listener, private va
     abstract val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
 
     /** Registers a command */
-    fun command(definition: String, callback: thisF<CommandContext>) {
+    val command = fun(definition: String, callback: thisF<CommandContext>) {
         commands.add(Command(definition, callback))
     }
 
