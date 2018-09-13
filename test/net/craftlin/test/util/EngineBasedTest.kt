@@ -33,16 +33,16 @@ abstract class EngineBasedTest {
         override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) { }
     }
 
-    object EmptyCommands: Commands<EmptyContext>()
+    object EmptyCommands: Commands()
 
-    open class EmptyContext(command: Command<EmptyContext>, raw: String): CommandContext(command, raw) {
+    open class EmptyContext(command: Command, raw: String): CommandContext(command, raw) {
         override val sender = EmptyServer.console
         override fun player(key: String): Player { TODO() }
 
         override fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>) { }
     }
 
-    open class EmptyVariables(listener: Listener = EmptyListener): Variables<EmptyContext>(listener, EmptyCommands) {
+    open class EmptyVariables(listener: Listener = EmptyListener): Variables(listener, EmptyCommands) {
         override val sync: (callback: emptyF) -> Unit
             get() = fun(callback: emptyF) { callback() }
         override val async: (callback: emptyF) -> Unit

@@ -29,7 +29,7 @@ object Engine {
 
         //And reading an init script
         val loader = this::class.java.classLoader
-        init = loader.getResource("init.kt").readText(charset)
+        init = loader.getResource("init.cl").readText(charset)
 
         //And all should be fine now... but wait
         //The engine uses a different ClassLoader which makes casting in setup() impossible
