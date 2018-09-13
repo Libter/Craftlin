@@ -7,11 +7,11 @@ import net.craftlin.api.misc.itF
 import java.math.BigDecimal
 import java.math.BigInteger
 
-abstract class CommandContext(private val command: Command<*>, raw: String) {
+abstract class CommandContext(private val command: Command, private val raw: String) {
 
     companion object {
         private val numberRegex = Regex("^\\d+$")
-        private val decimalRefex = Regex("^\\d+(.\\d+)?$")
+        private val decimalRegex = Regex("^\\d+(.\\d+)?$")
     }
 
     private val args = raw.run {
@@ -22,12 +22,12 @@ abstract class CommandContext(private val command: Command<*>, raw: String) {
 
     protected val exception = CommandUsageException(command)
 
-    protected fun get(key: String): String? {
+    private fun get(key: String): String? {
         val index = command.mappings[key] ?: throw IllegalArgumentException("Invalid argument key: $key")
         return if (index in 0 until args.size) args[index] else null
     }
 
-    protected fun forceGet(key: String) = get(key) ?: throw exception
+    private fun forceGet(key: String) = get(key) ?: throw exception
 
     /**
      * The command sender
@@ -78,7 +78,7 @@ abstract class CommandContext(private val command: Command<*>, raw: String) {
      */
     fun decimal(key: String): BigDecimal {
         val text = text(key)
-        if (!text.matches(decimalRefex)) throw exception
+        if (!text.matches(decimalRegex)) throw exception
         return BigDecimal(text)
     }
 
@@ -91,8 +91,6 @@ abstract class CommandContext(private val command: Command<*>, raw: String) {
 
     /**
      * Retrieves the offline player with name specified in the argument with key [key]
-     *
-     * @throws CommandUsageException when the argument is unset or key is invalid.
      */
     abstract fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>)
 }

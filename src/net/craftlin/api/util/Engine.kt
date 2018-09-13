@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintStream
-import java.nio.charset.Charset
 import java.util.Date
 import javax.script.ScriptEngine
 import kotlin.reflect.KVisibility
@@ -15,16 +14,10 @@ private typealias EngineFactory = org.jetbrains.kotlin.script.jsr223.KotlinJsr22
 
 object Engine {
 
-    private val charset = Charset.forName("UTF-8") ?: throw RuntimeException("Can't find UTF-8 charset!")
-    private lateinit var variables: Variables<*>
+    private val charset = Charsets.UTF_8
+    private lateinit var variables: Variables
     private lateinit var factory: EngineFactory
-    private val imports = listOf(
-        "net.craftlin.api.Server",
-        "net.craftlin.api.entity.*",
-        "net.craftlin.api.event.*",
-        "net.craftlin.api.inventory.*",
-        "net.craftlin.api.world.*"
-    )
+    private lateinit var init: String
 
     fun load() {
         //TODO: download and load org.jetbrains.kotlin:kotlin-compiler-embeddable dynamically... it makes our fat jar too much fat
@@ -33,21 +26,26 @@ object Engine {
         org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback()
         //Then we are creating a factory
         factory = EngineFactory()
+
+        //And reading an init script
+        val loader = this::class.java.classLoader
+        init = loader.getResource("init.kt").readText(charset)
+
         //And all should be fine now... but wait
         //The engine uses a different ClassLoader which makes casting in setup() impossible
         //So we have to set custom ClassLoader which will be visible for future scripts
         val engine = setup()
-        engine.put("loader", this::class.java.classLoader)
+        engine.put("loader", loader)
         engine.eval("""Thread.currentThread().contextClassLoader = (bindings["loader"] as java.lang.ClassLoader)""")
     }
 
-    fun put(variables: Variables<*>) {
+    fun put(variables: Variables) {
         this.variables = variables
     }
 
     private fun setup(): ScriptEngine {
         val engine = factory.scriptEngine
-        engine.eval(imports.joinToString("\n") { "import $it" })
+        engine.eval(init)
         if (::variables.isInitialized) {
             //Values passed to script are stored in bindings: Map<String,Any?>
             //So we have to create declarations with explicit types

@@ -1,16 +1,15 @@
 package net.craftlin.api.util
 
 import net.craftlin.api.command.Command
-import net.craftlin.api.command.CommandContext
 
-abstract class Commands<Context: CommandContext> {
+abstract class Commands {
 
-    private val list = ArrayList<Command<Context>>()
+    private val list = ArrayList<Command>()
 
     operator fun get(name: String) = list.firstOrNull {
         name.startsWith(it.name + " ") || name == it.name
     }
-    fun add(command: Command<Context>) { list.add(command) }
+    fun add(command: Command) { list.add(command) }
     fun clear() { list.clear() }
 
 }

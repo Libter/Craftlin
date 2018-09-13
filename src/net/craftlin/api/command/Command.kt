@@ -2,7 +2,7 @@ package net.craftlin.api.command
 
 import net.craftlin.api.misc.thisF
 
-class Command<Context: CommandContext>(private val definition: String, private val executor: thisF<Context>) {
+class Command(private val definition: String, private val executor: thisF<CommandContext>) {
 
     val name: String
     val mappings = HashMap<String,Int>()
@@ -19,7 +19,7 @@ class Command<Context: CommandContext>(private val definition: String, private v
         }
     }
 
-    operator fun invoke(context: Context) {
+    operator fun invoke(context: CommandContext) {
         try {
             executor(context)
         } catch (e: CommandUsageException) {

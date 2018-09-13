@@ -26,7 +26,7 @@ import net.craftlin.api.util.Listener
 
 /** All variables passed to script.
  * @constructor This constructor is only for internal usage. */
-abstract class Variables<Context: CommandContext>(listener: Listener, private val commands: Commands<Context>) {
+abstract class Variables(listener: Listener, private val commands: Commands) {
 
     /** Helper for common server-related actions like getting online players. */
     abstract val server: Server
