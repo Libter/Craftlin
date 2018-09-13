@@ -39,7 +39,9 @@ deploy:
   only: [master]
   script:
   - apt-get update && apt-get -y install sshpass
-  - echo "Removing old docs..."
-  - sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 www@company.libter.pl rm -rf /var/www/craftlin/docs/*
+  - echo "Removing old files..."
+  - sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 www@company.libter.pl rm -rf /var/www/craftlin/docs/* /var/www/craftlin/Craftlin.jar
+  - echo "Uploading new plugin..."
+  - sshpass -p $PASSWORD scp -P 531 -r build/libs/Craftlin.jar www@company.libter.pl:/var/www/craftlin/Craftlin.jar
   - echo "Uploading new docs..."
   - sshpass -p $PASSWORD scp -P 531 -r build/dokka/-craftlin/* www@company.libter.pl:/var/www/craftlin/docs
