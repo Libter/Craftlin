@@ -94,9 +94,9 @@ class BukkitBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEven
 
 class BukkitMoveEvent(private val origin: PlayerMoveEvent) : MoveEvent, BukkitCancellableEvent(origin) {
     override val from: Location
-        get() = BukkitLocation(origin.to)
+        get() = BukkitLocation.from(origin.from)
     override val to: Location
-        get() = BukkitLocation(origin.to)
+        get() = BukkitLocation.from(origin.to)
     override val player: Player
         get() = BukkitPlayer(origin.player)
 }

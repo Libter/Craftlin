@@ -3,16 +3,14 @@ package net.craftlin.api.world
 /**
  * Represents a Minecraft location.
  */
-interface Location {
-
-    var x: Double
-    var y: Double
-    var z: Double
-
-    var pitch: Double
-    var yaw: Double
-
-    var world: World
+class Location(
+    var world: World,
+    var x: Double,
+    var y: Double,
+    var z: Double,
+    var pitch: Double = 0.0,
+    var yaw: Double = 0.0
+) {
 
     /** [x] as an integer (not double) */
     var blockX

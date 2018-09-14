@@ -13,6 +13,6 @@ class BukkitWorld(private val origin: org.bukkit.World): World {
 
     override fun blockAt(x: Long, y: Long, z: Long) = BukkitBlock(origin.getBlockAt(x.toInt(), y.toInt(), z.toInt()))
     override fun spawn(type: String, location: Location) {
-        origin.spawnEntity((location as BukkitLocation).origin, BukkitEntityType.Converter(type))
+        origin.spawnEntity(BukkitLocation.to(location), BukkitEntityType.Converter(type))
     }
 }
