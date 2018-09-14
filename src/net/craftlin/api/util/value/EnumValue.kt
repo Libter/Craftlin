@@ -25,6 +25,8 @@ abstract class EnumValue<Api: Enum<*>, Impl>(private val apiClass: KClass<Api>) 
         }
     }
 
+    abstract fun Converter(api: Api): Impl
+
     fun Converter(origin: Impl): String {
         val api = implMap.byValue(origin) ?: throw NotImplementedError()
         return apiMap.byValue(api) ?: throw NotImplementedError()
@@ -34,8 +36,6 @@ abstract class EnumValue<Api: Enum<*>, Impl>(private val apiClass: KClass<Api>) 
         val api = apiMap.byKey(value) ?: throw IllegalArgumentException()
         return implMap.byKey(api) ?: throw NotImplementedError()
     }
-
-    protected abstract fun convert(api: Api): Impl
 
     private val apiMap by lazy {
         val map = BiHashMap<String, Api>()
@@ -48,7 +48,7 @@ abstract class EnumValue<Api: Enum<*>, Impl>(private val apiClass: KClass<Api>) 
     private val implMap by lazy {
         val map = BiHashMap<Api, Impl>()
         (apiClass.java.enumConstants as Array<out Api>).forEach {
-            map[it] = convert(it)
+            map[it] = Converter(it)
         }
         map
     }

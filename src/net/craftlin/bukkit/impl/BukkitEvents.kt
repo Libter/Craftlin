@@ -128,7 +128,7 @@ class BukkitAirClickEvent(private val origin: PlayerInteractEvent) : AirClickEve
 
 class BukkitEntityClickEvent(private val origin: PlayerInteractEntityEvent) : EntityClickEvent, BukkitCancellableEvent(origin) {
     override val entity: Entity
-        get() = BukkitEntity(origin.rightClicked)
+        get() = BukkitEntity.create(origin.rightClicked)
     override val player: Player
         get() = BukkitPlayer(origin.player)
 }

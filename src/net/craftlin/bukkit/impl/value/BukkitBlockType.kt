@@ -5,7 +5,7 @@ import net.craftlin.api.value.world.BlockType
 import org.bukkit.Material
 
 object BukkitBlockType: EnumValue<BlockType, Material>(BlockType::class) {
-    override fun convert(api: BlockType) = when(api) {
+    override fun Converter(api: BlockType) = when(api) {
         BlockType.ACACIA_BUTTON -> Material.ACACIA_BUTTON
         BlockType.ACACIA_DOOR -> Material.ACACIA_DOOR
         BlockType.ACACIA_FENCE -> Material.ACACIA_FENCE

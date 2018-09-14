@@ -1,8 +1,10 @@
 package net.craftlin.api.world
 
 import net.craftlin.api.entity.Player
+import net.craftlin.api.entity.base.Entity
 import net.craftlin.api.value.world.WorldType
 import net.craftlin.api.world.block.Block
+import kotlin.reflect.KClass
 
 /**
  * Represents a Minecraft world
@@ -25,5 +27,5 @@ interface World {
     /**
      * Spawns mob of [type] at specified [location]
      */
-    fun spawn(type: String, location: Location)
+    fun <T: Entity> spawn(type: KClass<T>, location: Location): T
 }

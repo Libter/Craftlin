@@ -4,7 +4,7 @@ import net.craftlin.api.util.value.EnumValue
 import net.craftlin.api.value.entity.EntityType
 
 object BukkitEntityType: EnumValue<EntityType, org.bukkit.entity.EntityType>(EntityType::class) {
-    override fun convert(api: EntityType): org.bukkit.entity.EntityType {
+    override fun Converter(api: EntityType): org.bukkit.entity.EntityType {
         return when (api) {
             EntityType.AREA_EFFECT_CLOUD -> org.bukkit.entity.EntityType.AREA_EFFECT_CLOUD
             EntityType.ARMOR_STAND -> org.bukkit.entity.EntityType.ARMOR_STAND
