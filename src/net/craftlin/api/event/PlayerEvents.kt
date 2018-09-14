@@ -1,6 +1,7 @@
 package net.craftlin.api.event
 
 import net.craftlin.api.entity.base.Entity
+import net.craftlin.api.inventory.Item
 import net.craftlin.api.value.LoginResult
 import net.craftlin.api.world.Location
 import net.craftlin.api.world.block.Block
@@ -64,8 +65,8 @@ interface ChatEvent: PlayerEvent, CancellableEvent {
  * An event triggered after a player breaks a [block].
  */
 interface BreakEvent: PlayerEvent, BlockEvent, CancellableEvent {
-    /** Whether the items should be dropped from the [block] or not */
-    var dropItems: Boolean
+    /** List of items to drop */
+    val drop: MutableList<Item>
 }
 
 /**

@@ -18,11 +18,13 @@ import net.craftlin.api.event.PlaceEvent
 import net.craftlin.api.event.PressurePlateEvent
 import net.craftlin.api.event.SoilJumpEvent
 import net.craftlin.api.event.TripwireEvent
+import net.craftlin.api.inventory.Item
 import net.craftlin.api.util.chat
 import net.craftlin.api.world.Location
 import net.craftlin.api.world.block.Block
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.bukkit.impl.entity.base.BukkitEntity
+import net.craftlin.bukkit.impl.inventory.BukkitItem
 import net.craftlin.bukkit.impl.value.BukkitLoginResult
 import net.craftlin.bukkit.impl.world.BukkitBlock
 import net.craftlin.bukkit.impl.world.BukkitLocation
@@ -85,11 +87,13 @@ class BukkitBeforeLoginEvent(private val origin: AsyncPlayerPreLoginEvent): Befo
 }
 
 class BukkitBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEvent): BreakEvent, BukkitCancellableEvent(origin) {
+    internal val originDrops = origin.block
+        .getDrops(origin.player.inventory.itemInMainHand)
+        .map { BukkitItem.from(it) }
+
     override val player = BukkitPlayer(origin.player)
     override val block = BukkitBlock(origin.block)
-    override var dropItems: Boolean
-        get() = origin.isDropItems
-        set(value) { origin.isDropItems = value }
+    override val drop: MutableList<Item> = (if(origin.isDropItems) originDrops else emptyList()).toMutableList()
 }
 
 class BukkitMoveEvent(private val origin: PlayerMoveEvent) : MoveEvent, BukkitCancellableEvent(origin) {

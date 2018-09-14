@@ -47,7 +47,16 @@ class BukkitListener: Listener(), org.bukkit.event.Listener {
     fun triggerBeforeLogin(event: AsyncPlayerPreLoginEvent) = trigger<BeforeJoinEvent>(BukkitBeforeLoginEvent(event))
 
     @EventHandler
-    fun triggerBreak(event: BlockBreakEvent) = trigger<BreakEvent>(BukkitBreakEvent(event))
+    fun triggerBreak(event: BlockBreakEvent) {
+        val cEvent = BukkitBreakEvent(event)
+        trigger<BreakEvent>(cEvent)
+        if (cEvent.originDrops != cEvent.drop) {
+            event.isDropItems = false
+            cEvent.drop.forEach {
+                it.drop(cEvent.block.location)
+            }
+        }
+    }
 
     @EventHandler
     fun triggerPlace(event: BlockPlaceEvent) = trigger<PlaceEvent>(BukkitPlaceEvent(event))

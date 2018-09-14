@@ -20,6 +20,7 @@ class BukkitCommands: Commands(), Listener {
             BukkitTask {
                 if (event.player.isOnline) it.invoke(context)
             }.runTask(BukkitCraftlin.instance)
+            event.isCancelled = true
         }
     }
 
