@@ -21,7 +21,7 @@ object BukkitEntityType: EnumValue<EntityType, org.bukkit.entity.EntityType>(Ent
             EntityType.DOLPHIN -> org.bukkit.entity.EntityType.DOLPHIN
             EntityType.DONKEY -> org.bukkit.entity.EntityType.DONKEY
             EntityType.DRAGON_FIREBALL -> org.bukkit.entity.EntityType.DRAGON_FIREBALL
-            EntityType.DROPPED_ITEM -> org.bukkit.entity.EntityType.DROPPED_ITEM
+            EntityType.ITEM -> org.bukkit.entity.EntityType.DROPPED_ITEM
             EntityType.DROWNED -> org.bukkit.entity.EntityType.DROWNED
             EntityType.EGG -> org.bukkit.entity.EntityType.EGG
             EntityType.ELDER_GUARDIAN -> org.bukkit.entity.EntityType.ELDER_GUARDIAN

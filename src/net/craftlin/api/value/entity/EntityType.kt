@@ -1,5 +1,6 @@
 package net.craftlin.api.value.entity
 
+import net.craftlin.api.entity.DroppedItem
 import net.craftlin.api.entity.animal.Bat
 import net.craftlin.api.entity.animal.Chicken
 import net.craftlin.api.entity.animal.Cow
@@ -31,7 +32,7 @@ enum class EntityType {
     DOLPHIN,
     DONKEY,
     DRAGON_FIREBALL,
-    DROPPED_ITEM,
+    ITEM,
     DROWNED,
     EGG,
     ELDER_GUARDIAN,
@@ -117,7 +118,7 @@ enum class EntityType {
     ZOMBIE_VILLAGER;
 
     companion object {
-        private val types = mapOf<KClass<out Entity>, EntityType>(
+        private val types = mapOf(
             Bat::class to EntityType.BAT,
             Ocelot::class to EntityType.OCELOT,
             Parrot::class to EntityType.PARROT,
@@ -129,7 +130,8 @@ enum class EntityType {
             Cow::class to EntityType.COW,
             MushroomCow::class to EntityType.MUSHROOM_COW,
             PolarBear::class to EntityType.POLAR_BEAR,
-            Turtle::class to EntityType.TURTLE
+            Turtle::class to EntityType.TURTLE,
+            DroppedItem::class to EntityType.ITEM
         )
 
         fun fromClass(type: KClass<out Entity>) = types[type] ?: throw NotImplementedError()

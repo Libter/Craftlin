@@ -8,6 +8,6 @@ import net.craftlin.api.value.world.ItemType
 interface Item {
     /** @see ItemType */
     var type: String
-    /** Item amount (from 0 to 64) */
+    /** DroppedItem amount (from 0 to 64) */
     var amount: Long
 }
