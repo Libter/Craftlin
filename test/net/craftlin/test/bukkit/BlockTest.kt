@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import net.craftlin.api.value.world.BlockType
 import net.craftlin.bukkit.impl.world.BukkitBlock
+import org.bukkit.Difficulty
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.World
@@ -22,6 +23,8 @@ class BlockTest {
         on { name } doReturn "world"
         on { uid } doReturn uuid
         on { environment } doReturn World.Environment.NORMAL
+        on { difficulty } doReturn Difficulty.PEACEFUL
+        on { seed } doReturn 1
     }
     private val location: Location = mock {
         on { x } doReturn -1.0
