@@ -21,6 +21,7 @@ class BukkitWorld(private val origin: org.bukkit.World): World {
     override val difficulty = BukkitWorldDifficulty.Converter(origin.difficulty)
     override val name: String = origin.name
     override val players get() = origin.players.map { BukkitPlayer(it) }
+    override val seed = origin.seed.toString()
 
     override fun blockAt(x: Long, y: Long, z: Long) = BukkitBlock(origin.getBlockAt(x.toInt(), y.toInt(), z.toInt()))
 

@@ -15,6 +15,8 @@ import kotlin.reflect.KClass
 interface World {
     /** The world's name */
     val name: String
+    /** The world's seed */
+    val seed: String
     /**
      * The world's type
      * @see WorldType
