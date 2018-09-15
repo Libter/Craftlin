@@ -11,12 +11,14 @@ import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.bukkit.impl.entity.base.BukkitEntity
 import net.craftlin.bukkit.impl.inventory.BukkitItem
 import net.craftlin.bukkit.impl.value.BukkitEntityType
+import net.craftlin.bukkit.impl.value.BukkitWorldDifficulty
 import net.craftlin.bukkit.impl.value.BukkitWorldType
 import kotlin.reflect.KClass
 import kotlin.reflect.full.safeCast
 
 class BukkitWorld(private val origin: org.bukkit.World): World {
     override val type = BukkitWorldType.Converter(origin.environment)
+    override val difficulty = BukkitWorldDifficulty.Converter(origin.difficulty)
     override val name: String = origin.name
     override val players get() = origin.players.map { BukkitPlayer(it) }
 
