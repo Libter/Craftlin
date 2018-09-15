@@ -14,7 +14,7 @@ class SimpleEnumTest {
     }
 
     private object TestWorldType: EnumValue<WorldType, ServerWorldType>(WorldType::class) {
-        override fun convert(api: WorldType): ServerWorldType {
+        override fun Converter(api: WorldType): ServerWorldType {
             return when(api) {
                 WorldType.NORMAL -> ServerWorldType.DAY
                 WorldType.NETHER -> ServerWorldType.HELL

@@ -45,3 +45,16 @@ deploy:
   - sshpass -p $PASSWORD scp -P 531 -r build/libs/Craftlin.jar www@company.libter.pl:/var/www/craftlin/Craftlin.jar
   - echo "Uploading new docs..."
   - sshpass -p $PASSWORD scp -P 531 -r build/dokka/-craftlin/* www@company.libter.pl:/var/www/craftlin/docs
+  
+deployDev:
+  stage: deploy
+  image: ubuntu:xenial
+  only: [dev]
+  script:
+  - apt-get update && apt-get -y install sshpass
+  - echo "Removing old files..."
+  - sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 www@company.libter.pl rm -rf /var/www/craftlin/docs-dev/* /var/www/craftlin/Craftlin-dev.jar
+  - echo "Uploading new plugin..."
+  - sshpass -p $PASSWORD scp -P 531 -r build/libs/Craftlin.jar www@company.libter.pl:/var/www/craftlin/Craftlin-dev.jar
+  - echo "Uploading new docs..."
+  - sshpass -p $PASSWORD scp -P 531 -r build/dokka/-craftlin/* www@company.libter.pl:/var/www/craftlin/docs-dev

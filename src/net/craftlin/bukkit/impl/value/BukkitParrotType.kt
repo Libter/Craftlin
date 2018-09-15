@@ -5,7 +5,7 @@ import net.craftlin.api.value.entity.ParrotVariant
 import org.bukkit.entity.Parrot
 
 object BukkitParrotType: EnumValue<ParrotVariant, Parrot.Variant>(ParrotVariant::class) {
-    override fun convert(api: ParrotVariant) = when (api) {
+    override fun Converter(api: ParrotVariant) = when (api) {
         ParrotVariant.BLUE -> Parrot.Variant.BLUE
         ParrotVariant.CYAN -> Parrot.Variant.CYAN
         ParrotVariant.GRAY -> Parrot.Variant.GRAY

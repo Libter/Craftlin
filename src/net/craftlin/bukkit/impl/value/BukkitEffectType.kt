@@ -5,7 +5,7 @@ import net.craftlin.api.value.entity.modifier.EffectType
 import org.bukkit.potion.PotionEffectType
 
 object BukkitEffectType: EnumValue<EffectType, PotionEffectType>(EffectType::class) {
-    override fun convert(api: EffectType) = when (api) {
+    override fun Converter(api: EffectType) = when (api) {
         EffectType.ABSORPTION -> PotionEffectType.ABSORPTION
         EffectType.BLINDNESS -> PotionEffectType.BLINDNESS
         EffectType.CONDUIT_POWER -> PotionEffectType.CONDUIT_POWER

@@ -11,8 +11,8 @@ class BukkitChicken(origin: org.bukkit.entity.Chicken): BukkitGrowingEntity(orig
 
 class BukkitCow(origin: org.bukkit.entity.Cow): BukkitGrowingEntity(origin), Cow
 
-class MushroomCow(origin: org.bukkit.entity.MushroomCow): BukkitGrowingEntity(origin), MushroomCow
+class BukkitMushroomCow(origin: org.bukkit.entity.MushroomCow): BukkitGrowingEntity(origin), MushroomCow
 
-class PolarBear(origin: org.bukkit.entity.PolarBear): BukkitGrowingEntity(origin), PolarBear
+class BukkitPolarBear(origin: org.bukkit.entity.PolarBear): BukkitGrowingEntity(origin), PolarBear
 
-class Turtle(origin: org.bukkit.entity.Turtle): BukkitGrowingEntity(origin), Turtle
+class BukkitTurtle(origin: org.bukkit.entity.Turtle): BukkitGrowingEntity(origin), Turtle

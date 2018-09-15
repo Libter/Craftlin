@@ -1,6 +1,6 @@
 package net.craftlin.test.api
 
-import net.craftlin.api.Server
+import net.craftlin.api.entity.animal.Pig
 import net.craftlin.api.util.Engine
 import net.craftlin.test.util.EngineBasedTest
 import org.junit.Assert
@@ -54,7 +54,7 @@ class EngineTest: EngineBasedTest() {
 
     @Test
     fun importTest() {
-        Assert.assertEquals(Engine.run("Server::class"), Server::class)
+        Assert.assertEquals(Engine.run("Pig::class"), Pig::class)
     }
 
 }

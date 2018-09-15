@@ -10,5 +10,5 @@ open class BukkitBlock(private val origin: org.bukkit.block.Block): Block {
         set(value) { origin.type = value }
 
     override var type by BukkitBlockType.Delegate(::originType)
-    override val location = BukkitLocation(origin.location)
+    override val location = BukkitLocation.from(origin.location)
 }

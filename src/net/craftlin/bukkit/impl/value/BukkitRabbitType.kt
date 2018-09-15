@@ -5,7 +5,7 @@ import net.craftlin.api.value.entity.RabbitVariant
 import org.bukkit.entity.Rabbit
 
 object BukkitRabbitType: EnumValue<RabbitVariant, Rabbit.Type>(RabbitVariant::class) {
-    override fun convert(api: RabbitVariant) = when (api) {
+    override fun Converter(api: RabbitVariant) = when (api) {
         RabbitVariant.BLACK -> Rabbit.Type.BLACK
         RabbitVariant.BLACK_AND_WHITE -> Rabbit.Type.BLACK_AND_WHITE
         RabbitVariant.BROWN -> Rabbit.Type.BROWN

@@ -1,5 +1,21 @@
 package net.craftlin.api.value.entity
 
+import net.craftlin.api.entity.DroppedItem
+import net.craftlin.api.entity.animal.Bat
+import net.craftlin.api.entity.animal.Chicken
+import net.craftlin.api.entity.animal.Cow
+import net.craftlin.api.entity.animal.MushroomCow
+import net.craftlin.api.entity.animal.Ocelot
+import net.craftlin.api.entity.animal.Parrot
+import net.craftlin.api.entity.animal.Pig
+import net.craftlin.api.entity.animal.PolarBear
+import net.craftlin.api.entity.animal.Rabbit
+import net.craftlin.api.entity.animal.Sheep
+import net.craftlin.api.entity.animal.Turtle
+import net.craftlin.api.entity.animal.Wolf
+import net.craftlin.api.entity.base.Entity
+import kotlin.reflect.KClass
+
 enum class EntityType {
     AREA_EFFECT_CLOUD,
     ARMOR_STAND,
@@ -16,7 +32,7 @@ enum class EntityType {
     DOLPHIN,
     DONKEY,
     DRAGON_FIREBALL,
-    DROPPED_ITEM,
+    ITEM,
     DROWNED,
     EGG,
     ELDER_GUARDIAN,
@@ -99,5 +115,27 @@ enum class EntityType {
     WOLF,
     ZOMBIE,
     ZOMBIE_HORSE,
-    ZOMBIE_VILLAGER
+    ZOMBIE_VILLAGER;
+
+    companion object {
+        private val types = mapOf(
+            Bat::class to EntityType.BAT,
+            Ocelot::class to EntityType.OCELOT,
+            Parrot::class to EntityType.PARROT,
+            Pig::class to EntityType.PIG,
+            Rabbit::class to EntityType.RABBIT,
+            Sheep::class to EntityType.SHEEP,
+            Wolf::class to EntityType.WOLF,
+            Chicken::class to EntityType.CHICKEN,
+            Cow::class to EntityType.COW,
+            MushroomCow::class to EntityType.MUSHROOM_COW,
+            PolarBear::class to EntityType.POLAR_BEAR,
+            Turtle::class to EntityType.TURTLE,
+            DroppedItem::class to EntityType.ITEM
+        )
+
+        fun fromClass(type: KClass<out Entity>) = types[type] ?: throw NotImplementedError()
+    }
+
+
 }

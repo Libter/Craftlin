@@ -4,7 +4,7 @@ import net.craftlin.api.util.value.EnumValue
 import net.craftlin.api.value.DyeColor
 
 object BukkitDyeColor: EnumValue<DyeColor, org.bukkit.DyeColor>(DyeColor::class) {
-    override fun convert(api: DyeColor) = when (api) {
+    override fun Converter(api: DyeColor) = when (api) {
         DyeColor.BLACK -> org.bukkit.DyeColor.BLACK
         DyeColor.BLUE -> org.bukkit.DyeColor.BLUE
         DyeColor.BROWN -> org.bukkit.DyeColor.BROWN
