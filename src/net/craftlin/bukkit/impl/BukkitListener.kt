@@ -52,8 +52,10 @@ class BukkitListener: Listener(), org.bukkit.event.Listener {
         trigger<BreakEvent>(cEvent)
         if (cEvent.originDrops != cEvent.drop) {
             event.isDropItems = false
-            cEvent.drop.forEach {
-                it.drop(cEvent.block.location)
+            if (cEvent.player.gamemode != "creative") {
+                cEvent.drop.forEach {
+                    it.drop(cEvent.block.location)
+                }
             }
         }
     }
