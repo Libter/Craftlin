@@ -29,6 +29,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.material.Button
 import org.bukkit.material.Lever
 
@@ -68,6 +69,8 @@ class BukkitListener: Listener(), org.bukkit.event.Listener {
 
     @EventHandler
     fun triggerEntityClick(event: PlayerInteractEntityEvent) {
+        if (event.hand == EquipmentSlot.OFF_HAND) return
+        //TODO: add hand & used item to event, trigger onlu: if off item & main air - offhand, if off item & main item - both, else - mainhand
         with(BukkitEntityClickEvent(event)) {
             trigger<EntityClickEvent>(this)
             trigger<ClickEvent>(this)
