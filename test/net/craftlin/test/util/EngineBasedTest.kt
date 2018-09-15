@@ -25,6 +25,7 @@ abstract class EngineBasedTest {
     object EmptyServer: Server {
         override val console: Sender
             get() = object: Sender {
+                override fun command(command: String) { }
                 override fun message(message: String) = println(message)
             }
         override val players = ArrayList<Player>()

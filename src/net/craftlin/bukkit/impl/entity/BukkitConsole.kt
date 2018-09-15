@@ -4,6 +4,6 @@ import net.craftlin.api.entity.Console
 import net.craftlin.api.util.chat
 import org.bukkit.command.ConsoleCommandSender
 
-class BukkitConsole(private val origin: ConsoleCommandSender): Console {
+class BukkitConsole(private val origin: ConsoleCommandSender): BukkitSender(origin), Console {
     override fun message(message: String) = origin.sendMessage(message.chat)
 }
