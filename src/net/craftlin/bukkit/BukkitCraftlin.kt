@@ -3,6 +3,7 @@ package net.craftlin.bukkit
 import net.craftlin.api.util.Engine
 import net.craftlin.api.util.Logger
 import net.craftlin.bukkit.impl.BukkitListener
+import net.craftlin.bukkit.impl.BukkitVariables
 import net.craftlin.bukkit.impl.command.BukkitCommands
 import org.bukkit.Bukkit
 import org.bukkit.event.player.PlayerJoinEvent

@@ -9,16 +9,13 @@ import org.bukkit.command.CommandSender
 class CraftlinCommand: CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (!sender.hasPermission("craftlin")) return false
         execute(sender, if (args.isEmpty()) null else args[0])
         return true
     }
 
-    fun execute(sender: CommandSender, action: String?) {
-        if (action == null) {
-            sender.sendMessage("§6Craftlin» §aⓒ Libter Company 2018")
-        } else when (action) {
-            "reload" -> {
+    private fun execute(sender: CommandSender, action: String?) {
+        when {
+            action == "reload" && sender.hasPermission("craftlin") -> {
                 Logger.reset()
                 Stoppable.reset()
                 BukkitCraftlin.listener.handlers.clear()
@@ -26,6 +23,7 @@ class CraftlinCommand: CommandExecutor {
                 BukkitCraftlin.loadScripts()
                 sender.sendMessage("§6Craftlin» §aScripts have been reloaded!")
             }
+            else -> sender.sendMessage("§6Craftlin» §aⓒ Libter Company 2018")
         }
     }
 

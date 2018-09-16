@@ -1,4 +1,4 @@
-package net.craftlin.bukkit
+package net.craftlin.bukkit.impl
 
 import net.craftlin.api.Variables
 import net.craftlin.api.misc.Timer
@@ -6,7 +6,6 @@ import net.craftlin.api.misc.emptyF
 import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Commands
 import net.craftlin.api.util.Listener
-import net.craftlin.bukkit.impl.BukkitServer
 import net.craftlin.bukkit.impl.misc.BukkitTask
 import net.craftlin.bukkit.impl.misc.BukkitTimer
 import org.bukkit.plugin.java.JavaPlugin
