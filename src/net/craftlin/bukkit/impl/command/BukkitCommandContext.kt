@@ -20,7 +20,7 @@ class BukkitCommandContext(sender: CommandSender, command: Command, raw: String)
         else -> BukkitSender(sender)
     }
 
-    override fun player(key: String) = BukkitServer.player(key) ?: throw exception
+    override fun player(key: String) = BukkitServer.player(text(key)) ?: throw exception
 
-    override fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>) = BukkitServer.offlinePlayer(key, callback)
+    override fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>) = BukkitServer.offlinePlayer(text(key), callback)
 }

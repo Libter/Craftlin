@@ -89,7 +89,7 @@ class BukkitBeforeLoginEvent(private val origin: AsyncPlayerPreLoginEvent): Befo
 class BukkitBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEvent): BreakEvent, BukkitCancellableEvent(origin) {
     internal val originDrops = origin.block
         .getDrops(origin.player.inventory.itemInMainHand)
-        .map { BukkitItem.from(it) }
+        .map { BukkitItem.toApi(it) }
 
     override val player = BukkitPlayer(origin.player)
     override val block = BukkitBlock(origin.block)
@@ -98,9 +98,9 @@ class BukkitBreakEvent(private val origin: org.bukkit.event.block.BlockBreakEven
 
 class BukkitMoveEvent(private val origin: PlayerMoveEvent) : MoveEvent, BukkitCancellableEvent(origin) {
     override val from: Location
-        get() = BukkitLocation.from(origin.from)
+        get() = BukkitLocation.toApi(origin.from)
     override val to: Location
-        get() = BukkitLocation.from(origin.to)
+        get() = BukkitLocation.toApi(origin.to)
     override val player: Player
         get() = BukkitPlayer(origin.player)
 }

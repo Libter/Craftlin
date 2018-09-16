@@ -7,12 +7,12 @@ import org.bukkit.inventory.ItemStack
 
 object BukkitItem: Converter<Item, ItemStack>() {
 
-    override fun to(value: Item) = ItemStack(
+    override fun toImpl(value: Item) = ItemStack(
         BukkitItemType.Converter(value.type),
         value.amount.toInt()
     )
 
-    override fun from(origin: ItemStack) = Item(
+    override fun toApi(origin: ItemStack) = Item(
         BukkitItemType.Converter(origin.type),
         origin.amount.toLong()
     )

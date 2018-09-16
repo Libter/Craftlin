@@ -26,6 +26,10 @@ class Command(private val definition: String, private val executor: thisF<Comman
             context.sender.message("&4Usage: $definition")
         } catch (e: CommandCustomException) {
             context.sender.message(e.message)
+        } catch (e: Throwable) {
+            context.sender.message("&4An internal error occurred, contact the server admin!")
+            e.printStackTrace()
+            //TODO: save error to file
         }
     }
 

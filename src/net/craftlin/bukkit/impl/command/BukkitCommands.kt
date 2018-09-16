@@ -15,19 +15,15 @@ class BukkitCommands: Commands(), Listener {
 
     fun send(sender: CommandSender, command: String) {
         if (command.startsWith("/")) {
-            println("/")
             Bukkit.getServer().dispatchCommand(sender, command.substring(1))
             return
         } else {
-            println("c")
             check(command, sender) { return }
         }
 
         if (sender is Player) {
-            println("p")
             sender.chat(command)
         } else {
-            println("s")
             Bukkit.getServer().dispatchCommand(sender, "say $command")
         }
     }
@@ -55,8 +51,8 @@ class BukkitCommands: Commands(), Listener {
 
     private inline fun check(command: String, sender: CommandSender, block: emptyF) {
         get(command)?.let {
-            it.invoke(BukkitCommandContext(sender, it, command))
             block()
+            it.invoke(BukkitCommandContext(sender, it, command))
         }
     }
 

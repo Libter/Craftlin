@@ -29,14 +29,14 @@ class BukkitWorld(private val origin: org.bukkit.World): World {
         //TODO: if type == Item::class it should use code from drop, then we can remove drop function
         val originType = BukkitEntityType.Converter(EntityType.fromClass(type))
         return type.safeCast(BukkitEntity.create(
-            origin.spawnEntity(BukkitLocation.to(location), originType)
+            origin.spawnEntity(BukkitLocation.toImpl(location), originType)
         )) ?: throw NotImplementedError()
     }
 
     override fun drop(item: Item, location: Location): DroppedItem {
         return BukkitDroppedItem(origin.dropItemNaturally(
-            BukkitLocation.to(location),
-            BukkitItem.to(item)
+            BukkitLocation.toImpl(location),
+            BukkitItem.toImpl(item)
         ))
     }
 }
