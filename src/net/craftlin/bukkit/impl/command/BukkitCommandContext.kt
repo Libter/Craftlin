@@ -7,6 +7,7 @@ import net.craftlin.api.misc.itF
 import net.craftlin.bukkit.impl.BukkitServer
 import net.craftlin.bukkit.impl.entity.BukkitConsole
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
+import net.craftlin.bukkit.impl.entity.BukkitSender
 import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 
@@ -15,7 +16,8 @@ class BukkitCommandContext(sender: CommandSender, command: Command, raw: String)
     override val sender = when (sender) {
         is org.bukkit.entity.Player -> BukkitPlayer(sender)
         is ConsoleCommandSender -> BukkitConsole(sender)
-        else -> throw NotImplementedError()
+        //TODO: command blocks, etc.
+        else -> BukkitSender(sender)
     }
 
     override fun player(key: String) = BukkitServer.player(key) ?: throw exception
