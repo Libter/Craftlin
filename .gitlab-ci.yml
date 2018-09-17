@@ -16,9 +16,10 @@ build:
   stage: build
   script:
   - gradle --build-cache shadowJar
+  - mv build/libs/Craftlin.jar .
   artifacts:
     paths:
-    - build/libs/*.jar
+    - Craftlin.jar
     expire_in: 1 week
 
 test:
@@ -38,23 +39,25 @@ deploy:
   image: ubuntu:xenial
   only: [master]
   script:
-  - apt-get update && apt-get -y install sshpass
-  - echo "Removing old files..."
-  - sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 www@company.libter.pl rm -rf /var/www/craftlin/docs/* /var/www/craftlin/Craftlin.jar
-  - echo "Uploading new plugin..."
-  - sshpass -p $PASSWORD scp -P 531 -r build/libs/Craftlin.jar www@company.libter.pl:/var/www/craftlin/Craftlin.jar
-  - echo "Uploading new docs..."
-  - sshpass -p $PASSWORD scp -P 531 -r build/dokka/-craftlin/* www@company.libter.pl:/var/www/craftlin/docs
+  - apt-get update && apt-get -y install sshpass zip unzip
+  - rpath='/var/www/craftlin' && rhost='www@company.libter.pl'
+  - rcmd() { sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 "$rhost" "$1"; }
+  - rcp() { sshpass -p $PASSWORD scp -P 531 -r "$1" "$rhost:$rpath/$1"; }
+  - mv build/dokka/-craftlin docs && cd docs && zip -r ../docs.zip * && cd ..
+  - rcmd "rm -rf $rpath/Craftlin.jar $rpath/docs"
+  - rcp Craftlin.jar && rcp docs.zip
+  - rcmd "mkdir $rpath/docs && unzip $rpath/docs.zip -d $rpath/docs && rm $rpath/docs.zip
   
 deployDev:
   stage: deploy
   image: ubuntu:xenial
   only: [dev]
   script:
-  - apt-get update && apt-get -y install sshpass
-  - echo "Removing old files..."
-  - sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 www@company.libter.pl rm -rf /var/www/craftlin/docs-dev/* /var/www/craftlin/Craftlin-dev.jar
-  - echo "Uploading new plugin..."
-  - sshpass -p $PASSWORD scp -P 531 -r build/libs/Craftlin.jar www@company.libter.pl:/var/www/craftlin/Craftlin-dev.jar
-  - echo "Uploading new docs..."
-  - sshpass -p $PASSWORD scp -P 531 -r build/dokka/-craftlin/* www@company.libter.pl:/var/www/craftlin/docs-dev
+  - apt-get update && apt-get -y install sshpass zip unzip
+  - rpath='/var/www/craftlin' && rhost='www@company.libter.pl'
+  - rcmd() { sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no -p 531 "$rhost" "$1"; }
+  - rcp() { sshpass -p $PASSWORD scp -P 531 -r "$1" "$rhost:$rpath/$1"; }
+  - mv build/dokka/-craftlin docs && cd docs && zip -r ../docs.zip * && cd ..
+  - rcmd "rm -rf $rpath/Craftlin-dev.jar $rpath/docs-dev"
+  - mv Craftlin.jar Craftlin-dev.jar && rcp Craftlin-dev.jar && rcp docs.zip
+  - rcmd "mkdir $rpath/docs-dev && unzip $rpath/docs.zip -d $rpath/docs-dev && rm $rpath/docs.zip"
