@@ -14,16 +14,20 @@ class Location(
 
     /** [x] as an integer */
     var blockX
-        get() = x.toLong()
+        get() = toBlock(x)
         set(value) { x = value.toDouble() }
     /** [y] as an integer */
     var blockY
-        get() = y.toLong()
+        get() = toBlock(y)
         set(value) { y = value.toDouble() }
     /** [z] as an integer */
     var blockZ
-        get() = z.toLong()
+        get() = toBlock(z)
         set(value) { z = value.toDouble() }
+
+    private fun toBlock(double: Double): Long {
+        return double.toLong() - double.toRawBits().ushr(63)
+    }
 
     /** Calculates a distance between ([x], [z]) and ([other.x], [other.z]] */
     fun distance2D(other: Location): Double {
