@@ -1,7 +1,9 @@
 package net.craftlin.api.misc
 
-typealias emptyF = () -> Unit
+typealias Block = () -> Unit
 
-typealias itF<T> = (T) -> Unit
+typealias ItBlock<T> = (T) -> Unit
 
-typealias thisF<T> = T.() -> Unit
+typealias ThisBlock<T> = T.() -> Unit
+
+typealias ThisResultBlock<T, R> = T.() -> R

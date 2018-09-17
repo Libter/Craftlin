@@ -4,7 +4,7 @@ import net.craftlin.api.Server
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.Sender
-import net.craftlin.api.misc.itF
+import net.craftlin.api.misc.ItBlock
 import net.craftlin.bukkit.BukkitCraftlin
 import net.craftlin.bukkit.impl.entity.BukkitConsole
 import net.craftlin.bukkit.impl.entity.BukkitOfflinePlayer
@@ -22,7 +22,7 @@ object BukkitServer : Server {
     override val console: Sender get() = BukkitConsole(Bukkit.getServer().consoleSender)
 
     override fun player(name: String): Player? = players.find { it.name == name }
-    override fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>) {
+    override fun offlinePlayer(name: String, callback: ItBlock<OfflinePlayer?>) {
         top@BukkitTask {
             //TODO: cache Map<String,UUID>
             val found = Bukkit.getOfflinePlayers().firstOrNull { it.name == name }

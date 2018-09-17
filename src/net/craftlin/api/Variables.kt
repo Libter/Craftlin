@@ -2,25 +2,11 @@ package net.craftlin.api
 
 import net.craftlin.api.command.Command
 import net.craftlin.api.command.CommandContext
-import net.craftlin.api.event.AirClickEvent
-import net.craftlin.api.event.BeforeJoinEvent
-import net.craftlin.api.event.BlockClickEvent
-import net.craftlin.api.event.BreakEvent
-import net.craftlin.api.event.ButtonPressEvent
-import net.craftlin.api.event.ChatEvent
-import net.craftlin.api.event.ClickEvent
-import net.craftlin.api.event.EntityClickEvent
-import net.craftlin.api.event.JoinEvent
-import net.craftlin.api.event.LeaveEvent
-import net.craftlin.api.event.LeverPullEvent
-import net.craftlin.api.event.MoveEvent
-import net.craftlin.api.event.PlaceEvent
-import net.craftlin.api.event.PressurePlateEvent
-import net.craftlin.api.event.SoilJumpEvent
-import net.craftlin.api.event.TripwireEvent
+import net.craftlin.api.event.*
+import net.craftlin.api.misc.Block
+import net.craftlin.api.misc.ThisBlock
+import net.craftlin.api.misc.ThisResultBlock
 import net.craftlin.api.misc.Timer
-import net.craftlin.api.misc.emptyF
-import net.craftlin.api.misc.thisF
 import net.craftlin.api.util.Commands
 import net.craftlin.api.util.Listener
 
@@ -31,26 +17,31 @@ abstract class Variables internal constructor(listener: Listener, private val co
     abstract val server: Server
 
     /** Starts a task in the server main thread. */
-    abstract val sync: (callback: emptyF) -> Unit
+    abstract val sync: (callback: Block) -> Unit
 
     /** Starts a task outside the server main thread. */
-    abstract val async: (callback: emptyF) -> Unit
+    abstract val async: (callback: Block) -> Unit
 
     /** Schedules a task in the server main thread. */
-    abstract val delay: (time: Long, callback: emptyF) -> Unit
+    abstract val delay: (time: Long, callback: Block) -> Unit
 
     /** Schedules a task outside the server main thread. */
-    abstract val delayAsync: (time: Long, callback: emptyF) -> Unit
+    abstract val delayAsync: (time: Long, callback: Block) -> Unit
 
     /** Schedules a repeating task in the server main thread. */
-    abstract val timer: (interval: Long, callback: thisF<Timer>) -> Unit
+    abstract val timer: (interval: Long, callback: ThisBlock<Timer>) -> Unit
 
     /** Schedules a repeating task outside the server main thread. */
-    abstract val timerAsync: (interval: Long, callback: thisF<Timer>) -> Unit
+    abstract val timerAsync: (interval: Long, callback: ThisBlock<Timer>) -> Unit
 
     /** Registers a command */
-    val command = fun(definition: String, callback: thisF<CommandContext>) {
+    val command = fun(definition: String, callback: ThisBlock<CommandContext>) {
         commands.add(Command(definition, callback))
+    }
+
+    /** Registers an alias for a command */
+    val alias = fun(definition: String, callback: ThisResultBlock<CommandContext, String>) {
+        commands.add(Command.alias(definition, callback))
     }
 
     /** Registers an **asynchronous** listener triggered before a player joins server. */

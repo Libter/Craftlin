@@ -1,10 +1,10 @@
 package net.craftlin.bukkit.impl.misc
 
+import net.craftlin.api.misc.Block
 import net.craftlin.api.misc.Stoppable
-import net.craftlin.api.misc.emptyF
 import org.bukkit.scheduler.BukkitRunnable
 
-class BukkitTask(private val callback: emptyF): BukkitRunnable() {
+class BukkitTask(private val callback: Block): BukkitRunnable() {
 
     private val stoppable = object: Stoppable() {
         override fun stop() = cancel()
