@@ -1,10 +1,13 @@
 package net.craftlin.bukkit.impl.command
 
-import net.craftlin.api.misc.emptyF
 import net.craftlin.api.util.Commands
+import net.craftlin.bukkit.BukkitCraftlin
+import net.craftlin.bukkit.impl.misc.BukkitTask
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.event.Cancellable
+import org.bukkit.event.Event
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
@@ -18,7 +21,7 @@ class BukkitCommands: Commands(), Listener {
             Bukkit.getServer().dispatchCommand(sender, command.substring(1))
             return
         } else {
-            check(command, sender) { return }
+            if (check(command, sender)) return
         }
 
         if (sender is Player) {
@@ -30,30 +33,33 @@ class BukkitCommands: Commands(), Listener {
 
     @EventHandler
     fun onPlayerCommand(event: AsyncPlayerChatEvent) {
-        check(event.message, event.player) {
-            event.isCancelled = true
-        }
+        check(event.message, event.player, event)
     }
 
     @EventHandler
     fun onPlayerSlashCommand(event: PlayerCommandPreprocessEvent) {
-        check(event.message, event.player) {
-            event.isCancelled = true
-        }
+        check(event.message, event.player, event)
     }
 
     @EventHandler
     fun onServerCommand(event: ServerCommandEvent) {
-        check(event.command, event.sender) {
-            event.isCancelled = true
-        }
+        check(event.command, event.sender, event)
     }
 
-    private inline fun check(command: String, sender: CommandSender, block: emptyF) {
+    private fun check(command: String, sender: CommandSender, event: Event? = null): Boolean {
         get(command)?.let {
-            block()
-            it.invoke(BukkitCommandContext(sender, it, command))
+            if (event is Cancellable) event.isCancelled = true
+            val async = event?.isAsynchronous ?: false
+            if (async) {
+                BukkitTask {
+                    it.invoke(BukkitCommandContext(sender, it, command))
+                }.runTask(BukkitCraftlin.instance)
+            } else {
+                it.invoke(BukkitCommandContext(sender, it, command))
+            }
+            return true
         }
+        return false
     }
 
 }
