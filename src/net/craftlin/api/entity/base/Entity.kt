@@ -16,4 +16,10 @@ interface Entity {
     /** Location, set it to teleport */
     var location: Location
 
+    fun distance2D(other: Location) = location.distance2D(other)
+    fun distance3D(other: Location) = location.distance3D(other)
+
+    fun distance2D(entity: Entity) = distance2D(entity.location)
+    fun distance3D(entity: Entity) = distance3D(entity.location)
+
 }
