@@ -14,13 +14,6 @@ class LocationTest {
     private val loc2 = Location(world, 2.7, -5.0, 1.8)
 
     @Test
-    fun testBlockValues() {
-        assertEquals(-1, loc1.blockX)
-        assertEquals(2, loc1.blockY)
-        assertEquals(3, loc1.blockZ)
-    }
-
-    @Test
     fun testDistance2D() {
         assertEquals(4.609772, loc1.distance2D(loc2), delta)
         assertEquals(4.609772, loc2.distance2D(loc1), delta)
