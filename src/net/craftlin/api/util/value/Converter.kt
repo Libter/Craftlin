@@ -4,10 +4,10 @@ import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 import kotlin.reflect.jvm.isAccessible
 
-abstract class Converter<Api, Impl> {
+abstract class Converter<Api: Any, Impl: Any> {
 
-    abstract fun to(value: Api): Impl
-    abstract fun from(origin: Impl): Api
+    abstract fun toImpl(value: Api): Impl
+    abstract fun toApi(origin: Impl): Api
 
     inner class Delegate(private val origin: KMutableProperty<Impl>) {
         init {
@@ -16,11 +16,11 @@ abstract class Converter<Api, Impl> {
         }
 
         operator fun getValue(thisRef: Any?, property: KProperty<*>): Api {
-            return from(origin.getter.call())
+            return toApi(origin.getter.call())
         }
 
         operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Api) {
-            origin.setter.call(to(value))
+            origin.setter.call(toImpl(value))
         }
     }
 

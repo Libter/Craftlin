@@ -3,11 +3,11 @@ package net.craftlin.api.command
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.Sender
-import net.craftlin.api.misc.itF
+import net.craftlin.api.misc.ItBlock
 import java.math.BigDecimal
 import java.math.BigInteger
 
-abstract class CommandContext(private val command: Command, private val raw: String) {
+abstract class CommandContext(internal val command: Command, raw: String) {
 
     companion object {
         private val numberRegex = Regex("^\\d+$")
@@ -92,5 +92,5 @@ abstract class CommandContext(private val command: Command, private val raw: Str
     /**
      * Retrieves the offline player with name specified in the argument with key [key]
      */
-    abstract fun offlinePlayer(key: String, callback: itF<OfflinePlayer?>)
+    abstract fun offlinePlayer(key: String, callback: ItBlock<OfflinePlayer?>)
 }

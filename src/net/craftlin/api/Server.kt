@@ -3,7 +3,7 @@ package net.craftlin.api
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.Sender
-import net.craftlin.api.misc.itF
+import net.craftlin.api.misc.ItBlock
 import net.craftlin.api.world.World
 
 /**
@@ -26,5 +26,5 @@ interface Server {
      *
      * @param callback A function that takes an OfflinePlayer as a parameter.
      */
-    fun offlinePlayer(name: String, callback: itF<OfflinePlayer?>)
+    fun offlinePlayer(name: String, callback: ItBlock<OfflinePlayer?>)
 }

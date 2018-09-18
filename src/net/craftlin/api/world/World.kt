@@ -4,6 +4,7 @@ import net.craftlin.api.entity.DroppedItem
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.base.Entity
 import net.craftlin.api.inventory.Item
+import net.craftlin.api.value.world.WorldDifficulty
 import net.craftlin.api.value.world.WorldType
 import net.craftlin.api.world.block.Block
 import kotlin.reflect.KClass
@@ -14,11 +15,17 @@ import kotlin.reflect.KClass
 interface World {
     /** The world's name */
     val name: String
+    /** The world's seed */
+    val seed: String
     /**
      * The world's type
      * @see WorldType
      */
     val type: String
+    /** The world's difficulty
+     * @see WorldDifficulty
+     */
+    val difficulty: String
     /** Players that are staying in the world */
     val players: List<Player>
 
