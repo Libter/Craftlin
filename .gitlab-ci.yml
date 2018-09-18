@@ -46,7 +46,7 @@ deploy:
   - mv build/dokka/-craftlin docs && cd docs && zip -r ../docs.zip * && cd ..
   - rcmd "rm -rf $rpath/Craftlin.jar $rpath/docs"
   - rcp Craftlin.jar && rcp docs.zip
-  - rcmd "mkdir $rpath/docs && unzip $rpath/docs.zip -d $rpath/docs && rm $rpath/docs.zip
+  - rcmd "mkdir $rpath/docs && unzip $rpath/docs.zip -d $rpath/docs && rm $rpath/docs.zip"
   
 deployDev:
   stage: deploy
