@@ -3,6 +3,7 @@ package net.craftlin.api.command
 import net.craftlin.api.entity.OfflinePlayer
 import net.craftlin.api.entity.Player
 import net.craftlin.api.entity.Sender
+import net.craftlin.api.misc.Block
 import net.craftlin.api.misc.ItBlock
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -93,4 +94,17 @@ abstract class CommandContext(internal val command: Command, raw: String) {
      * Retrieves the offline player with name specified in the argument with key [key]
      */
     abstract fun offlinePlayer(key: String, callback: ItBlock<OfflinePlayer?>)
+
+    /**
+     * Executes [block] if sender is not [Player] or is [Player.permitted],
+     * otherwise sends message about lack of permissions
+     */
+    fun require(permission: String, block: Block) {
+        val sender = this.sender
+        if (sender !is Player || sender.permitted(permission)) {
+            block()
+        } else {
+            sender.message("&4You need a permission to execute this action: $permission")
+        }
+    }
 }

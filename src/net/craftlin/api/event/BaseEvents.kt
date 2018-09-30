@@ -1,7 +1,7 @@
 package net.craftlin.api.event
 
 import net.craftlin.api.entity.Player
-import net.craftlin.api.world.block.Block
+import net.craftlin.api.misc.Block
 
 /**
  * Base interface that is implemented by all events
@@ -21,6 +21,18 @@ interface CancellableEvent: Event {
 interface PlayerEvent: Event {
     /** The player that involved this event */
     val player: Player
+
+    /**
+     * Executes [block] if sender is not [Player] or is [Player.permitted],
+     * otherwise sends message about lack of permissions
+     */
+    fun require(permission: String, block: Block) {
+        if (player.permitted(permission)) {
+            block()
+        } else {
+            player.message("&4You need a permission to execute this action: $permission")
+        }
+    }
 }
 
 /**
@@ -28,7 +40,7 @@ interface PlayerEvent: Event {
  */
 interface BlockEvent: Event {
     /** Event-related block */
-    val block: Block
+    val block: net.craftlin.api.world.block.Block
 }
 
 /**

@@ -12,4 +12,7 @@ interface Player: OfflinePlayer, LivingEntity, Sender {
 
     /** Kicks player from the server for specified [reason] **/
     fun kick(reason: String)
+
+    /** Checks if player has a specific permission */
+    fun permitted(permission: String): Boolean
 }
