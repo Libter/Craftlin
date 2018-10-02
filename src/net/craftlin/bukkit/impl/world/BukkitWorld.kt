@@ -1,6 +1,7 @@
 package net.craftlin.bukkit.impl.world
 
 import net.craftlin.api.entity.DroppedItem
+import net.craftlin.api.entity.Lightning
 import net.craftlin.api.entity.base.Entity
 import net.craftlin.api.inventory.Item
 import net.craftlin.api.value.entity.EntityType
@@ -27,10 +28,18 @@ class BukkitWorld(private val origin: org.bukkit.World): World {
 
     override fun <T: Entity> spawn(type: KClass<T>, location: Location): T {
         //TODO: if type == Item::class it should use code from drop, then we can remove drop function
-        val originType = BukkitEntityType.Converter(EntityType.fromClass(type))
-        return type.safeCast(BukkitEntity.create(
-            origin.spawnEntity(BukkitLocation.toImpl(location), originType)
-        )) ?: throw NotImplementedError()
+        val iLocation = BukkitLocation.toImpl(location)
+        val entity = when (type) {
+            Lightning::class -> {
+                //TODO: strikeLightningEffect... or create it in separate effects class
+                origin.strikeLightning(iLocation)
+            }
+            else -> {
+                val originType = BukkitEntityType.Converter(EntityType.fromClass(type))
+                origin.spawnEntity(iLocation, originType)
+            }
+        }
+        return type.safeCast(BukkitEntity.create(entity)) ?: throw NotImplementedError()
     }
 
     override fun drop(item: Item, location: Location): DroppedItem {

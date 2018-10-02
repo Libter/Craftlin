@@ -1,6 +1,7 @@
 package net.craftlin.api.value.entity
 
 import net.craftlin.api.entity.DroppedItem
+import net.craftlin.api.entity.Lightning
 import net.craftlin.api.entity.animal.Bat
 import net.craftlin.api.entity.animal.Chicken
 import net.craftlin.api.entity.animal.Cow
@@ -131,7 +132,8 @@ enum class EntityType {
             MushroomCow::class to EntityType.MUSHROOM_COW,
             PolarBear::class to EntityType.POLAR_BEAR,
             Turtle::class to EntityType.TURTLE,
-            DroppedItem::class to EntityType.ITEM
+            DroppedItem::class to EntityType.ITEM,
+            Lightning::class to EntityType.LIGHTNING
         )
 
         fun fromClass(type: KClass<out Entity>) = types[type] ?: throw NotImplementedError()

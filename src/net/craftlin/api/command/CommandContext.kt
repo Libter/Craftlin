@@ -46,6 +46,8 @@ abstract class CommandContext(internal val command: Command, raw: String) {
         return BigDecimal(text)
     }
 
+    protected abstract fun getPlayer(key: String): Player?
+
     /** The command sender */
     abstract val sender: Sender
 
@@ -94,16 +96,17 @@ abstract class CommandContext(internal val command: Command, raw: String) {
     fun decimalList(key: String) = text(key).split(" ").map(::parseDecimal)
 
     /**
-     * @return a player with name specified in the argument with [key] or null if player isn't online.
+     * @return a player with name specified in the argument with [key]
      * @throws CommandUsageException when the argument is unset.
+     * @throws CommandCustomException when player doesn't exist
      */
-    abstract fun player(key: String): Player?
+    fun player(key: String) = getPlayer(key) ?: throw CommandCustomException(command, "&4Player $key is not online!")
 
     /**
      * @return a list of online players specified in the argument with [key].
      * @throws CommandUsageException when the argument is unset.
      */
-    fun playerList(key: String) = text(key).split(" ").mapNotNull(::player)
+    fun playerList(key: String) = text(key).split(" ").mapNotNull(::getPlayer)
 
     /**
      * Retrieves the offline player with name specified in the argument with key [key]
