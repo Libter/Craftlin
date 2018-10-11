@@ -38,4 +38,15 @@ interface World {
     fun <T: Entity> spawn(type: KClass<T>, location: Location): T
     /** Drops [item] at specified [location] */
     fun drop(item: Item, location: Location): DroppedItem
+    /** Plays [sound] in world */
+    fun sound(sound: Sound, location: Location)
+    /**
+     * Plays sound in world
+     *
+     * @param type
+     * @param location
+     * @param volume
+     * @param pitch
+     */
+    fun sound(type: String, location: Location, volume: Double, pitch: Double) = sound(Sound(type, volume, pitch), location)
 }

@@ -6,12 +6,14 @@ import net.craftlin.api.entity.base.Entity
 import net.craftlin.api.inventory.Item
 import net.craftlin.api.value.entity.EntityType
 import net.craftlin.api.world.Location
+import net.craftlin.api.world.Sound
 import net.craftlin.api.world.World
 import net.craftlin.bukkit.impl.entity.BukkitDroppedItem
 import net.craftlin.bukkit.impl.entity.BukkitPlayer
 import net.craftlin.bukkit.impl.entity.base.BukkitEntity
 import net.craftlin.bukkit.impl.inventory.BukkitItem
 import net.craftlin.bukkit.impl.value.BukkitEntityType
+import net.craftlin.bukkit.impl.value.BukkitSoundType
 import net.craftlin.bukkit.impl.value.BukkitWorldDifficulty
 import net.craftlin.bukkit.impl.value.BukkitWorldType
 import kotlin.reflect.KClass
@@ -47,5 +49,14 @@ class BukkitWorld(private val origin: org.bukkit.World): World {
             BukkitLocation.toImpl(location),
             BukkitItem.toImpl(item)
         ))
+    }
+
+    override fun sound(sound: Sound, location: Location) {
+        BukkitLocation.toImpl(location).world.playSound(
+            BukkitLocation.toImpl(location),
+            BukkitSoundType.Converter(sound.type),
+            sound.volume.toFloat(),
+            sound.pitch.toFloat()
+        )
     }
 }
