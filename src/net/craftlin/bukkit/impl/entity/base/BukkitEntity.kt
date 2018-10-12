@@ -2,6 +2,7 @@ package net.craftlin.bukkit.impl.entity.base
 
 import net.craftlin.api.entity.base.Entity
 import net.craftlin.bukkit.impl.entity.BukkitDroppedItem
+import net.craftlin.bukkit.impl.entity.BukkitLightning
 import net.craftlin.bukkit.impl.entity.animal.BukkitBat
 import net.craftlin.bukkit.impl.entity.animal.BukkitChicken
 import net.craftlin.bukkit.impl.entity.animal.BukkitCow
@@ -35,6 +36,7 @@ open class BukkitEntity protected constructor(protected val entity: org.bukkit.e
             is org.bukkit.entity.Turtle -> BukkitTurtle(entity)
             is org.bukkit.entity.Wolf -> BukkitWolf(entity)
             is org.bukkit.entity.Item -> BukkitDroppedItem(entity)
+            is org.bukkit.entity.LightningStrike -> BukkitLightning(entity)
             else -> BukkitEntity(entity)
         }
     }

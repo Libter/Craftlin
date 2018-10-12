@@ -38,7 +38,7 @@ abstract class EngineBasedTest {
 
     open class EmptyContext(command: Command, raw: String): CommandContext(command, raw) {
         override val sender = EmptyServer.console
-        override fun player(key: String): Player { TODO() }
+        override fun getPlayer(key: String): Player { TODO() }
 
         override fun offlinePlayer(key: String, callback: ItBlock<OfflinePlayer?>) { }
     }
